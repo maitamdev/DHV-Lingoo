@@ -135,9 +135,9 @@ function NavItem({
     return (
         <Link
             href={href}
-            className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 mb-1 ${active
-                    ? "bg-blue-500 text-white shadow-lg shadow-blue-500/30"
-                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+            className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 mb-1 ${active
+                ? "bg-blue-500 text-white shadow-lg shadow-blue-500/30"
+                : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                 }`}
         >
             {iconMap[icon]}

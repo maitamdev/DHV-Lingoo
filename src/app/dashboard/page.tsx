@@ -119,7 +119,7 @@ export default async function DashboardPage() {
                     {/* Course Card + Stats Row */}
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
                         {/* Active Course Card */}
-                        <div className="lg:col-span-2 rounded-2xl bg-gray-900 text-white p-6 relative overflow-hidden">
+                        <div className="lg:col-span-2 bg-gray-900 text-white p-6 relative overflow-hidden">
                             <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-blue-500/10" />
                             <div className="absolute -right-5 bottom-0 w-24 h-24 rounded-full bg-blue-500/5" />
 
@@ -158,7 +158,7 @@ export default async function DashboardPage() {
                         {/* Stats Column */}
                         <div className="flex flex-col gap-4">
                             {/* Total Points - REAL */}
-                            <div className="flex-1 rounded-2xl bg-white border border-gray-100 p-5 flex items-center justify-between">
+                            <div className="flex-1 bg-white border border-gray-100 p-5 flex items-center justify-between">
                                 <div>
                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
                                         Tổng điểm
@@ -173,7 +173,7 @@ export default async function DashboardPage() {
                             </div>
 
                             {/* Streak - REAL */}
-                            <div className="flex-1 rounded-2xl bg-white border border-gray-100 p-5 flex items-center justify-between">
+                            <div className="flex-1 bg-white border border-gray-100 p-5 flex items-center justify-between">
                                 <div>
                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
                                         Chuỗi ngày học
@@ -197,7 +197,7 @@ export default async function DashboardPage() {
                     {/* Info Cards Row */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                         {/* Daily Goal - REAL */}
-                        <div className="rounded-2xl bg-white border border-gray-100 p-5">
+                        <div className="bg-white border border-gray-100 p-5">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-9 h-9 rounded-xl bg-cyan-50 flex items-center justify-center">
                                     <Clock className="h-4 w-4 text-cyan-500" />
@@ -212,7 +212,7 @@ export default async function DashboardPage() {
                         </div>
 
                         {/* Level - REAL */}
-                        <div className="rounded-2xl bg-white border border-gray-100 p-5">
+                        <div className="bg-white border border-gray-100 p-5">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-9 h-9 rounded-xl bg-purple-50 flex items-center justify-center">
                                     <TrendingUp className="h-4 w-4 text-purple-500" />
@@ -227,7 +227,7 @@ export default async function DashboardPage() {
                         </div>
 
                         {/* Joined - REAL */}
-                        <div className="rounded-2xl bg-white border border-gray-100 p-5">
+                        <div className="bg-white border border-gray-100 p-5">
                             <div className="flex items-center gap-3 mb-2">
                                 <div className="w-9 h-9 rounded-xl bg-green-50 flex items-center justify-center">
                                     <Calendar className="h-4 w-4 text-green-500" />
@@ -247,7 +247,7 @@ export default async function DashboardPage() {
                     {/* Goals & Interests */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
                         {/* Learning Goals - REAL */}
-                        <div className="rounded-2xl bg-white border border-gray-100 p-6">
+                        <div className="bg-white border border-gray-100 p-6">
                             <div className="flex items-center gap-2 mb-4">
                                 <BookOpen className="h-5 w-5 text-blue-500" />
                                 <h3 className="text-base font-bold text-gray-900">Mục tiêu học tập</h3>
@@ -271,7 +271,7 @@ export default async function DashboardPage() {
                         </div>
 
                         {/* Interests - REAL */}
-                        <div className="rounded-2xl bg-white border border-gray-100 p-6">
+                        <div className="bg-white border border-gray-100 p-6">
                             <div className="flex items-center gap-2 mb-4">
                                 <Play className="h-5 w-5 text-purple-500" />
                                 <h3 className="text-base font-bold text-gray-900">Kỹ năng quan tâm</h3>
@@ -302,7 +302,7 @@ export default async function DashboardPage() {
                     </div>
 
                     {/* Account Info - REAL */}
-                    <div className="rounded-2xl bg-white border border-gray-100 p-6">
+                    <div className="bg-white border border-gray-100 p-6">
                         <h3 className="text-base font-bold text-gray-900 mb-4">Thông tin tài khoản</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <InfoItem label="Email" value={user.email || "—"} />
@@ -348,7 +348,7 @@ export default async function DashboardPage() {
                 {/* RIGHT SIDEBAR */}
                 <div className="w-full xl:w-[300px] flex-shrink-0 space-y-6">
                     {/* Leaderboard - REAL DATA from Supabase */}
-                    <div className="rounded-2xl bg-white border border-gray-100 p-6">
+                    <div className="bg-white border border-gray-100 p-6">
                         <div className="flex items-center justify-between mb-5">
                             <h3 className="text-base font-bold text-gray-900">Bảng xếp hạng</h3>
                         </div>
@@ -380,7 +380,7 @@ export default async function DashboardPage() {
                     </div>
 
                     {/* Quick Stats Summary - REAL */}
-                    <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 relative overflow-hidden">
                         <div className="absolute -left-8 -bottom-8 w-32 h-32 rounded-full bg-white/5" />
                         <div className="absolute right-4 top-4 w-16 h-16 rounded-full bg-white/5" />
 
@@ -438,7 +438,7 @@ function LeaderboardItem({
     isYou?: boolean;
 }) {
     return (
-        <div className={`flex items-center gap-3 p-2 rounded-xl ${isYou ? "bg-blue-50 border border-blue-100" : ""}`}>
+        <div className={`flex items-center gap-3 p-2 ${isYou ? "bg-blue-50 border border-blue-100" : ""}`}>
             <span className={`w-6 text-sm font-bold text-center ${rank === 1 ? "text-yellow-500" : rank === 2 ? "text-gray-400" : rank === 3 ? "text-amber-700" : "text-gray-300"}`}>
                 {rank}
             </span>
