@@ -1,29 +1,13 @@
 import { redirect } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import SignOutButton from "@/components/auth/SignOutButton";
 import {
     Flame,
     Trophy,
-    Target,
-    Clock,
+    Bell,
+    ChevronRight,
     BookOpen,
-    TrendingUp,
-    Star,
-    Calendar,
-    Sparkles,
+    Play,
 } from "lucide-react";
-
-// Map level to color and label
-const levelConfig: Record<string, { color: string; label: string; progress: number }> = {
-    A1: { color: "from-green-400 to-emerald-500", label: "Người mới bắt đầu", progress: 10 },
-    A2: { color: "from-teal-400 to-cyan-500", label: "Sơ cấp", progress: 25 },
-    B1: { color: "from-cyan-400 to-blue-500", label: "Trung cấp", progress: 45 },
-    B2: { color: "from-blue-400 to-indigo-500", label: "Trung cấp cao", progress: 65 },
-    C1: { color: "from-indigo-400 to-purple-500", label: "Cao cấp", progress: 85 },
-    C2: { color: "from-purple-400 to-pink-500", label: "Thành thạo", progress: 100 },
-};
 
 const goalLabels: Record<string, string> = {
     travel: "Du lịch",
@@ -31,15 +15,6 @@ const goalLabels: Record<string, string> = {
     ielts: "IELTS",
     business: "Kinh doanh",
     communication: "Giao tiếp",
-};
-
-const interestLabels: Record<string, string> = {
-    listening: "Nghe",
-    speaking: "Nói",
-    reading: "Đọc",
-    writing: "Viết",
-    vocabulary: "Từ vựng",
-    grammar: "Ngữ pháp",
 };
 
 function getGreeting(): string {
@@ -60,7 +35,6 @@ export default async function DashboardPage() {
         redirect("/login");
     }
 
-    // Fetch profile data
     const { data: profile } = await supabase
         .from("profiles")
         .select("*")
@@ -69,309 +43,342 @@ export default async function DashboardPage() {
 
     const displayName = profile?.full_name || user.email?.split("@")[0] || "Học viên";
     const level = profile?.level || "A1";
-    const levelInfo = levelConfig[level] || levelConfig.A1;
     const xp = profile?.xp || 0;
     const streak = profile?.streak || 0;
-    const longestStreak = profile?.longest_streak || 0;
     const dailyTime = profile?.daily_time || 30;
     const goals = (profile?.goals || []) as string[];
-    const interests = (profile?.interests || []) as string[];
-    const avatarUrl = profile?.avatar_url;
-    const createdAt = profile?.created_at ? new Date(profile.created_at) : new Date();
 
-    // Calculate days since joined
-    const daysSinceJoined = Math.floor(
-        (Date.now() - createdAt.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    // Simulated weekly activity data (will be replaced with real data later)
+    const weeklyData = [
+        { day: "T2", value: 25, max: 60 },
+        { day: "T3", value: 40, max: 60 },
+        { day: "T4", value: 35, max: 60 },
+        { day: "T5", value: 50, max: 60 },
+        { day: "T6", value: 45, max: 60 },
+        { day: "T7", value: 30, max: 60 },
+        { day: "CN", value: 20, max: 60 },
+    ];
+
+    // Daily goal progress (simulated based on profile data)
+    const dailyProgress = 75;
 
     return (
-        <div className="min-h-screen bg-background">
-            {/* Background decorations */}
-            <div className="fixed inset-0 -z-10 overflow-hidden">
-                <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-                <div className="absolute top-1/2 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl" />
-            </div>
-
-            {/* Header / Navbar */}
-            <header className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16">
-                        <Link href="/dashboard" className="flex items-center gap-2 group">
-                            <Image
-                                src="/images/logo.png"
-                                alt="DHV-Lingoo"
-                                width={36}
-                                height={36}
-                                className="h-9 w-9 rounded-full object-cover drop-shadow-lg group-hover:scale-105 transition-transform"
-                            />
-                            <span className="text-lg font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                                DHV-Lingoo
-                            </span>
-                        </Link>
-
+        <div className="p-4 sm:p-6 lg:p-8 max-w-[1400px] mx-auto">
+            <div className="flex flex-col xl:flex-row gap-6">
+                {/* LEFT MAIN CONTENT */}
+                <div className="flex-1 min-w-0">
+                    {/* Top Section: Greeting + Actions */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+                        <div>
+                            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                                {getGreeting()},{" "}
+                                <span className="text-blue-600">{displayName}</span>
+                            </h1>
+                            <p className="text-gray-400 mt-1 text-sm">
+                                Tiến trình của bạn rất ấn tượng. Tiếp tục học nào!
+                            </p>
+                        </div>
                         <div className="flex items-center gap-3">
-                            {/* XP badge in header */}
-                            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20">
-                                <Star className="h-3.5 w-3.5 text-amber-400" />
-                                <span className="text-xs font-semibold text-amber-400">
-                                    {xp.toLocaleString()} XP
+                            {/* Streak Badge */}
+                            <div className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-orange-50 border border-orange-100">
+                                <Flame className="h-4 w-4 text-orange-500" />
+                                <span className="text-sm font-bold text-orange-600">
+                                    {streak} Ngày
                                 </span>
                             </div>
-                            {/* Streak badge in header */}
-                            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20">
-                                <Flame className="h-3.5 w-3.5 text-orange-400" />
-                                <span className="text-xs font-semibold text-orange-400">
-                                    {streak} ngày
+                            {/* Bell */}
+                            <button className="w-10 h-10 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors">
+                                <Bell className="h-4 w-4" />
+                            </button>
+                            {/* Start Lesson */}
+                            <button className="px-5 py-2.5 rounded-xl bg-blue-500 text-white text-sm font-semibold hover:bg-blue-600 transition-colors shadow-lg shadow-blue-500/25">
+                                Bắt đầu học
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Course Card + Stats Row */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+                        {/* Active Course Card */}
+                        <div className="lg:col-span-2 rounded-2xl bg-gray-900 text-white p-6 relative overflow-hidden">
+                            {/* Decorative circles */}
+                            <div className="absolute -right-10 -top-10 w-40 h-40 rounded-full bg-blue-500/10" />
+                            <div className="absolute -right-5 bottom-0 w-24 h-24 rounded-full bg-blue-500/5" />
+
+                            <div className="relative">
+                                <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider mb-4">
+                                    Khóa học đang học
                                 </span>
+                                <h2 className="text-xl sm:text-2xl font-bold mb-1 leading-tight">
+                                    {goals.length > 0
+                                        ? `Tiếng Anh ${goalLabels[goals[0]?.toLowerCase()] || goals[0]}`
+                                        : "Tiếng Anh Giao Tiếp"}
+                                </h2>
+                                <p className="text-blue-200/60 text-sm mb-6">
+                                    Nền tảng & Kỹ năng cơ bản
+                                </p>
+
+                                <div className="flex items-end justify-between">
+                                    <div>
+                                        <p className="text-xs text-gray-400 mb-1">
+                                            Trình độ hiện tại: <span className="text-white font-medium">{level}</span>
+                                        </p>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-32 h-1.5 rounded-full bg-white/10 overflow-hidden">
+                                                <div
+                                                    className="h-full rounded-full bg-blue-500 transition-all"
+                                                    style={{ width: "35%" }}
+                                                />
+                                            </div>
+                                            <span className="text-xs text-gray-400">35%</span>
+                                        </div>
+                                    </div>
+                                    <button className="px-5 py-2 rounded-xl bg-white text-gray-900 text-sm font-semibold hover:bg-gray-100 transition-colors">
+                                        Tiếp tục
+                                    </button>
+                                </div>
                             </div>
-                            <SignOutButton />
+                        </div>
+
+                        {/* Stats Column */}
+                        <div className="flex flex-col gap-4">
+                            {/* Total Points */}
+                            <div className="flex-1 rounded-2xl bg-white border border-gray-100 p-5 flex items-center justify-between">
+                                <div>
+                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
+                                        Tổng điểm
+                                    </p>
+                                    <p className="text-2xl sm:text-3xl font-bold text-gray-900">
+                                        {xp.toLocaleString()}
+                                    </p>
+                                </div>
+                                <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                                    <Trophy className="h-5 w-5 text-blue-500" />
+                                </div>
+                            </div>
+
+                            {/* Words Mastered */}
+                            <div className="flex-1 rounded-2xl bg-white border border-gray-100 p-5 flex items-center justify-between">
+                                <div>
+                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
+                                        Từ đã thuộc
+                                    </p>
+                                    <p className="text-2xl sm:text-3xl font-bold text-gray-900">
+                                        0
+                                    </p>
+                                </div>
+                                <div className="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
+                                    <BookOpen className="h-5 w-5 text-green-500" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Weekly Activity + Daily Goal Row */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+                        {/* Weekly Activity */}
+                        <div className="lg:col-span-2 rounded-2xl bg-white border border-gray-100 p-6">
+                            <div className="flex items-center justify-between mb-6">
+                                <div>
+                                    <h3 className="text-base font-bold text-gray-900">Hoạt động tuần</h3>
+                                    <p className="text-xs text-gray-400 mt-0.5">Phút học mỗi ngày</p>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                                    <span className="text-xs text-gray-400 font-medium">Đã học</span>
+                                </div>
+                            </div>
+
+                            {/* Bar Chart */}
+                            <div className="flex items-end justify-between gap-2 sm:gap-4 h-40 px-2">
+                                {weeklyData.map((item) => (
+                                    <div key={item.day} className="flex-1 flex flex-col items-center gap-2">
+                                        <div className="w-full max-w-[40px] relative flex items-end h-28">
+                                            {/* Background bar */}
+                                            <div className="absolute inset-0 rounded-lg bg-blue-50" />
+                                            {/* Value bar */}
+                                            <div
+                                                className="relative w-full rounded-lg bg-gradient-to-t from-blue-600 to-blue-400 transition-all duration-700"
+                                                style={{ height: `${(item.value / item.max) * 100}%` }}
+                                            />
+                                        </div>
+                                        <span className="text-xs text-gray-400 font-medium">{item.day}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Daily Goal */}
+                        <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 flex flex-col items-center justify-center relative overflow-hidden">
+                            <div className="absolute -left-8 -bottom-8 w-32 h-32 rounded-full bg-white/5" />
+                            <div className="absolute right-4 top-4 w-16 h-16 rounded-full bg-white/5" />
+
+                            <h3 className="text-lg font-bold mb-1 relative">Mục tiêu</h3>
+                            <p className="text-xs text-blue-100 mb-4 relative">hàng ngày</p>
+
+                            {/* Circular Progress */}
+                            <div className="relative w-24 h-24 mb-4">
+                                <svg className="w-24 h-24 -rotate-90" viewBox="0 0 100 100">
+                                    <circle
+                                        cx="50"
+                                        cy="50"
+                                        r="42"
+                                        fill="none"
+                                        stroke="rgba(255,255,255,0.15)"
+                                        strokeWidth="8"
+                                    />
+                                    <circle
+                                        cx="50"
+                                        cy="50"
+                                        r="42"
+                                        fill="none"
+                                        stroke="white"
+                                        strokeWidth="8"
+                                        strokeLinecap="round"
+                                        strokeDasharray={`${2 * Math.PI * 42}`}
+                                        strokeDashoffset={`${2 * Math.PI * 42 * (1 - dailyProgress / 100)}`}
+                                        className="transition-all duration-1000"
+                                    />
+                                </svg>
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span className="text-xl font-bold">{dailyProgress}%</span>
+                                </div>
+                            </div>
+
+                            <p className="text-xs text-blue-100 text-center relative max-w-[140px]">
+                                Còn {Math.round(dailyTime * (1 - dailyProgress / 100))} phút nữa để đạt mục tiêu {dailyTime} phút!
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Scheduled Reviews */}
+                    <div className="rounded-2xl bg-white border border-gray-100 p-6">
+                        <h3 className="text-base font-bold text-gray-900 mb-4">Ôn tập đã lên lịch</h3>
+                        <div className="space-y-3">
+                            <ReviewItem
+                                tag="Q1"
+                                tagColor="bg-blue-50 text-blue-600"
+                                title="Thành ngữ thông dụng"
+                                subtitle="Bắt đầu trong 2 giờ"
+                            />
+                            <ReviewItem
+                                tag="Q2"
+                                tagColor="bg-purple-50 text-purple-600"
+                                title="Từ vựng hàng ngày"
+                                subtitle="Bắt đầu trong 5 giờ"
+                            />
+                            <ReviewItem
+                                tag="Q3"
+                                tagColor="bg-green-50 text-green-600"
+                                title="Ngữ pháp cơ bản"
+                                subtitle="Ngày mai lúc 9:00"
+                            />
                         </div>
                     </div>
                 </div>
-            </header>
 
-            {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                {/* Welcome Section */}
-                <section className="mb-8">
-                    <div className="flex items-center gap-4 sm:gap-6">
-                        {/* Avatar */}
-                        <div className="relative">
-                            <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${levelInfo.color} p-0.5 shadow-lg`}>
-                                <div className="w-full h-full rounded-[14px] sm:rounded-[18px] bg-background flex items-center justify-center overflow-hidden">
-                                    {avatarUrl ? (
-                                        <Image
-                                            src={avatarUrl}
-                                            alt={displayName}
-                                            width={80}
-                                            height={80}
-                                            className="w-full h-full object-cover"
-                                        />
-                                    ) : (
-                                        <span className="text-2xl sm:text-3xl font-bold bg-gradient-to-br from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                                            {displayName.charAt(0).toUpperCase()}
-                                        </span>
-                                    )}
-                                </div>
-                            </div>
-                            {/* Level badge */}
-                            <div className={`absolute -bottom-1 -right-1 px-2 py-0.5 rounded-full bg-gradient-to-r ${levelInfo.color} text-[10px] font-bold text-white shadow-lg`}>
-                                {level}
-                            </div>
+                {/* RIGHT SIDEBAR */}
+                <div className="w-full xl:w-[300px] flex-shrink-0 space-y-6">
+                    {/* Leaderboard */}
+                    <div className="rounded-2xl bg-white border border-gray-100 p-6">
+                        <div className="flex items-center justify-between mb-5">
+                            <h3 className="text-base font-bold text-gray-900">Bảng xếp hạng</h3>
+                            <button className="text-xs font-semibold text-blue-500 hover:text-blue-600 transition-colors">
+                                Xem tất cả
+                            </button>
                         </div>
-
-                        <div>
-                            <div className="flex items-center gap-2">
-                                <h1 className="text-2xl sm:text-3xl font-bold">
-                                    {getGreeting()},{" "}
-                                    <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
-                                        {displayName}
-                                    </span>
-                                    ! 👋
-                                </h1>
-                            </div>
-                            <p className="text-sm sm:text-base text-muted-foreground mt-1">
-                                {levelInfo.label} • Tham gia {daysSinceJoined === 0 ? "hôm nay" : `${daysSinceJoined} ngày trước`}
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Stats Grid */}
-                <section className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                    {/* XP Card */}
-                    <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-5 hover:border-amber-500/30 transition-all duration-300">
-                        <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="relative">
-                            <div className="flex items-center justify-between mb-3">
-                                <div className="p-2 rounded-xl bg-amber-500/10">
-                                    <Trophy className="h-5 w-5 text-amber-400" />
-                                </div>
-                                <Sparkles className="h-4 w-4 text-amber-400/50" />
-                            </div>
-                            <p className="text-2xl sm:text-3xl font-bold">{xp.toLocaleString()}</p>
-                            <p className="text-xs text-muted-foreground mt-1">Điểm kinh nghiệm</p>
+                        <div className="space-y-4">
+                            <LeaderboardItem rank={1} name="Minh Anh" points={14200} isGold />
+                            <LeaderboardItem rank={2} name="Hoàng Long" points={13850} />
+                            <LeaderboardItem
+                                rank={3}
+                                name={displayName}
+                                points={xp}
+                                isYou
+                            />
                         </div>
                     </div>
 
-                    {/* Streak Card */}
-                    <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-5 hover:border-orange-500/30 transition-all duration-300">
-                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="relative">
-                            <div className="flex items-center justify-between mb-3">
-                                <div className="p-2 rounded-xl bg-orange-500/10">
-                                    <Flame className="h-5 w-5 text-orange-400" />
-                                </div>
-                                <span className="text-xs text-muted-foreground">
-                                    Kỷ lục: {longestStreak}
-                                </span>
-                            </div>
-                            <p className="text-2xl sm:text-3xl font-bold">{streak}</p>
-                            <p className="text-xs text-muted-foreground mt-1">Chuỗi ngày học</p>
+                    {/* Weekly Challenge */}
+                    <div className="rounded-2xl bg-gray-900 text-white p-6 relative overflow-hidden">
+                        <div className="absolute right-4 top-4 opacity-20">
+                            <Trophy className="h-12 w-12" />
                         </div>
-                    </div>
 
-                    {/* Daily Goal Card */}
-                    <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-5 hover:border-cyan-500/30 transition-all duration-300">
-                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="relative">
-                            <div className="flex items-center justify-between mb-3">
-                                <div className="p-2 rounded-xl bg-cyan-500/10">
-                                    <Clock className="h-5 w-5 text-cyan-400" />
-                                </div>
-                                <Target className="h-4 w-4 text-cyan-400/50" />
-                            </div>
-                            <p className="text-2xl sm:text-3xl font-bold">{dailyTime}</p>
-                            <p className="text-xs text-muted-foreground mt-1">Phút/ngày mục tiêu</p>
-                        </div>
-                    </div>
-
-                    {/* Level Card */}
-                    <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-5 hover:border-purple-500/30 transition-all duration-300">
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="relative">
-                            <div className="flex items-center justify-between mb-3">
-                                <div className="p-2 rounded-xl bg-purple-500/10">
-                                    <TrendingUp className="h-5 w-5 text-purple-400" />
-                                </div>
-                                <BookOpen className="h-4 w-4 text-purple-400/50" />
-                            </div>
-                            <p className="text-2xl sm:text-3xl font-bold">{level}</p>
-                            <p className="text-xs text-muted-foreground mt-1">{levelInfo.label}</p>
-                            {/* Level progress bar */}
-                            <div className="mt-3 w-full h-1.5 rounded-full bg-muted overflow-hidden">
-                                <div
-                                    className={`h-full rounded-full bg-gradient-to-r ${levelInfo.color} transition-all duration-1000`}
-                                    style={{ width: `${levelInfo.progress}%` }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Bottom Section Grid */}
-                <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Learning Goals */}
-                    <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6">
-                        <div className="flex items-center gap-2 mb-4">
-                            <Target className="h-5 w-5 text-cyan-400" />
-                            <h2 className="text-lg font-semibold">Mục tiêu học tập</h2>
-                        </div>
-                        {goals.length > 0 ? (
-                            <div className="flex flex-wrap gap-2">
-                                {goals.map((goal) => (
-                                    <span
-                                        key={goal}
-                                        className="px-3 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 text-cyan-300"
-                                    >
-                                        {goalLabels[goal.toLowerCase()] || goal}
-                                    </span>
-                                ))}
-                            </div>
-                        ) : (
-                            <p className="text-sm text-muted-foreground italic">
-                                Chưa thiết lập mục tiêu. Hãy cập nhật hồ sơ của bạn!
-                            </p>
-                        )}
-                    </div>
-
-                    {/* Learning Interests */}
-                    <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6">
-                        <div className="flex items-center gap-2 mb-4">
-                            <BookOpen className="h-5 w-5 text-purple-400" />
-                            <h2 className="text-lg font-semibold">Kỹ năng quan tâm</h2>
-                        </div>
-                        {interests.length > 0 ? (
-                            <div className="flex flex-wrap gap-2">
-                                {interests.map((interest) => (
-                                    <span
-                                        key={interest}
-                                        className="px-3 py-1.5 rounded-full text-sm font-medium bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 text-purple-300"
-                                    >
-                                        {interestLabels[interest.toLowerCase()] || interest}
-                                    </span>
-                                ))}
-                            </div>
-                        ) : (
-                            <p className="text-sm text-muted-foreground italic">
-                                Chưa chọn kỹ năng. Hãy cập nhật hồ sơ của bạn!
-                            </p>
-                        )}
-                    </div>
-                </section>
-
-                {/* Profile Info Card */}
-                <section className="mt-6">
-                    <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6">
-                        <div className="flex items-center gap-2 mb-4">
-                            <Calendar className="h-5 w-5 text-blue-400" />
-                            <h2 className="text-lg font-semibold">Thông tin tài khoản</h2>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs text-muted-foreground">Email</span>
-                                <span className="text-sm font-medium truncate">{user.email}</span>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs text-muted-foreground">Giới tính</span>
-                                <span className="text-sm font-medium">
-                                    {profile?.gender === "male"
-                                        ? "Nam"
-                                        : profile?.gender === "female"
-                                            ? "Nữ"
-                                            : profile?.gender === "other"
-                                                ? "Khác"
-                                                : "Chưa cập nhật"}
-                                </span>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs text-muted-foreground">Ngày sinh</span>
-                                <span className="text-sm font-medium">
-                                    {profile?.date_of_birth
-                                        ? new Date(profile.date_of_birth).toLocaleDateString("vi-VN")
-                                        : "Chưa cập nhật"}
-                                </span>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs text-muted-foreground">Vai trò</span>
-                                <span className="text-sm font-medium capitalize">
-                                    {profile?.role === "student"
-                                        ? "Học viên"
-                                        : profile?.role === "teacher"
-                                            ? "Giảng viên"
-                                            : profile?.role === "admin"
-                                                ? "Quản trị"
-                                                : "Học viên"}
-                                </span>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs text-muted-foreground">Quốc gia</span>
-                                <span className="text-sm font-medium">
-                                    {profile?.country || "Chưa cập nhật"}
-                                </span>
-                            </div>
-                            <div className="flex flex-col gap-1">
-                                <span className="text-xs text-muted-foreground">Tham gia từ</span>
-                                <span className="text-sm font-medium">
-                                    {createdAt.toLocaleDateString("vi-VN")}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Coming Soon Banner */}
-                <section className="mt-6 mb-8">
-                    <div className="rounded-2xl border border-dashed border-cyan-500/30 bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-purple-500/5 p-6 text-center">
-                        <Sparkles className="h-8 w-8 text-cyan-400 mx-auto mb-3" />
-                        <h3 className="text-lg font-semibold mb-1">Sắp ra mắt!</h3>
-                        <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                            Bài học tương tác, flashcards, trắc nghiệm và nhiều tính năng hấp dẫn khác đang được phát triển. Hãy quay lại sớm nhé!
+                        <span className="inline-block px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-[10px] font-bold uppercase tracking-wider mb-3">
+                            Thử thách tuần
+                        </span>
+                        <h3 className="text-lg font-bold mb-2">Chinh phục từ vựng</h3>
+                        <p className="text-sm text-gray-400 mb-5 leading-relaxed">
+                            Học 50 từ vựng mới trong tuần này để nhận huy hiệu &ldquo;Bậc thầy từ vựng&rdquo;.
                         </p>
+                        <button className="w-full py-2.5 rounded-xl bg-blue-500 text-white text-sm font-semibold hover:bg-blue-600 transition-colors">
+                            Tham gia ngay
+                        </button>
                     </div>
-                </section>
-            </main>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+function ReviewItem({
+    tag,
+    tagColor,
+    title,
+    subtitle,
+}: {
+    tag: string;
+    tagColor: string;
+    title: string;
+    subtitle: string;
+}) {
+    return (
+        <div className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer group">
+            <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xs font-bold ${tagColor}`}>
+                {tag}
+            </div>
+            <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-900">{title}</p>
+                <p className="text-xs text-gray-400">{subtitle}</p>
+            </div>
+            <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-gray-500 transition-colors" />
+        </div>
+    );
+}
+
+function LeaderboardItem({
+    rank,
+    name,
+    points,
+    isGold = false,
+    isYou = false,
+}: {
+    rank: number;
+    name: string;
+    points: number;
+    isGold?: boolean;
+    isYou?: boolean;
+}) {
+    return (
+        <div className={`flex items-center gap-3 p-2 rounded-xl ${isYou ? "bg-blue-50 border border-blue-100" : ""}`}>
+            <span className={`w-6 text-sm font-bold text-center ${rank === 1 ? "text-yellow-500" : rank === 2 ? "text-gray-400" : "text-blue-500"}`}>
+                {rank}
+            </span>
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-gray-300 to-gray-400 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                {name.charAt(0)}
+            </div>
+            <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-900 truncate">
+                    {name} {isYou && <span className="text-blue-500">(Bạn)</span>}
+                </p>
+                <p className="text-xs text-gray-400">{points.toLocaleString()} pts</p>
+            </div>
+            {isGold && (
+                <div className="text-yellow-400">
+                    <Play className="h-4 w-4 fill-current" />
+                </div>
+            )}
         </div>
     );
 }

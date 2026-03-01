@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
 import { LogOut, Loader2 } from "lucide-react";
 
 export default function SignOutButton() {
@@ -19,20 +18,18 @@ export default function SignOutButton() {
     };
 
     return (
-        <Button
+        <button
             onClick={handleSignOut}
             disabled={loading}
-            variant="ghost"
-            className="text-muted-foreground hover:text-foreground hover:bg-white/5 transition-all duration-200"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200 flex-shrink-0"
+            title="Đăng xuất"
         >
             {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-                <>
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Đăng xuất
-                </>
+                <LogOut className="h-4 w-4" />
             )}
-        </Button>
+        </button>
     );
 }
+
