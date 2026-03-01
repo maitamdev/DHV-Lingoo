@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, Dancing_Script } from "next/font/google";
+import { Cinzel, Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin", "vietnamese"],
-  weight: ["300", "400", "500", "600", "700"],
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const inter = Inter({
@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${cormorant.variable} ${dancingScript.variable} antialiased`}
+        className={`${inter.variable} ${cinzel.variable} ${dancingScript.variable} antialiased`}
         suppressHydrationWarning
       >
         {children}

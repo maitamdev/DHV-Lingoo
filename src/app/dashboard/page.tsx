@@ -89,7 +89,7 @@ export default async function DashboardPage() {
                     {/* Top Section: Greeting + Actions */}
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                         <div>
-                            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+                            <h1 className="text-2xl sm:text-3xl font-bold font-heading text-gray-900">
                                 {getGreeting()},{" "}
                                 <span className="text-blue-600">{displayName}</span>
                             </h1>
@@ -127,7 +127,7 @@ export default async function DashboardPage() {
                                 <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-xs font-semibold uppercase tracking-wider mb-4">
                                     Trình độ hiện tại
                                 </span>
-                                <h2 className="text-xl sm:text-2xl font-bold mb-1 leading-tight">
+                                <h2 className="text-xl sm:text-2xl font-bold font-heading mb-1 leading-tight">
                                     {goals.length > 0
                                         ? `Tiếng Anh ${goals.map(g => goalLabels[g.toLowerCase()] || g).join(", ")}`
                                         : "Tiếng Anh Tổng Quát"}
@@ -163,7 +163,7 @@ export default async function DashboardPage() {
                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
                                         Tổng điểm
                                     </p>
-                                    <p className="text-2xl sm:text-3xl font-bold text-gray-900">
+                                    <p className="text-2xl sm:text-3xl font-bold font-heading text-gray-900">
                                         {xp.toLocaleString()}
                                     </p>
                                 </div>
@@ -178,7 +178,7 @@ export default async function DashboardPage() {
                                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">
                                         Chuỗi ngày học
                                     </p>
-                                    <p className="text-2xl sm:text-3xl font-bold text-gray-900">
+                                    <p className="text-2xl sm:text-3xl font-bold font-heading text-gray-900">
                                         {streak}
                                     </p>
                                     {longestStreak > 0 && (
@@ -250,7 +250,7 @@ export default async function DashboardPage() {
                         <div className="bg-white border border-gray-100 p-6">
                             <div className="flex items-center gap-2 mb-4">
                                 <BookOpen className="h-5 w-5 text-blue-500" />
-                                <h3 className="text-base font-bold text-gray-900">Mục tiêu học tập</h3>
+                                <h3 className="text-base font-bold font-heading text-gray-900">Mục tiêu học tập</h3>
                             </div>
                             {goals.length > 0 ? (
                                 <div className="flex flex-wrap gap-2">
@@ -274,7 +274,7 @@ export default async function DashboardPage() {
                         <div className="bg-white border border-gray-100 p-6">
                             <div className="flex items-center gap-2 mb-4">
                                 <Play className="h-5 w-5 text-purple-500" />
-                                <h3 className="text-base font-bold text-gray-900">Kỹ năng quan tâm</h3>
+                                <h3 className="text-base font-bold font-heading text-gray-900">Kỹ năng quan tâm</h3>
                             </div>
                             {interests.length > 0 ? (
                                 <div className="flex flex-wrap gap-2">
@@ -303,7 +303,7 @@ export default async function DashboardPage() {
 
                     {/* Account Info - REAL */}
                     <div className="bg-white border border-gray-100 p-6">
-                        <h3 className="text-base font-bold text-gray-900 mb-4">Thông tin tài khoản</h3>
+                        <h3 className="text-base font-bold font-heading text-gray-900 mb-4">Thông tin tài khoản</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             <InfoItem label="Email" value={user.email || "—"} />
                             <InfoItem
@@ -350,7 +350,7 @@ export default async function DashboardPage() {
                     {/* Leaderboard - REAL DATA from Supabase */}
                     <div className="bg-white border border-gray-100 p-6">
                         <div className="flex items-center justify-between mb-5">
-                            <h3 className="text-base font-bold text-gray-900">Bảng xếp hạng</h3>
+                            <h3 className="text-base font-bold font-heading text-gray-900">Bảng xếp hạng</h3>
                         </div>
                         {leaderboard && leaderboard.length > 0 ? (
                             <div className="space-y-3">
@@ -384,7 +384,7 @@ export default async function DashboardPage() {
                         <div className="absolute -left-8 -bottom-8 w-32 h-32 rounded-full bg-white/5" />
                         <div className="absolute right-4 top-4 w-16 h-16 rounded-full bg-white/5" />
 
-                        <h3 className="text-lg font-bold mb-4 relative">Tóm tắt</h3>
+                        <h3 className="text-lg font-bold font-heading mb-4 relative">Tóm tắt</h3>
 
                         <div className="space-y-3 relative">
                             <div className="flex items-center justify-between">
