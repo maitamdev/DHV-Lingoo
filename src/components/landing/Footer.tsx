@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import { Sparkles, Github, Twitter, Youtube } from "lucide-react";
+import { Github, Twitter, Youtube } from "lucide-react";
 
 const footerLinks = {
     "Sản phẩm": [
@@ -35,12 +36,16 @@ export default function Footer() {
                 <div className="grid md:grid-cols-5 gap-10">
                     {/* Brand + description */}
                     <div className="md:col-span-2">
-                        <Link href="/" className="flex items-center gap-2 mb-4">
-                            <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center">
-                                <Sparkles className="h-5 w-5 text-primary-foreground" />
-                            </div>
-                            <span className="text-xl font-bold bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
-                                DHVLingoo
+                        <Link href="/" className="flex items-center gap-3 mb-4">
+                            <Image
+                                src="/images/logo.png"
+                                alt="DHVLingoo"
+                                width={56}
+                                height={56}
+                                className="h-14 w-14 rounded-full object-cover drop-shadow-lg"
+                            />
+                            <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                                DHV-Lingoo
                             </span>
                         </Link>
                         <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mb-6">
@@ -55,7 +60,7 @@ export default function Footer() {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="h-9 w-9 rounded-lg bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                                    className="h-9 w-9 rounded-lg bg-muted flex items-center justify-center hover:bg-cyan-500 hover:text-white transition-colors"
                                     aria-label={social.label}
                                 >
                                     <social.icon className="h-4 w-4" />
@@ -88,7 +93,7 @@ export default function Footer() {
 
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <p className="text-xs text-muted-foreground">
-                        © 2026 DHVLingoo. Mọi quyền được bảo lưu.
+                        © 2026 DHV-Lingoo. Mọi quyền được bảo lưu.
                     </p>
                     <p className="text-xs text-muted-foreground">
                         Được xây dựng với ❤️ bởi sinh viên DHV

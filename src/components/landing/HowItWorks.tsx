@@ -7,7 +7,7 @@ const steps = [
         title: "Chọn khóa học",
         description:
             "Duyệt thư viện khóa học tiếng Anh — từ luyện thi IELTS đến giao tiếp hàng ngày.",
-        color: "from-violet-500 to-purple-600",
+        color: "from-cyan-500 to-blue-600",
     },
     {
         number: "02",
@@ -15,7 +15,7 @@ const steps = [
         title: "Học trong 10 phút",
         description:
             "Mỗi bài học ngắn gọn để bạn học mọi lúc mọi nơi. Đọc, nghe và thực hành — không cần ngồi cả giờ.",
-        color: "from-sky-500 to-blue-600",
+        color: "from-blue-500 to-indigo-600",
     },
     {
         number: "03",
@@ -23,7 +23,7 @@ const steps = [
         title: "Luyện tập & giữ streak",
         description:
             "Làm trắc nghiệm, ôn flashcards và xem streak tăng dần. Sự kiên trì là chìa khóa thành thạo.",
-        color: "from-amber-500 to-orange-600",
+        color: "from-teal-500 to-cyan-600",
     },
 ];
 
@@ -38,7 +38,7 @@ export default function HowItWorks() {
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                         Bắt đầu học chỉ với{" "}
-                        <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                             3 bước đơn giản
                         </span>
                     </h2>
@@ -51,7 +51,7 @@ export default function HowItWorks() {
                 {/* Steps */}
                 <div className="grid md:grid-cols-3 gap-8 relative">
                     {/* Connection line (desktop) */}
-                    <div className="hidden md:block absolute top-20 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-violet-300 via-sky-300 to-amber-300 dark:from-violet-800 dark:via-sky-800 dark:to-amber-800" />
+                    <div className="hidden md:block absolute top-20 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-cyan-300 via-blue-300 to-teal-300 dark:from-cyan-800 dark:via-blue-800 dark:to-teal-800" />
 
                     {steps.map((step) => (
                         <div key={step.number} className="relative text-center group">

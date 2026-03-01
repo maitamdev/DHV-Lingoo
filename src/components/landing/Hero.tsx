@@ -8,9 +8,9 @@ export default function Hero() {
         <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
             {/* Animated background blobs */}
             <div className="absolute inset-0 -z-10">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 dark:bg-purple-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob" />
-                <div className="absolute top-40 right-10 w-72 h-72 bg-sky-300 dark:bg-sky-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob animation-delay-2000" />
-                <div className="absolute -bottom-8 left-1/3 w-72 h-72 bg-pink-300 dark:bg-pink-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob animation-delay-4000" />
+                <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-300 dark:bg-cyan-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob" />
+                <div className="absolute top-40 right-10 w-72 h-72 bg-blue-300 dark:bg-blue-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob animation-delay-2000" />
+                <div className="absolute -bottom-8 left-1/3 w-72 h-72 bg-teal-300 dark:bg-teal-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob animation-delay-4000" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
@@ -27,7 +27,7 @@ export default function Hero() {
 
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
                             Học tiếng Anh nhanh hơn.{" "}
-                            <span className="bg-gradient-to-r from-primary via-violet-500 to-sky-500 bg-clip-text text-transparent">
+                            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
                                 Kiên trì mỗi ngày.
                             </span>
                         </h1>
@@ -42,7 +42,7 @@ export default function Hero() {
                             <Button
                                 size="lg"
                                 asChild
-                                className="bg-gradient-to-r from-primary to-violet-600 hover:from-primary/90 hover:to-violet-600/90 shadow-lg shadow-primary/25 text-base h-12 px-8"
+                                className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-500/90 hover:to-blue-600/90 shadow-lg shadow-cyan-500/25 text-base h-12 px-8"
                             >
                                 <Link href="/register">
                                     Học miễn phí
@@ -56,7 +56,7 @@ export default function Hero() {
                                 className="text-base h-12 px-8 group"
                             >
                                 <Link href="/courses">
-                                    <Play className="mr-2 h-4 w-4 group-hover:text-primary transition-colors" />
+                                    <Play className="mr-2 h-4 w-4 group-hover:text-cyan-500 transition-colors" />
                                     Xem khóa học
                                 </Link>
                             </Button>
@@ -101,10 +101,10 @@ export default function Hero() {
                     {/* Right hero image */}
                     <div className="relative flex justify-center lg:justify-end">
                         <div className="relative w-full max-w-lg">
-                            <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-sky-400/20 rounded-3xl blur-2xl" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 to-blue-500/20 rounded-3xl blur-2xl" />
                             <Image
                                 src="/images/hero-illustration.svg"
-                                alt="DHVLingoo - Nền tảng học tiếng Anh tương tác"
+                                alt="DHV-Lingoo - Nền tảng học tiếng Anh tương tác"
                                 width={600}
                                 height={500}
                                 priority

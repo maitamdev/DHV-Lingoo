@@ -58,7 +58,7 @@ export default function Features() {
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                         Mọi thứ bạn cần để{" "}
-                        <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                             thành thạo tiếng Anh
                         </span>
                     </h2>
@@ -73,7 +73,7 @@ export default function Features() {
                     {features.map((feature) => (
                         <Card
                             key={feature.title}
-                            className="group border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1"
+                            className="group border-border/50 hover:border-primary/30 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-300 hover:-translate-y-1"
                         >
                             <CardContent className="p-6">
                                 <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">

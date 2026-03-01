@@ -7,7 +7,7 @@ import {
 
 const faqs = [
     {
-        question: "DHVLingoo có thật sự miễn phí không?",
+        question: "DHV-Lingoo có thật sự miễn phí không?",
         answer:
             "Có! Gói Miễn phí bao gồm 3 khóa học đầy đủ, trắc nghiệm cơ bản và theo dõi tiến trình — không cần thẻ tín dụng. Bạn có thể nâng cấp lên Pro bất cứ lúc nào để truy cập không giới hạn.",
     },
@@ -32,7 +32,7 @@ const faqs = [
             "Có! Gói Nhóm bao gồm Công cụ Quản trị Nội dung nơi giảng viên có thể tạo khóa học, bài học, trắc nghiệm và bộ flashcards. Bạn cũng có thể quản lý nhóm sinh viên và xem thống kê cấp lớp.",
     },
     {
-        question: "DHVLingoo cung cấp những loại nội dung gì?",
+        question: "DHV-Lingoo cung cấp những loại nội dung gì?",
         answer:
             "Chúng tôi cung cấp khóa học có cấu trúc (IELTS, TOEFL, giao tiếp hàng ngày), trắc nghiệm tương tác với phản hồi tức thì, flashcards với lặp lại ngắt quãng, và bài luyện nói. Nội dung mới được cập nhật hàng tuần.",
     },
@@ -49,12 +49,12 @@ export default function FAQ() {
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                         Bạn thắc mắc?{" "}
-                        <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                             Chúng tôi giải đáp
                         </span>
                     </h2>
                     <p className="text-muted-foreground text-lg">
-                        Những câu hỏi thường gặp nhất về DHVLingoo.
+                        Những câu hỏi thường gặp nhất về DHV-Lingoo.
                     </p>
                 </div>
 

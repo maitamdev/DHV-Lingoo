@@ -71,7 +71,7 @@ export default function Pricing() {
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                         Đơn giản,{" "}
-                        <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                             minh bạch
                         </span>
                     </h2>
@@ -86,12 +86,12 @@ export default function Pricing() {
                         <Card
                             key={tier.name}
                             className={`relative transition-all duration-300 hover:-translate-y-1 ${tier.popular
-                                    ? "border-primary shadow-xl shadow-primary/10 scale-[1.02]"
+                                    ? "border-primary shadow-xl shadow-cyan-500/10 scale-[1.02]"
                                     : "border-border/50 hover:shadow-lg"
                                 }`}
                         >
                             {tier.popular && (
-                                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-violet-600 text-white shadow-lg">
+                                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg">
                                     Phổ biến nhất
                                 </Badge>
                             )}
@@ -111,7 +111,7 @@ export default function Pricing() {
                                 <Button
                                     asChild
                                     className={`w-full mb-6 ${tier.popular
-                                            ? "bg-gradient-to-r from-primary to-violet-600 hover:from-primary/90 hover:to-violet-600/90 shadow-lg shadow-primary/25"
+                                            ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-500/90 hover:to-blue-600/90 shadow-lg shadow-cyan-500/25"
                                             : ""
                                         }`}
                                     variant={tier.popular ? "default" : "outline"}

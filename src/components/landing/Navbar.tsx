@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
     Sheet,
@@ -8,7 +9,7 @@ import {
     SheetTrigger,
     SheetTitle,
 } from "@/components/ui/sheet";
-import { Menu, Sparkles } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const navLinks = [
@@ -35,14 +36,18 @@ export default function Navbar() {
                     : "bg-transparent"
                 }`}
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 h-20">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="h-9 w-9 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-110">
-                        <Sparkles className="h-5 w-5 text-primary-foreground" />
-                    </div>
-                    <span className="text-xl font-bold bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
-                        DHVLingoo
+                <Link href="/" className="flex items-center gap-3 group">
+                    <Image
+                        src="/images/logo.png"
+                        alt="DHVLingoo"
+                        width={56}
+                        height={56}
+                        className="h-14 w-14 rounded-full transition-transform group-hover:scale-110 object-cover drop-shadow-lg"
+                    />
+                    <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                        DHV-Lingoo
                     </span>
                 </Link>
 
@@ -66,7 +71,7 @@ export default function Navbar() {
                     </Button>
                     <Button
                         asChild
-                        className="bg-gradient-to-r from-primary to-violet-600 hover:from-primary/90 hover:to-violet-600/90 shadow-lg shadow-primary/25"
+                        className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-500/90 hover:to-blue-600/90 shadow-lg shadow-cyan-500/25"
                     >
                         <Link href="/register">Bắt đầu ngay</Link>
                     </Button>
@@ -80,11 +85,15 @@ export default function Navbar() {
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right" className="w-72">
-                        <SheetTitle className="flex items-center gap-2 mb-6">
-                            <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-                                <Sparkles className="h-4 w-4 text-primary-foreground" />
-                            </div>
-                            <span className="font-bold text-lg">DHVLingoo</span>
+                        <SheetTitle className="flex items-center gap-3 mb-6">
+                            <Image
+                                src="/images/logo.png"
+                                alt="DHVLingoo"
+                                width={48}
+                                height={48}
+                                className="h-12 w-12 rounded-full object-cover drop-shadow-lg"
+                            />
+                            <span className="font-bold text-lg">DHV-Lingoo</span>
                         </SheetTitle>
                         <nav className="flex flex-col gap-1">
                             {navLinks.map((link) => (
@@ -101,7 +110,7 @@ export default function Navbar() {
                             <Button variant="outline" asChild className="w-full">
                                 <Link href="/login">Đăng nhập</Link>
                             </Button>
-                            <Button asChild className="w-full mt-2 bg-gradient-to-r from-primary to-violet-600">
+                            <Button asChild className="w-full mt-2 bg-gradient-to-r from-cyan-500 to-blue-600">
                                 <Link href="/register">Bắt đầu ngay</Link>
                             </Button>
                         </nav>

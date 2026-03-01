@@ -42,8 +42,8 @@ export default function Showcase() {
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                         Trải nghiệm{" "}
-                        <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
-                            DHVLingoo
+                        <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                            DHV-Lingoo
                         </span>{" "}
                         ngay
                     </h2>
@@ -70,7 +70,7 @@ export default function Showcase() {
 
                     {previews.map((p) => (
                         <TabsContent key={p.id} value={p.id}>
-                            <div className="relative rounded-2xl overflow-hidden border bg-card shadow-2xl shadow-primary/5">
+                            <div className="relative rounded-2xl overflow-hidden border bg-card shadow-2xl shadow-cyan-500/5">
                                 <Image
                                     src={p.src}
                                     alt={`${p.label} preview`}

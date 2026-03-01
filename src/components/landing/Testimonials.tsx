@@ -8,7 +8,7 @@ const testimonials = [
         role: "Học viên IELTS",
         avatar: "/images/avatar-1.svg",
         quote:
-            "DHVLingoo giúp mình tăng điểm IELTS Writing từ 5.5 lên 7.0 chỉ trong 3 tháng. Bài học ngắn gọn rất phù hợp với lịch trình hàng ngày.",
+            "DHV-Lingoo giúp mình tăng điểm IELTS Writing từ 5.5 lên 7.0 chỉ trong 3 tháng. Bài học ngắn gọn rất phù hợp với lịch trình hàng ngày.",
     },
     {
         name: "Linh Nguyễn",
@@ -37,12 +37,12 @@ export default function Testimonials() {
                     </p>
                     <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                         Được yêu thích bởi{" "}
-                        <span className="bg-gradient-to-r from-primary to-violet-500 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                             học viên & giảng viên
                         </span>
                     </h2>
                     <p className="text-muted-foreground text-lg">
-                        Xem cộng đồng nói gì về trải nghiệm học tập với DHVLingoo.
+                        Xem cộng đồng nói gì về trải nghiệm học tập với DHV-Lingoo.
                     </p>
                 </div>
 
@@ -51,7 +51,7 @@ export default function Testimonials() {
                     {testimonials.map((t) => (
                         <Card
                             key={t.name}
-                            className="border-border/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                            className="border-border/50 hover:shadow-lg hover:shadow-cyan-500/5 transition-all duration-300"
                         >
                             <CardContent className="p-6">
                                 <Quote className="h-8 w-8 text-primary/20 mb-4" />
