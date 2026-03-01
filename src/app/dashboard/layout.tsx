@@ -23,17 +23,16 @@ export default async function DashboardLayout({
     const role = profile?.role === "teacher" ? "Giảng viên" : profile?.role === "admin" ? "Quản trị viên" : "Học viên";
 
     return (
-        <div className="min-h-screen bg-[#f5f7fb] flex relative">
-            {/* Background Image */}
-            <div
-                className="fixed inset-0 -z-10 opacity-30"
-                style={{
-                    backgroundImage: "url('/images/dashboard-bg.png')",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                }}
-            />
+        <div
+            className="min-h-screen flex relative"
+            style={{
+                backgroundImage: "url('/images/dashboard-bg.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed",
+            }}
+        >
             {/* Sidebar */}
             <aside className="hidden lg:flex flex-col w-[240px] bg-white border-r border-gray-100 fixed inset-y-0 left-0 z-40">
                 {/* Logo */}
