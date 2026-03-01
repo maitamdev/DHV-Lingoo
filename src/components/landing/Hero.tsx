@@ -25,8 +25,12 @@ export default function Hero() {
                             Theo dõi tiến trình thời gian thực
                         </div>
 
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
-                            Chinh phục tiếng Anh —{" "}
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
+                            Chinh phục{" "}
+                            <span className="font-script font-normal italic bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 bg-clip-text text-transparent text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+                                tiếng Anh
+                            </span>
+                            <br />
                             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
                                 theo cách của bạn.
                             </span>
