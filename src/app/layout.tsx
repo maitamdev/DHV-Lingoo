@@ -3,18 +3,18 @@ import { Playfair_Display, Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
 
 const playfair = Playfair_Display({
-  variable: "--font-heading",
+  variable: "--font-playfair",
   subsets: ["latin", "vietnamese"],
   weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 const inter = Inter({
-  variable: "--font-sans",
+  variable: "--font-inter",
   subsets: ["latin", "vietnamese"],
 });
 
 const dancingScript = Dancing_Script({
-  variable: "--font-script",
+  variable: "--font-dancing",
   subsets: ["latin", "vietnamese"],
   weight: ["400", "500", "600", "700"],
 });
@@ -50,7 +50,7 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <body
-        className={`${inter.variable} ${playfair.variable} ${dancingScript.variable} antialiased font-sans`}
+        className={`${inter.variable} ${playfair.variable} ${dancingScript.variable} antialiased`}
         suppressHydrationWarning
       >
         {children}
