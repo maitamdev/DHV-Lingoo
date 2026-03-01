@@ -27,7 +27,11 @@ export async function POST(req: Request) {
             .eq("id", user.id)
             .single();
 
-        if (profileError || !profile) {
+        if (profileError) {
+            console.error("Supabase Profile Error:", profileError);
+            return NextResponse.json({ error: "Lỗi lấy profile: " + profileError.message }, { status: 404 });
+        }
+        if (!profile) {
             return NextResponse.json({ error: "Profile not found" }, { status: 404 });
         }
 
@@ -47,13 +51,13 @@ export async function POST(req: Request) {
 Bạn là một chuyên gia thiết kế lộ trình học tiếng Anh xuất sắc.
 Hãy thiết kế một lộ trình học trong 4 tuần cho một học viên tên là ${name}.
 Thông tin học viên:
-- Trình độ hiện tại: ${levelInfo}
-- Mục tiêu chính: ${goalsStr}
-- Kỹ năng muốn tập trung: ${interestsStr}
-- Thời gian học mỗi ngày: ${dailyTime} phút
+                - Trình độ hiện tại: ${levelInfo}
+            - Mục tiêu chính: ${goalsStr}
+            - Kỹ năng muốn tập trung: ${interestsStr}
+            - Thời gian học mỗi ngày: ${dailyTime} phút
 
-YÊU CẦU QUAN TRỌNG: 
-Chỉ trả về ĐÚNG MỘT chuỗi JSON hợp lệ, không có markdown (không dùng \`\`\`json), không có câu chào đầu/cuối.
+YÊU CẦU QUAN TRỌNG:
+                Chỉ trả về ĐÚNG MỘT chuỗi JSON hợp lệ, không có markdown(không dùng \`\`\`json), không có câu chào đầu/cuối.
 Định dạng JSON bắt buộc phải theo cấu trúc sau:
 {
   "title": "Tên lộ trình (ngắn gọn, truyền cảm hứng)",
@@ -90,7 +94,7 @@ Bắt đầu trả về JSON ngay lập tức:`;
                     content: prompt,
                 },
             ],
-            model: "llama3-70b-8192", // Model mạnh và nhanh nhất của Groq hiện tại cho task này
+            model: "llama-3.3-70b-versatile", // Updated to the latest stable Llama 3.3 model
             temperature: 0.7,
             response_format: { type: "json_object" }, // Ép kiểu JSON
         });

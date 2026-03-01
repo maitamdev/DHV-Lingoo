@@ -72,7 +72,9 @@ export default function CoursesPage() {
             });
 
             if (!response.ok) {
-                throw new Error("Failed to generate roadmap");
+                const errorData = await response.json().catch(() => null);
+                console.error("API Error Response:", errorData);
+                throw new Error(errorData?.error || "Failed to generate roadmap");
             }
 
             const data = await response.json();
@@ -83,7 +85,7 @@ export default function CoursesPage() {
 
         } catch (err: any) {
             console.error(err);
-            alert("Có lỗi xảy ra khi tạo lộ trình. Vui lòng thử lại sau.");
+            alert(`Lỗi: ${err.message || 'Có lỗi xảy ra khi tạo lộ trình. Vui lòng thử lại sau.'}`);
         } finally {
             setGenerating(false);
         }
