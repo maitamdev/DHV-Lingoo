@@ -40,36 +40,36 @@ const faqs = [
 
 export default function FAQ() {
     return (
-        <section id="faq" className="py-24 bg-muted/30">
+        <section id="faq" className="py-16 sm:py-24 bg-muted/30">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 {/* Section header */}
-                <div className="text-center mb-16">
-                    <p className="text-sm font-semibold text-primary tracking-wide uppercase mb-3">
+                <div className="text-center mb-10 sm:mb-16">
+                    <p className="text-xs sm:text-sm font-semibold text-primary tracking-wide uppercase mb-2 sm:mb-3">
                         Câu hỏi thường gặp
                     </p>
-                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-3 sm:mb-4">
                         Bạn thắc mắc?{" "}
                         <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                             Chúng tôi giải đáp
                         </span>
                     </h2>
-                    <p className="text-muted-foreground text-lg">
+                    <p className="text-muted-foreground text-sm sm:text-lg">
                         Những câu hỏi thường gặp nhất về DHV-Lingoo.
                     </p>
                 </div>
 
                 {/* Accordion */}
-                <Accordion type="single" collapsible className="w-full space-y-3">
+                <Accordion type="single" collapsible className="w-full space-y-2 sm:space-y-3">
                     {faqs.map((faq, index) => (
                         <AccordionItem
                             key={index}
                             value={`item-${index}`}
-                            className="border rounded-xl px-6 bg-card data-[state=open]:shadow-md transition-shadow"
+                            className="border rounded-lg sm:rounded-xl px-4 sm:px-6 bg-card data-[state=open]:shadow-md transition-shadow"
                         >
-                            <AccordionTrigger className="text-left font-medium hover:no-underline py-5">
+                            <AccordionTrigger className="text-left text-sm sm:text-base font-medium hover:no-underline py-4 sm:py-5">
                                 {faq.question}
                             </AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                            <AccordionContent className="text-muted-foreground text-xs sm:text-sm leading-relaxed pb-4 sm:pb-5">
                                 {faq.answer}
                             </AccordionContent>
                         </AccordionItem>

@@ -36,23 +36,23 @@ export default function Navbar() {
                     : "bg-transparent"
                 }`}
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 h-20">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 sm:h-20">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-3 group">
+                <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
                     <Image
                         src="/images/logo.png"
-                        alt="DHVLingoo"
+                        alt="DHV-Lingoo"
                         width={56}
                         height={56}
-                        className="h-14 w-14 rounded-full transition-transform group-hover:scale-110 object-cover drop-shadow-lg"
+                        className="h-10 w-10 sm:h-14 sm:w-14 rounded-full transition-transform group-hover:scale-110 object-cover drop-shadow-lg"
                     />
-                    <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    <span className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
                         DHV-Lingoo
                     </span>
                 </Link>
 
                 {/* Desktop nav */}
-                <nav className="hidden md:flex items-center gap-1">
+                <nav className="hidden lg:flex items-center gap-1">
                     {navLinks.map((link) => (
                         <a
                             key={link.href}
@@ -65,7 +65,7 @@ export default function Navbar() {
                 </nav>
 
                 {/* Desktop actions */}
-                <div className="hidden md:flex items-center gap-3">
+                <div className="hidden lg:flex items-center gap-3">
                     <Button variant="ghost" asChild>
                         <Link href="/login">Đăng nhập</Link>
                     </Button>
@@ -79,7 +79,7 @@ export default function Navbar() {
 
                 {/* Mobile menu */}
                 <Sheet open={open} onOpenChange={setOpen}>
-                    <SheetTrigger asChild className="md:hidden">
+                    <SheetTrigger asChild className="lg:hidden">
                         <Button variant="ghost" size="icon">
                             <Menu className="h-5 w-5" />
                         </Button>
@@ -88,7 +88,7 @@ export default function Navbar() {
                         <SheetTitle className="flex items-center gap-3 mb-6">
                             <Image
                                 src="/images/logo.png"
-                                alt="DHVLingoo"
+                                alt="DHV-Lingoo"
                                 width={48}
                                 height={48}
                                 className="h-12 w-12 rounded-full object-cover drop-shadow-lg"
