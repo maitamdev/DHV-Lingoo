@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -25,7 +26,9 @@ import {
     User,
     Sparkles,
     CheckCircle2,
+    Loader2,
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 const STEPS = [
     { label: "Tài khoản", description: "Email & mật khẩu" },
@@ -68,8 +71,12 @@ const INTERESTS = [
 ];
 
 export default function RegisterForm() {
+    const router = useRouter();
     const [step, setStep] = useState(0);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -80,6 +87,7 @@ export default function RegisterForm() {
         country: "",
         timezone: "",
         avatarPreview: "",
+        avatarFile: null as File | null,
         goals: [] as string[],
         dailyTime: "",
         level: "",
@@ -87,7 +95,7 @@ export default function RegisterForm() {
         agreeTerms: false,
     });
 
-    const updateForm = (key: string, value: string | boolean | string[]) => {
+    const updateForm = (key: string, value: string | boolean | string[] | File | null) => {
         setForm((prev) => ({ ...prev, [key]: value }));
     };
 
@@ -104,17 +112,121 @@ export default function RegisterForm() {
     const progress = ((step + 1) / STEPS.length) * 100;
 
     const canNext = () => {
-        if (step === 0) return form.email && form.password && form.password === form.confirmPassword;
+        if (step === 0) return form.email && form.password.length >= 8 && form.password === form.confirmPassword;
         if (step === 1) return form.fullName && form.dateOfBirth && form.gender;
         if (step === 2) return form.goals.length > 0 && form.dailyTime && form.level && form.interests.length > 0 && form.agreeTerms;
         return false;
     };
 
-    const handleSubmit = () => {
-        console.log("Registration data:", form);
-        // TODO: Call Supabase auth + insert profile
-        alert("Đăng ký thành công! 🎉 (Sẽ kết nối Supabase sau)");
+    const handleSubmit = async () => {
+        setLoading(true);
+        setError("");
+
+        try {
+            const supabase = createClient();
+
+            // 1. Sign up with Supabase Auth
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email: form.email,
+                password: form.password,
+                options: {
+                    emailRedirectTo: `${window.location.origin}/auth/callback`,
+                },
+            });
+
+            if (authError) {
+                if (authError.message.includes("already registered")) {
+                    setError("Email này đã được đăng ký. Vui lòng đăng nhập.");
+                } else {
+                    setError(authError.message);
+                }
+                setLoading(false);
+                return;
+            }
+
+            if (!authData.user) {
+                setError("Không tạo được tài khoản. Vui lòng thử lại.");
+                setLoading(false);
+                return;
+            }
+
+            // 2. Upload avatar if provided
+            let avatarUrl = "";
+            if (form.avatarFile) {
+                const fileExt = form.avatarFile.name.split(".").pop();
+                const filePath = `${authData.user.id}/avatar.${fileExt}`;
+
+                const { error: uploadError } = await supabase.storage
+                    .from("avatars")
+                    .upload(filePath, form.avatarFile, { upsert: true });
+
+                if (!uploadError) {
+                    const { data: urlData } = supabase.storage
+                        .from("avatars")
+                        .getPublicUrl(filePath);
+                    avatarUrl = urlData.publicUrl;
+                }
+            }
+
+            // 3. Update profile with all registration data
+            const { error: profileError } = await supabase
+                .from("profiles")
+                .update({
+                    full_name: form.fullName,
+                    date_of_birth: form.dateOfBirth || null,
+                    gender: form.gender,
+                    avatar_url: avatarUrl || null,
+                    country: form.country || null,
+                    timezone: form.timezone || null,
+                    goals: form.goals,
+                    daily_time: parseInt(form.dailyTime),
+                    level: form.level,
+                    interests: form.interests,
+                })
+                .eq("id", authData.user.id);
+
+            if (profileError) {
+                console.error("Profile update error:", profileError);
+                // Don't block — auth succeeded, profile can be updated later
+            }
+
+            setSuccess(true);
+        } catch (err) {
+            console.error(err);
+            setError("Đã có lỗi xảy ra. Vui lòng thử lại.");
+        } finally {
+            setLoading(false);
+        }
     };
+
+    // Success state
+    if (success) {
+        return (
+            <Card className="w-full max-w-lg border-border/50 shadow-2xl shadow-cyan-500/5">
+                <CardContent className="p-6 sm:p-8 text-center">
+                    <div className="h-16 w-16 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
+                        <CheckCircle2 className="h-8 w-8 text-green-500" />
+                    </div>
+                    <h2 className="text-2xl font-bold mb-2">Đăng ký thành công! 🎉</h2>
+                    <p className="text-muted-foreground mb-6">
+                        Kiểm tra email <strong>{form.email}</strong> để xác nhận tài khoản.
+                        Sau đó đăng nhập để bắt đầu học ngay!
+                    </p>
+                    <div className="flex gap-3 justify-center">
+                        <Button variant="outline" asChild>
+                            <Link href="/">Trang chủ</Link>
+                        </Button>
+                        <Button
+                            asChild
+                            className="bg-gradient-to-r from-cyan-500 to-blue-600"
+                        >
+                            <Link href="/login">Đăng nhập</Link>
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+        );
+    }
 
     return (
         <Card className="w-full max-w-lg border-border/50 shadow-2xl shadow-cyan-500/5">
@@ -166,6 +278,13 @@ export default function RegisterForm() {
                     </div>
                 </div>
 
+                {/* Error message */}
+                {error && (
+                    <div className="p-3 rounded-lg bg-destructive/10 text-destructive text-sm mb-4">
+                        {error}
+                    </div>
+                )}
+
                 {/* Step 1: Account */}
                 {step === 0 && (
                     <div className="space-y-4">
@@ -199,6 +318,9 @@ export default function RegisterForm() {
                                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                                 </button>
                             </div>
+                            {form.password && form.password.length < 8 && (
+                                <p className="text-xs text-amber-500">Mật khẩu phải có ít nhất 8 ký tự</p>
+                            )}
                         </div>
 
                         <div className="space-y-2">
@@ -281,6 +403,7 @@ export default function RegisterForm() {
                                                 if (file) {
                                                     const url = URL.createObjectURL(file);
                                                     updateForm("avatarPreview", url);
+                                                    updateForm("avatarFile", file);
                                                 }
                                             }}
                                         />
@@ -441,6 +564,7 @@ export default function RegisterForm() {
                             variant="ghost"
                             onClick={() => setStep(step - 1)}
                             className="gap-2"
+                            disabled={loading}
                         >
                             <ArrowLeft className="h-4 w-4" />
                             Quay lại
@@ -453,7 +577,7 @@ export default function RegisterForm() {
 
                     {step < STEPS.length - 1 ? (
                         <Button
-                            onClick={() => setStep(step + 1)}
+                            onClick={() => { setError(""); setStep(step + 1); }}
                             disabled={!canNext()}
                             className="gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-500/90 hover:to-blue-600/90 shadow-lg shadow-cyan-500/25"
                         >
@@ -463,11 +587,20 @@ export default function RegisterForm() {
                     ) : (
                         <Button
                             onClick={handleSubmit}
-                            disabled={!canNext()}
+                            disabled={!canNext() || loading}
                             className="gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-500/90 hover:to-blue-600/90 shadow-lg shadow-cyan-500/25"
                         >
-                            <Sparkles className="h-4 w-4" />
-                            Đăng ký ngay
+                            {loading ? (
+                                <>
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                    Đang tạo...
+                                </>
+                            ) : (
+                                <>
+                                    <Sparkles className="h-4 w-4" />
+                                    Đăng ký ngay
+                                </>
+                            )}
                         </Button>
                     )}
                 </div>
