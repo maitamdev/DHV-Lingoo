@@ -59,7 +59,7 @@ export default async function DashboardLayout({
                 {/* Navigation */}
                 <nav className="flex-1 px-3 mt-2">
                     <NavItem href="/dashboard" icon="dashboard" label="Dashboard" active />
-                    <NavItem href="/dashboard" icon="courses" label="Khóa học" />
+                    <NavItem href="/dashboard/courses" icon="courses" label="Khóa học" />
                     <NavItem href="/dashboard" icon="flashcards" label="Flashcards" />
                     <NavItem href="/dashboard" icon="practice" label="Luyện tập" />
                     <NavItem href="/dashboard" icon="achievements" label="Thành tựu" />

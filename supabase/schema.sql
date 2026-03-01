@@ -25,6 +25,9 @@ create table if not exists public.profiles (
   streak integer default 0,
   longest_streak integer default 0,
   last_active_date date,
+  
+  -- AI Generation
+  ai_roadmap jsonb,
 
   -- Metadata
   role text default 'student' check (role in ('student', 'teacher', 'admin')),

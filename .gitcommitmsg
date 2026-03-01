@@ -1,0 +1,7 @@
+feat: implement AI-powered personalized course roadmap
+
+- Implemented Llama 3 generation via Groq API endpoint (/api/generate-roadmap)
+- Added \i_roadmap\ column to profiles table in supabase schema
+- Created new Courses dashboard page with roadmap generation UI and timeline view
+- Added groq-sdk dependency
+- Updated sidebar navigation to link to the new Courses page
