@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <circle cx="60" cy="60" r="58" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="60" cy="46" r="20" fill="#d97706"/>
+  <ellipse cx="60" cy="95" rx="32" ry="22" fill="#d97706"/>
+  <circle cx="52" cy="42" r="3" fill="white"/>
+  <circle cx="68" cy="42" r="3" fill="white"/>
+  <path d="M52 52 Q60 58 68 52" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Glasses -->
+  <circle cx="52" cy="42" r="8" fill="none" stroke="white" stroke-width="1.5"/>
+  <circle cx="68" cy="42" r="8" fill="none" stroke="white" stroke-width="1.5"/>
+  <line x1="60" y1="42" x2="60" y2="42" stroke="white" stroke-width="1.5"/>
+</svg>

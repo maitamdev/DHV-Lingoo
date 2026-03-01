@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="q-side" x1="0" y1="0" x2="0" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <!-- Window frame -->
+  <rect width="800" height="500" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  <!-- Title bar -->
+  <rect width="800" height="36" rx="12" fill="#f1f5f9"/>
+  <rect y="12" width="800" height="24" fill="#f1f5f9"/>
+  <circle cx="20" cy="18" r="6" fill="#ef4444"/>
+  <circle cx="40" cy="18" r="6" fill="#f59e0b"/>
+  <circle cx="60" cy="18" r="6" fill="#22c55e"/>
+  <!-- Sidebar -->
+  <rect y="36" width="200" height="464" fill="url(#q-side)"/>
+  <rect x="166" y="449" width="34" height="51" fill="url(#q-side)"/>
+  <text x="24" y="72" font-family="Arial,sans-serif" font-size="16" fill="white" font-weight="bold">DHVLingoo</text>
+  <!-- Quiz sidebar navigation -->
+  <text x="24" y="108" font-family="Arial,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)">Quiz Progress</text>
+  <!-- Question indicators -->
+  <circle cx="36" cy="136" r="12" fill="#22c55e"/><text x="36" y="140" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">1</text>
+  <circle cx="68" cy="136" r="12" fill="#22c55e"/><text x="68" y="140" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">2</text>
+  <circle cx="100" cy="136" r="12" fill="#22c55e"/><text x="100" y="140" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">3</text>
+  <circle cx="132" cy="136" r="12" fill="#ef4444"/><text x="132" y="140" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">4</text>
+  <circle cx="164" cy="136" r="12" fill="rgba(255,255,255,0.25)"/><text x="164" y="140" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">5</text>
+  <circle cx="36" cy="170" r="12" fill="rgba(255,255,255,0.25)"/><text x="36" y="174" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">6</text>
+  <circle cx="68" cy="170" r="12" fill="rgba(255,255,255,0.25)"/><text x="68" y="174" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">7</text>
+  <circle cx="100" cy="170" r="12" fill="rgba(255,255,255,0.25)"/><text x="100" y="174" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">8</text>
+  <circle cx="132" cy="170" r="12" fill="rgba(255,255,255,0.25)"/><text x="132" y="174" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">9</text>
+  <circle cx="164" cy="170" r="12" fill="rgba(255,255,255,0.25)"/><text x="164" y="174" font-family="Arial,sans-serif" font-size="11" fill="white" text-anchor="middle">10</text>
+  <!-- Score so far -->
+  <rect x="24" y="210" width="160" height="60" rx="8" fill="rgba(255,255,255,0.1)"/>
+  <text x="44" y="236" font-family="Arial,sans-serif" font-size="11" fill="rgba(255,255,255,0.7)">Score so far</text>
+  <text x="44" y="258" font-family="Arial,sans-serif" font-size="22" fill="white" font-weight="bold">3/4</text>
+  <text x="96" y="258" font-family="Arial,sans-serif" font-size="12" fill="#22c55e"> 75%</text>
+  <!-- Timer -->
+  <rect x="24" y="290" width="160" height="44" rx="8" fill="rgba(255,255,255,0.1)"/>
+  <text x="44" y="316" font-family="Arial,sans-serif" font-size="12" fill="rgba(255,255,255,0.7)">⏱ Time: </text>
+  <text x="108" y="316" font-family="Arial,sans-serif" font-size="14" fill="white" font-weight="bold">04:32</text>
+  <!-- Main content -->
+  <text x="224" y="66" font-family="Arial,sans-serif" font-size="12" fill="#94a3b8">IELTS Vocabulary → Quiz</text>
+  <!-- Question header -->
+  <rect x="224" y="76" width="558" height="6" rx="3" fill="#e2e8f0"/>
+  <rect x="224" y="76" width="280" height="6" rx="3" fill="#7c3aed"/>
+  <text x="730" y="72" font-family="Arial,sans-serif" font-size="11" fill="#7c3aed" font-weight="bold">5/10</text>
+  <!-- Question card -->
+  <rect x="224" y="100" width="558" height="380" rx="12" fill="white" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="248" y="136" font-family="Arial,sans-serif" font-size="13" fill="#94a3b8">Question 5 of 10</text>
+  <text x="248" y="168" font-family="Arial,sans-serif" font-size="18" fill="#1e293b" font-weight="bold">Choose the correct word to complete</text>
+  <text x="248" y="192" font-family="Arial,sans-serif" font-size="18" fill="#1e293b" font-weight="bold">the sentence:</text>
+  <rect x="248" y="210" width="510" height="48" rx="8" fill="#faf5ff"/>
+  <text x="268" y="240" font-family="Arial,sans-serif" font-size="14" fill="#4c1d95">"The study _____ that regular practice</text>
+  <text x="268" y="256" font-family="Arial,sans-serif" font-size="14" fill="#4c1d95">improves fluency significantly."</text>
+  <!-- Answer options -->
+  <rect x="248" y="280" width="240" height="48" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="282" y="310" font-family="Arial,sans-serif" font-size="14" fill="#1e293b">A. suggests</text>
+  <circle cx="268" cy="304" r="10" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="504" y="280" width="240" height="48" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="2"/>
+  <text x="538" y="310" font-family="Arial,sans-serif" font-size="14" fill="#166534" font-weight="600">B. demonstrates ✓</text>
+  <circle cx="524" cy="304" r="10" fill="#22c55e"/>
+  <circle cx="524" cy="304" r="4" fill="white"/>
+  <rect x="248" y="340" width="240" height="48" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="282" y="370" font-family="Arial,sans-serif" font-size="14" fill="#1e293b">C. tells</text>
+  <circle cx="268" cy="364" r="10" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="504" y="340" width="240" height="48" rx="10" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="538" y="370" font-family="Arial,sans-serif" font-size="14" fill="#1e293b">D. speaks</text>
+  <circle cx="524" cy="364" r="10" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+  <!-- Submit button -->
+  <rect x="580" y="412" width="168" height="44" rx="10" fill="#7c3aed"/>
+  <text x="630" y="439" font-family="Arial,sans-serif" font-size="14" fill="white" font-weight="bold">Next Question →</text>
+</svg>

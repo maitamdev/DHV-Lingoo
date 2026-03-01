@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <circle cx="60" cy="60" r="58" fill="#ccfbf1" stroke="#5eead4" stroke-width="2"/>
+  <circle cx="60" cy="46" r="20" fill="#0d9488"/>
+  <ellipse cx="60" cy="95" rx="32" ry="22" fill="#0d9488"/>
+  <circle cx="52" cy="42" r="3" fill="white"/>
+  <circle cx="68" cy="42" r="3" fill="white"/>
+  <path d="M54 54 Q60 58 66 54" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Hair -->
+  <path d="M40 40 Q42 26 60 24 Q78 26 80 40" stroke="#0d9488" stroke-width="6" fill="none"/>
+</svg>

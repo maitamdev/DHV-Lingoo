@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 500" fill="none">
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="600" y2="500" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.12"/>
+    </linearGradient>
+    <linearGradient id="book-grad" x1="180" y1="140" x2="420" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="page-grad" x1="200" y1="160" x2="400" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e0e7ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#7c3aed" flood-opacity="0.18"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background blob -->
+  <ellipse cx="300" cy="260" rx="260" ry="210" fill="url(#bg-grad)"/>
+  <!-- Open book body -->
+  <g filter="url(#shadow)">
+    <path d="M170 200 Q300 170 300 350 Q170 330 170 200Z" fill="url(#book-grad)" opacity="0.92"/>
+    <path d="M430 200 Q300 170 300 350 Q430 330 430 200Z" fill="url(#book-grad)" opacity="0.82"/>
+    <!-- Left page -->
+    <path d="M185 210 Q300 185 300 340 Q185 322 185 210Z" fill="url(#page-grad)" opacity="0.95"/>
+    <!-- Right page -->
+    <path d="M415 210 Q300 185 300 340 Q415 322 415 210Z" fill="#f8fafc" opacity="0.93"/>
+  </g>
+  <!-- Text lines on left page -->
+  <rect x="205" y="228" width="70" height="6" rx="3" fill="#a78bfa" opacity="0.5"/>
+  <rect x="205" y="244" width="55" height="5" rx="2.5" fill="#c4b5fd" opacity="0.4"/>
+  <rect x="205" y="258" width="65" height="5" rx="2.5" fill="#c4b5fd" opacity="0.35"/>
+  <rect x="205" y="272" width="50" height="5" rx="2.5" fill="#ddd6fe" opacity="0.3"/>
+  <!-- "A" letter on right page -->
+  <text x="340" y="290" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="#7c3aed" opacity="0.7" text-anchor="middle">A</text>
+  <!-- Floating elements -->
+  <!-- Graduation cap -->
+  <g transform="translate(430, 120)" filter="url(#glow)">
+    <rect x="-18" y="0" width="36" height="8" rx="2" fill="#7c3aed"/>
+    <polygon points="0,-14 20,0 0,4 -20,0" fill="#a78bfa"/>
+    <line x1="18" y1="0" x2="22" y2="16" stroke="#7c3aed" stroke-width="2"/>
+    <circle cx="22" cy="18" r="3" fill="#f59e0b"/>
+  </g>
+  <!-- Chat bubble -->
+  <g transform="translate(130, 130)">
+    <rect x="0" y="0" width="52" height="34" rx="10" fill="#38bdf8" opacity="0.85"/>
+    <polygon points="14,34 20,44 26,34" fill="#38bdf8" opacity="0.85"/>
+    <text x="26" y="22" font-family="Arial,sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Hi!</text>
+  </g>
+  <!-- Star -->
+  <g transform="translate(470, 280)">
+    <polygon points="0,-18 5,-6 18,-6 8,3 12,16 0,8 -12,16 -8,3 -18,-6 -5,-6" fill="#f59e0b" opacity="0.8"/>
+  </g>
+  <!-- Lightbulb -->
+  <g transform="translate(160, 340)">
+    <circle cx="0" cy="-10" r="14" fill="#fbbf24" opacity="0.7"/>
+    <rect x="-5" y="4" width="10" height="8" rx="2" fill="#f59e0b" opacity="0.6"/>
+    <line x1="-8" y1="-18" x2="-14" y2="-26" stroke="#fbbf24" stroke-width="2" opacity="0.5"/>
+    <line x1="8" y1="-18" x2="14" y2="-26" stroke="#fbbf24" stroke-width="2" opacity="0.5"/>
+    <line x1="0" y1="-24" x2="0" y2="-32" stroke="#fbbf24" stroke-width="2" opacity="0.5"/>
+  </g>
+  <!-- Globe -->
+  <g transform="translate(480, 380)">
+    <circle cx="0" cy="0" r="22" fill="none" stroke="#38bdf8" stroke-width="2.5" opacity="0.6"/>
+    <ellipse cx="0" cy="0" rx="10" ry="22" fill="none" stroke="#38bdf8" stroke-width="1.5" opacity="0.4"/>
+    <line x1="-22" y1="0" x2="22" y2="0" stroke="#38bdf8" stroke-width="1.5" opacity="0.4"/>
+  </g>
+  <!-- Pencil -->
+  <g transform="translate(100, 260) rotate(-30)">
+    <rect x="0" y="0" width="8" height="45" rx="1" fill="#f97316" opacity="0.7"/>
+    <polygon points="0,45 4,56 8,45" fill="#fbbf24" opacity="0.7"/>
+    <rect x="0" y="0" width="8" height="6" rx="1" fill="#7c3aed" opacity="0.5"/>
+  </g>
+</svg>
