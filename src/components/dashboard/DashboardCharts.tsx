@@ -40,7 +40,7 @@ export function WeeklyActivityChart() {
                                 fontWeight: 700,
                                 padding: "6px 12px",
                             }}
-                            formatter={(value: number) => [`${value} phút`, ""]}
+                            formatter={(value: number | undefined) => [`${value ?? 0} phút`, ""]}
                             labelStyle={{ color: "#94a3b8", fontSize: 10 }}
                         />
                         <Bar dataKey="minutes" fill="url(#blueGradient)" radius={[2, 2, 0, 0]} />
@@ -99,7 +99,7 @@ export function XPProgressChart({ currentXP }: { currentXP: number }) {
                                 fontWeight: 700,
                                 padding: "6px 12px",
                             }}
-                            formatter={(value: number) => [`${value.toLocaleString()} XP`, ""]}
+                            formatter={(value: number | undefined) => [`${(value ?? 0).toLocaleString()} XP`, ""]}
                             labelStyle={{ color: "#94a3b8", fontSize: 10 }}
                         />
                         <Area
