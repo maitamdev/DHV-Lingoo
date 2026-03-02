@@ -51,6 +51,9 @@ export default async function DashboardLayout({
                 <NavItem href="/dashboard/flashcards" icon="flashcards" label="Flashcards" exact />
                 <NavItem href="/dashboard/practice" icon="practice" label="Luyện tập" exact />
                 <NavItem href="/dashboard/achievements" icon="achievements" label="Thành tựu" exact />
+                <div className="pt-4 mt-4 border-t border-gray-100">
+                    <NavItem href="/dashboard/settings" icon="settings" label="Cài đặt" exact />
+                </div>
                 {profile?.role === "admin" && (
                     <div className="pt-4 mt-4 border-t border-gray-100">
                         <NavItem href="/admin" icon="admin" label="Quản trị Admin" />
