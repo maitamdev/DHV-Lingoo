@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useParams, useRouter } from "next/navigation";
 import { ArrowLeft, Volume2, CheckCircle, Star, RotateCcw, Play, BookOpen, Headphones, Mic, PenTool, ClipboardCheck, Home } from "lucide-react";
+import { useCallback } from "react";
 
 interface Vocabulary { id: string; word: string; phonetic: string; meaning: string; example: string; }
 interface DialogueLine { character: string; text: string; }
@@ -44,6 +45,23 @@ export default function LessonViewerPage() {
     const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
     const [quizSubmitted, setQuizSubmitted] = useState(false);
     const [score, setScore] = useState(0);
+    const [playingLetter, setPlayingLetter] = useState<string | null>(null);
+
+    const speakText = useCallback((text: string, lang: string = "en-US") => {
+        if (typeof window === "undefined" || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = lang;
+        utterance.rate = 0.8;
+        utterance.pitch = 1;
+        // Try to find an English voice
+        const voices = window.speechSynthesis.getVoices();
+        const enVoice = voices.find(v => v.lang.startsWith("en"));
+        if (enVoice) utterance.voice = enVoice;
+        setPlayingLetter(text);
+        utterance.onend = () => setPlayingLetter(null);
+        window.speechSynthesis.speak(utterance);
+    }, []);
 
     useEffect(() => {
         if (params.id) fetchLessonData(params.id as string);
@@ -145,8 +163,8 @@ export default function LessonViewerPage() {
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
                                     className={`flex items-center gap-1.5 px-4 py-3 text-xs font-semibold border-b-2 transition-all whitespace-nowrap ${isActive
-                                            ? "border-indigo-600 text-indigo-600"
-                                            : "border-transparent text-gray-400 hover:text-gray-600"
+                                        ? "border-indigo-600 text-indigo-600"
+                                        : "border-transparent text-gray-400 hover:text-gray-600"
                                         }`}
                                 >
                                     <Icon className="w-3.5 h-3.5" />
@@ -187,16 +205,29 @@ export default function LessonViewerPage() {
                                     <p className="text-sm text-indigo-600 mt-1">{section.content?.description}</p>
                                 </div>
                                 <div className="p-6">
-                                    {/* Alphabet table */}
+                                    {/* Alphabet table - Click to hear pronunciation */}
                                     {section.content?.alphabet && (
                                         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
-                                            {section.content.alphabet.map((item: any) => (
-                                                <div key={item.letter} className={`text-center p-3 border transition hover:shadow-md hover:-translate-y-0.5 ${["A", "E", "I", "O", "U"].includes(item.letter) ? "bg-amber-50 border-amber-200" : "bg-white border-gray-200"
-                                                    }`}>
-                                                    <span className="text-2xl font-bold text-gray-900">{item.letter}</span>
-                                                    <p className="text-[10px] text-gray-400 font-mono mt-1">{item.phonetic}</p>
-                                                </div>
-                                            ))}
+                                            {section.content.alphabet.map((item: any) => {
+                                                const isVowel = ["A", "E", "I", "O", "U"].includes(item.letter);
+                                                const isPlaying = playingLetter === item.letter;
+                                                return (
+                                                    <button
+                                                        key={item.letter}
+                                                        onClick={() => speakText(item.letter)}
+                                                        className={`text-center p-3 border transition-all cursor-pointer group relative ${isPlaying
+                                                            ? "bg-indigo-100 border-indigo-400 scale-110 shadow-lg shadow-indigo-200"
+                                                            : isVowel
+                                                                ? "bg-amber-50 border-amber-200 hover:bg-amber-100 hover:shadow-md hover:-translate-y-0.5"
+                                                                : "bg-white border-gray-200 hover:bg-indigo-50 hover:border-indigo-300 hover:shadow-md hover:-translate-y-0.5"
+                                                            }`}
+                                                    >
+                                                        <span className={`text-2xl font-bold transition ${isPlaying ? "text-indigo-600" : "text-gray-900"}`}>{item.letter}</span>
+                                                        <p className="text-[10px] text-gray-400 font-mono mt-1">{item.phonetic}</p>
+                                                        <Volume2 className={`w-3 h-3 mx-auto mt-1 transition ${isPlaying ? "text-indigo-500 animate-pulse" : "text-gray-300 group-hover:text-indigo-400"}`} />
+                                                    </button>
+                                                );
+                                            })}
                                         </div>
                                     )}
                                     {/* Confusing pairs */}
@@ -228,7 +259,7 @@ export default function LessonViewerPage() {
                                 <div key={vocab.id} className="bg-white border border-gray-200 p-4 hover:border-indigo-300 hover:shadow-md transition-all group">
                                     <div className="flex items-center justify-between mb-2">
                                         <span className="text-lg font-bold text-indigo-600">{vocab.word}</span>
-                                        <button className="p-1.5 text-gray-300 hover:text-indigo-600 hover:bg-indigo-50 transition">
+                                        <button onClick={() => speakText(vocab.word)} className="p-1.5 text-gray-300 hover:text-indigo-600 hover:bg-indigo-50 transition">
                                             <Volume2 className="w-4 h-4" />
                                         </button>
                                     </div>
