@@ -6,13 +6,13 @@ import { useParams, useRouter } from "next/navigation";
 import { Loader2, ArrowLeft, BookOpen, Star, Clock, Users, Award, ChevronRight, Play, TrendingUp, Target } from "lucide-react";
 import Link from "next/link";
 
-const levelColors: Record<string, { gradient: string; text: string; bg: string; badge: string }> = {
-    A1: { gradient: "from-emerald-500 to-teal-600", text: "text-emerald-600", bg: "bg-emerald-50", badge: "bg-emerald-100 text-emerald-700" },
-    A2: { gradient: "from-blue-500 to-indigo-600", text: "text-blue-600", bg: "bg-blue-50", badge: "bg-blue-100 text-blue-700" },
-    B1: { gradient: "from-violet-500 to-purple-600", text: "text-violet-600", bg: "bg-violet-50", badge: "bg-violet-100 text-violet-700" },
-    B2: { gradient: "from-orange-500 to-red-600", text: "text-orange-600", bg: "bg-orange-50", badge: "bg-orange-100 text-orange-700" },
-    C1: { gradient: "from-pink-500 to-rose-600", text: "text-pink-600", bg: "bg-pink-50", badge: "bg-pink-100 text-pink-700" },
-    C2: { gradient: "from-amber-500 to-yellow-600", text: "text-amber-600", bg: "bg-amber-50", badge: "bg-amber-100 text-amber-700" },
+const levelColors: Record<string, { gradient: string; text: string; bg: string; badge: string; hoverBorder: string; hoverText: string; hoverBg: string; iconColor: string }> = {
+    A1: { gradient: "from-blue-500 to-indigo-600", text: "text-blue-600", bg: "bg-blue-50", badge: "bg-blue-100 text-blue-700", hoverBorder: "hover:border-blue-300", hoverText: "group-hover:text-blue-700", hoverBg: "group-hover:bg-blue-600", iconColor: "text-blue-500" },
+    A2: { gradient: "from-blue-500 to-indigo-600", text: "text-blue-600", bg: "bg-blue-50", badge: "bg-blue-100 text-blue-700", hoverBorder: "hover:border-blue-300", hoverText: "group-hover:text-blue-700", hoverBg: "group-hover:bg-blue-600", iconColor: "text-blue-500" },
+    B1: { gradient: "from-violet-500 to-purple-600", text: "text-violet-600", bg: "bg-violet-50", badge: "bg-violet-100 text-violet-700", hoverBorder: "hover:border-violet-300", hoverText: "group-hover:text-violet-700", hoverBg: "group-hover:bg-violet-600", iconColor: "text-violet-500" },
+    B2: { gradient: "from-orange-500 to-red-600", text: "text-orange-600", bg: "bg-orange-50", badge: "bg-orange-100 text-orange-700", hoverBorder: "hover:border-orange-300", hoverText: "group-hover:text-orange-700", hoverBg: "group-hover:bg-orange-600", iconColor: "text-orange-500" },
+    C1: { gradient: "from-pink-500 to-rose-600", text: "text-pink-600", bg: "bg-pink-50", badge: "bg-pink-100 text-pink-700", hoverBorder: "hover:border-pink-300", hoverText: "group-hover:text-pink-700", hoverBg: "group-hover:bg-pink-600", iconColor: "text-pink-500" },
+    C2: { gradient: "from-amber-500 to-yellow-600", text: "text-amber-600", bg: "bg-amber-50", badge: "bg-amber-100 text-amber-700", hoverBorder: "hover:border-amber-300", hoverText: "group-hover:text-amber-700", hoverBg: "group-hover:bg-amber-600", iconColor: "text-amber-500" },
 };
 
 const levelLabel: Record<string, string> = {
@@ -47,7 +47,7 @@ export default function CourseDetailPage() {
     if (loading) {
         return (
             <div className="flex flex-col items-center justify-center min-h-[60vh]">
-                <Loader2 className="h-10 w-10 text-indigo-500 animate-spin mb-4" />
+                <Loader2 className="h-10 w-10 text-emerald-500 animate-spin mb-4" />
                 <p className="text-gray-500 font-medium">Đang tải khóa học...</p>
             </div>
         );
@@ -57,7 +57,7 @@ export default function CourseDetailPage() {
         return (
             <div className="text-center py-20">
                 <p className="text-gray-500 mb-4">Không tìm thấy khóa học này.</p>
-                <Link href="/dashboard/courses" className="text-indigo-600 hover:underline">Quay lại</Link>
+                <Link href="/dashboard/courses" className="text-teal-600 hover:underline">Quay lại</Link>
             </div>
         );
     }
@@ -129,7 +129,7 @@ export default function CourseDetailPage() {
                     <div className="flex-1">
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="text-xl font-heading font-bold text-gray-900 flex items-center gap-2">
-                                <BookOpen className="w-5 h-5 text-indigo-500" />
+                                <BookOpen className={`w-5 h-5 ${colors.iconColor}`} />
                                 Nội dung khóa học
                             </h2>
                             <span className="text-sm text-gray-400">{lessons.length} bài</span>
@@ -145,7 +145,7 @@ export default function CourseDetailPage() {
                                     <Link
                                         key={lesson.id}
                                         href={`/dashboard/courses/lessons/${lesson.id}`}
-                                        className="flex items-center gap-4 bg-white border border-gray-200 hover:border-indigo-300 hover:shadow-md px-5 py-4 transition-all duration-300 group"
+                                        className={`flex items-center gap-4 bg-white border border-gray-200 ${colors.hoverBorder} hover:shadow-md px-5 py-4 transition-all duration-300 group`}
                                     >
                                         {/* Number */}
                                         <div className={`w-11 h-11 flex-shrink-0 bg-gradient-to-br ${colors.gradient} flex items-center justify-center text-white font-bold text-sm shadow-sm`}>
@@ -154,7 +154,7 @@ export default function CourseDetailPage() {
 
                                         {/* Info */}
                                         <div className="flex-1 min-w-0">
-                                            <h3 className="font-semibold text-gray-900 group-hover:text-indigo-700 transition text-[15px] truncate">
+                                            <h3 className={`font-semibold text-gray-900 ${colors.hoverText} transition text-[15px] truncate`}>
                                                 {lesson.title}
                                             </h3>
                                             <div className="flex items-center gap-2 mt-1.5 flex-wrap">
@@ -172,7 +172,7 @@ export default function CourseDetailPage() {
                                                 <Star className="w-3.5 h-3.5 fill-amber-400" />
                                                 <span className="text-xs font-bold">+{lesson.xp_reward || 50}</span>
                                             </div>
-                                            <div className="w-9 h-9 bg-gray-100 group-hover:bg-indigo-600 flex items-center justify-center text-gray-400 group-hover:text-white transition-all rounded-full">
+                                            <div className={`w-9 h-9 bg-gray-100 ${colors.hoverBg} flex items-center justify-center text-gray-400 group-hover:text-white transition-all rounded-full`}>
                                                 <Play className="w-4 h-4 ml-0.5" />
                                             </div>
                                         </div>
