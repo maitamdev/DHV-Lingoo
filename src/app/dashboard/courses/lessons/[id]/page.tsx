@@ -397,50 +397,9 @@ export default function LessonViewerPage() {
                                     <p className="text-sm text-emerald-600 mt-1">{ex.instruction}</p>
                                 </div>
                                 <div className="p-5">
-                                    {/* Matching */}
-                                    {ex.content?.type === "matching" && (
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {ex.content.pairs?.map((pair: any, i: number) => (
-                                                <div key={i} className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-100">
-                                                    <span className="w-10 h-10 bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-lg">{pair.left}</span>
-                                                    <span className="text-gray-300">→</span>
-                                                    <span className="w-10 h-10 bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-lg border border-dashed border-blue-200">{pair.right}</span>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                    {/* Fill Blank */}
-                                    {ex.content?.type === "fill_blank" && (
-                                        <div className="space-y-3">
-                                            {ex.content.exercises?.map((item: any, i: number) => (
-                                                <div key={i} className="flex items-center gap-2 p-4 bg-gray-50 border border-gray-100 text-center">
-                                                    {item.sequence.map((ch: string, ci: number) => (
-                                                        <span key={ci} className={`w-10 h-10 flex items-center justify-center font-bold text-lg ${ch === "___" ? "bg-amber-100 border-2 border-dashed border-amber-300 text-amber-600" : "bg-white border border-gray-200 text-gray-800"
-                                                            }`}>
-                                                            {ch === "___" ? "?" : ch}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                    {/* Unscramble */}
-                                    {ex.content?.type === "unscramble" && (
-                                        <div className="space-y-4">
-                                            {ex.content.exercises?.map((item: any, i: number) => (
-                                                <div key={i} className="p-4 bg-gray-50 border border-gray-100">
-                                                    <p className="text-xs text-gray-400 mb-3">Sắp xếp lại:</p>
-                                                    <div className="flex gap-2 flex-wrap">
-                                                        {item.scrambled.map((ch: string, ci: number) => (
-                                                            <button key={ci} className="w-12 h-12 bg-orange-100 border border-orange-200 text-orange-700 font-bold text-lg hover:bg-orange-200 transition cursor-grab">
-                                                                {ch}
-                                                            </button>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
+                                    {ex.content?.type === "matching" && <MatchingGame pairs={ex.content.pairs} />}
+                                    {ex.content?.type === "fill_blank" && <FillBlankGame exercises={ex.content.exercises} />}
+                                    {ex.content?.type === "unscramble" && <UnscrambleGame exercises={ex.content.exercises} />}
                                 </div>
                             </div>
                         ))}
@@ -555,6 +514,222 @@ function SectionTitle({ emoji, title, subtitle }: { emoji: string; title: string
                 <span>{emoji}</span> {title}
             </h2>
             <p className="text-sm text-gray-400 mt-1">{subtitle}</p>
+        </div>
+    );
+}
+
+// ===== INTERACTIVE GAME: Matching =====
+function MatchingGame({ pairs }: { pairs: any[] }) {
+    const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
+    const [matched, setMatched] = useState<Record<string, string>>({});
+    const [wrong, setWrong] = useState<string | null>(null);
+    const shuffledRight = useState(() => [...pairs].sort(() => Math.random() - 0.5).map(p => p.right))[0];
+    const allMatched = Object.keys(matched).length === pairs.length;
+
+    function handleLeftClick(letter: string) {
+        if (matched[letter]) return;
+        setSelectedLeft(letter);
+        setWrong(null);
+    }
+    function handleRightClick(letter: string) {
+        if (!selectedLeft || Object.values(matched).includes(letter)) return;
+        const pair = pairs.find(p => p.left === selectedLeft);
+        if (pair && pair.right === letter) {
+            setMatched(prev => ({ ...prev, [selectedLeft]: letter }));
+            setSelectedLeft(null);
+        } else {
+            setWrong(letter);
+            setTimeout(() => setWrong(null), 600);
+        }
+    }
+
+    return (
+        <div>
+            <div className="flex gap-8 justify-center">
+                {/* Left column */}
+                <div className="space-y-3">
+                    <p className="text-xs text-gray-400 font-bold text-center mb-2">CHỮ HOA</p>
+                    {pairs.map((pair: any) => (
+                        <button key={pair.left} onClick={() => handleLeftClick(pair.left)}
+                            className={`w-14 h-14 flex items-center justify-center font-bold text-xl transition-all ${matched[pair.left] ? "bg-emerald-100 border-emerald-400 text-emerald-700"
+                                    : selectedLeft === pair.left ? "bg-indigo-100 border-indigo-500 text-indigo-700 scale-110 shadow-lg"
+                                        : "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+                                } border-2`}>
+                            {pair.left} {matched[pair.left] ? "✓" : ""}
+                        </button>
+                    ))}
+                </div>
+                {/* Right column */}
+                <div className="space-y-3">
+                    <p className="text-xs text-gray-400 font-bold text-center mb-2">chữ thường</p>
+                    {shuffledRight.map((letter: string) => {
+                        const isUsed = Object.values(matched).includes(letter);
+                        return (
+                            <button key={letter} onClick={() => handleRightClick(letter)}
+                                className={`w-14 h-14 flex items-center justify-center font-bold text-xl transition-all border-2 ${isUsed ? "bg-emerald-100 border-emerald-400 text-emerald-700"
+                                        : wrong === letter ? "bg-red-100 border-red-400 text-red-700 animate-pulse"
+                                            : "bg-gray-50 border-dashed border-gray-300 text-gray-600 hover:bg-indigo-50 hover:border-indigo-300"
+                                    }`}>
+                                {letter}
+                            </button>
+                        );
+                    })}
+                </div>
+            </div>
+            {allMatched && (
+                <div className="mt-4 text-center py-3 bg-emerald-50 border border-emerald-200">
+                    <p className="text-emerald-700 font-bold">🎉 Tuyệt vời! Nối đúng tất cả!</p>
+                </div>
+            )}
+        </div>
+    );
+}
+
+// ===== INTERACTIVE GAME: Fill in the Blank =====
+function FillBlankGame({ exercises }: { exercises: any[] }) {
+    const [answers, setAnswers] = useState<Record<number, string>>({});
+    const [checked, setChecked] = useState<Record<number, boolean | null>>({});
+
+    function handleInput(index: number, value: string) {
+        const letter = value.toUpperCase().slice(-1);
+        setAnswers(prev => ({ ...prev, [index]: letter }));
+        const correct = exercises[index].answer.toUpperCase();
+        if (letter === correct) {
+            setChecked(prev => ({ ...prev, [index]: true }));
+        } else if (letter.length > 0) {
+            setChecked(prev => ({ ...prev, [index]: false }));
+            setTimeout(() => setChecked(prev => ({ ...prev, [index]: null })), 800);
+        }
+    }
+
+    return (
+        <div className="space-y-4">
+            {exercises.map((item: any, i: number) => (
+                <div key={i} className={`flex items-center gap-2 p-4 border transition-all ${checked[i] === true ? "bg-emerald-50 border-emerald-300" : checked[i] === false ? "bg-red-50 border-red-300" : "bg-gray-50 border-gray-100"
+                    }`}>
+                    <span className="w-7 h-7 bg-gray-200 text-gray-600 flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
+                    <div className="flex items-center gap-1.5">
+                        {item.sequence.map((ch: string, ci: number) => (
+                            ch === "___" ? (
+                                <input
+                                    key={ci}
+                                    type="text"
+                                    maxLength={1}
+                                    value={answers[i] || ""}
+                                    onChange={e => handleInput(i, e.target.value)}
+                                    disabled={checked[i] === true}
+                                    className={`w-12 h-12 text-center font-bold text-xl border-2 outline-none transition uppercase ${checked[i] === true ? "bg-emerald-100 border-emerald-400 text-emerald-700"
+                                            : checked[i] === false ? "bg-red-100 border-red-400 text-red-700 animate-pulse"
+                                                : "bg-white border-amber-300 text-amber-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                                        }`}
+                                />
+                            ) : (
+                                <span key={ci} className="w-12 h-12 bg-white border border-gray-200 flex items-center justify-center font-bold text-xl text-gray-800">
+                                    {ch}
+                                </span>
+                            )
+                        ))}
+                    </div>
+                    {checked[i] === true && <span className="ml-2 text-emerald-500 font-bold">✓</span>}
+                    {checked[i] === false && <span className="ml-2 text-red-500 font-bold">✗</span>}
+                </div>
+            ))}
+            {Object.values(checked).filter(v => v === true).length === exercises.length && (
+                <div className="text-center py-3 bg-emerald-50 border border-emerald-200">
+                    <p className="text-emerald-700 font-bold">🎉 Hoàn thành tất cả!</p>
+                </div>
+            )}
+        </div>
+    );
+}
+
+// ===== INTERACTIVE GAME: Unscramble =====
+function UnscrambleGame({ exercises }: { exercises: any[] }) {
+    const [gameState, setGameState] = useState<Record<number, { built: string[]; remaining: number[] }>>({});
+    const [results, setResults] = useState<Record<number, boolean | null>>({});
+
+    function initGame(index: number, scrambled: string[]) {
+        if (!gameState[index]) {
+            setGameState(prev => ({ ...prev, [index]: { built: [], remaining: scrambled.map((_: any, i: number) => i) } }));
+        }
+    }
+
+    function handleLetterClick(exIndex: number, letterIndex: number, scrambled: string[], answer: string) {
+        const state = gameState[exIndex] || { built: [], remaining: scrambled.map((_: any, i: number) => i) };
+        const newBuilt = [...state.built, scrambled[letterIndex]];
+        const newRemaining = state.remaining.filter((i: number) => i !== letterIndex);
+        setGameState(prev => ({ ...prev, [exIndex]: { built: newBuilt, remaining: newRemaining } }));
+
+        if (newBuilt.length === scrambled.length) {
+            const result = newBuilt.join("") === answer;
+            setResults(prev => ({ ...prev, [exIndex]: result }));
+        }
+    }
+
+    function handleReset(exIndex: number) {
+        setGameState(prev => {
+            const updated = { ...prev };
+            delete updated[exIndex];
+            return updated;
+        });
+        setResults(prev => {
+            const updated = { ...prev };
+            delete updated[exIndex];
+            return updated;
+        });
+    }
+
+    return (
+        <div className="space-y-5">
+            {exercises.map((item: any, i: number) => {
+                if (!gameState[i]) initGame(i, item.scrambled);
+                const state = gameState[i] || { built: [], remaining: item.scrambled.map((_: any, idx: number) => idx) };
+
+                return (
+                    <div key={i} className={`p-5 border transition-all ${results[i] === true ? "bg-emerald-50 border-emerald-300" : results[i] === false ? "bg-red-50 border-red-300" : "bg-gray-50 border-gray-100"
+                        }`}>
+                        {/* Built word display */}
+                        <div className="flex items-center gap-1.5 mb-4">
+                            <p className="text-xs text-gray-400 mr-2">Đáp án:</p>
+                            {item.scrambled.map((_: any, si: number) => (
+                                <span key={si} className={`w-12 h-12 flex items-center justify-center font-bold text-xl border-2 transition ${state.built[si]
+                                        ? results[i] === true ? "bg-emerald-100 border-emerald-400 text-emerald-700" : results[i] === false ? "bg-red-100 border-red-400 text-red-700" : "bg-indigo-50 border-indigo-300 text-indigo-700"
+                                        : "bg-white border-dashed border-gray-300 text-gray-300"
+                                    }`}>
+                                    {state.built[si] || "_"}
+                                </span>
+                            ))}
+                            {results[i] === true && <span className="ml-2 text-lg">🎉</span>}
+                            {results[i] === false && (
+                                <button onClick={() => handleReset(i)} className="ml-2 text-xs text-red-500 hover:underline flex items-center gap-1">
+                                    <RotateCcw className="w-3 h-3" /> Thử lại
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Scrambled letters to pick from */}
+                        {results[i] !== true && (
+                            <div className="flex gap-2 flex-wrap">
+                                {item.scrambled.map((ch: string, ci: number) => {
+                                    const isUsed = !state.remaining.includes(ci);
+                                    return (
+                                        <button
+                                            key={ci}
+                                            onClick={() => !isUsed && handleLetterClick(i, ci, item.scrambled, item.answer)}
+                                            disabled={isUsed || results[i] === false}
+                                            className={`w-12 h-12 font-bold text-lg transition-all border-2 ${isUsed ? "bg-gray-100 border-gray-200 text-gray-300 cursor-default"
+                                                    : "bg-orange-100 border-orange-300 text-orange-700 hover:bg-orange-200 hover:scale-105 cursor-pointer"
+                                                }`}
+                                        >
+                                            {ch}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </div>
+                );
+            })}
         </div>
     );
 }
