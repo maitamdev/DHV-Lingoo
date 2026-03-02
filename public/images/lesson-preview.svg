@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
   <defs>
     <linearGradient id="side-bg" x1="0" y1="0" x2="0" y2="500" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#7c3aed"/>
-      <stop offset="100%" stop-color="#4f46e5"/>
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#2563eb"/>
     </linearGradient>
   </defs>
   <!-- Window frame -->
@@ -21,14 +21,14 @@
   <text x="224" y="64" font-family="Arial,sans-serif" font-size="11" fill="#94a3b8">IELTS Writing → Lesson 3</text>
   <!-- Lesson header -->
   <text x="224" y="96" font-family="Arial,sans-serif" font-size="20" fill="#1e293b" font-weight="bold">Task 2: Opinion Essay</text>
-  <rect x="224" y="106" width="80" height="22" rx="11" fill="#ddd6fe"/>
-  <text x="240" y="121" font-family="Arial,sans-serif" font-size="11" fill="#7c3aed" font-weight="600">Writing</text>
+  <rect x="224" y="106" width="80" height="22" rx="11" fill="#cffafe"/>
+  <text x="240" y="121" font-family="Arial,sans-serif" font-size="11" fill="#06b6d4" font-weight="600">Writing</text>
   <rect x="312" y="106" width="100" height="22" rx="11" fill="#ccfbf1"/>
   <text x="324" y="121" font-family="Arial,sans-serif" font-size="11" fill="#0d9488" font-weight="600">Intermediate</text>
   <!-- Progress bar -->
   <rect x="224" y="140" width="558" height="8" rx="4" fill="#e2e8f0"/>
-  <rect x="224" y="140" width="340" height="8" rx="4" fill="#7c3aed"/>
-  <text x="572" y="138" font-family="Arial,sans-serif" font-size="11" fill="#7c3aed" font-weight="bold">60%</text>
+  <rect x="224" y="140" width="340" height="8" rx="4" fill="#06b6d4"/>
+  <text x="572" y="138" font-family="Arial,sans-serif" font-size="11" fill="#06b6d4" font-weight="bold">60%</text>
   <!-- Content area -->
   <rect x="224" y="164" width="380" height="320" rx="10" fill="white" stroke="#e2e8f0" stroke-width="1"/>
   <text x="244" y="194" font-family="Arial,sans-serif" font-size="14" fill="#1e293b" font-weight="bold">Introduction Structure</text>
@@ -48,21 +48,21 @@
   <!-- Navigation buttons -->
   <rect x="244" y="418" width="100" height="36" rx="8" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
   <text x="270" y="441" font-family="Arial,sans-serif" font-size="12" fill="#64748b">← Previous</text>
-  <rect x="484" y="418" width="100" height="36" rx="8" fill="#7c3aed"/>
+  <rect x="484" y="418" width="100" height="36" rx="8" fill="#06b6d4"/>
   <text x="518" y="441" font-family="Arial,sans-serif" font-size="12" fill="white">Next →</text>
   <!-- Right panel — vocab helper -->
   <rect x="620" y="164" width="162" height="320" rx="10" fill="white" stroke="#e2e8f0" stroke-width="1"/>
   <text x="636" y="194" font-family="Arial,sans-serif" font-size="13" fill="#1e293b" font-weight="bold">Vocabulary</text>
   <!-- Vocab cards -->
-  <rect x="636" y="210" width="130" height="52" rx="6" fill="#faf5ff"/>
-  <text x="646" y="232" font-family="Arial,sans-serif" font-size="11" fill="#7c3aed" font-weight="bold">Paraphrase</text>
-  <text x="646" y="248" font-family="Arial,sans-serif" font-size="9" fill="#a78bfa">to express the same...</text>
-  <rect x="636" y="272" width="130" height="52" rx="6" fill="#faf5ff"/>
-  <text x="646" y="294" font-family="Arial,sans-serif" font-size="11" fill="#7c3aed" font-weight="bold">Assertion</text>
-  <text x="646" y="310" font-family="Arial,sans-serif" font-size="9" fill="#a78bfa">a confident statement...</text>
-  <rect x="636" y="334" width="130" height="52" rx="6" fill="#faf5ff"/>
-  <text x="646" y="356" font-family="Arial,sans-serif" font-size="11" fill="#7c3aed" font-weight="bold">Elaborate</text>
-  <text x="646" y="372" font-family="Arial,sans-serif" font-size="9" fill="#a78bfa">to explain in detail...</text>
-  <rect x="636" y="400" width="130" height="36" rx="6" fill="#7c3aed"/>
+  <rect x="636" y="210" width="130" height="52" rx="6" fill="#ecfeff"/>
+  <text x="646" y="232" font-family="Arial,sans-serif" font-size="11" fill="#06b6d4" font-weight="bold">Paraphrase</text>
+  <text x="646" y="248" font-family="Arial,sans-serif" font-size="9" fill="#0891b2">to express the same...</text>
+  <rect x="636" y="272" width="130" height="52" rx="6" fill="#ecfeff"/>
+  <text x="646" y="294" font-family="Arial,sans-serif" font-size="11" fill="#06b6d4" font-weight="bold">Assertion</text>
+  <text x="646" y="310" font-family="Arial,sans-serif" font-size="9" fill="#0891b2">a confident statement...</text>
+  <rect x="636" y="334" width="130" height="52" rx="6" fill="#ecfeff"/>
+  <text x="646" y="356" font-family="Arial,sans-serif" font-size="11" fill="#06b6d4" font-weight="bold">Elaborate</text>
+  <text x="646" y="372" font-family="Arial,sans-serif" font-size="9" fill="#0891b2">to explain in detail...</text>
+  <rect x="636" y="400" width="130" height="36" rx="6" fill="#06b6d4"/>
   <text x="668" y="422" font-family="Arial,sans-serif" font-size="11" fill="white" font-weight="bold">Add to Deck</text>
 </svg>
