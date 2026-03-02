@@ -60,12 +60,11 @@ export function CollapsibleSidebar({
                     </SidebarContext.Provider>
                 </nav>
 
-                {/* Toggle & Notification */}
-                <div className={`px-3 py-2 flex items-center ${collapsed ? "justify-center" : "justify-between"}`}>
-                    {!collapsed && <NotificationBell />}
+                {/* Toggle Button */}
+                <div className={`px-3 py-2 ${collapsed ? "flex justify-center" : ""}`}>
                     <button
                         onClick={() => setCollapsed(!collapsed)}
-                        className="flex items-center justify-center gap-2 py-2.5 px-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-all rounded-lg text-xs font-medium"
+                        className="w-full flex items-center justify-center gap-2 py-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-all rounded-lg text-xs font-medium"
                         title={collapsed ? "Mở rộng" : "Thu gọn"}
                     >
                         {collapsed ? (
@@ -95,6 +94,7 @@ export function CollapsibleSidebar({
                                     <p className="text-sm font-semibold text-gray-900 truncate">{displayName}</p>
                                     <p className="text-xs text-gray-400">{role}</p>
                                 </div>
+                                <NotificationBell />
                                 {signOutButton}
                             </>
                         )}
