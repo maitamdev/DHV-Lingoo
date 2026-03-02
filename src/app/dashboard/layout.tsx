@@ -3,6 +3,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/auth/SignOutButton";
 import { NavItem } from "@/components/dashboard/NavItem";
+import FoxMascot from "@/components/FoxMascot";
 
 export default async function DashboardLayout({
     children,
@@ -104,6 +105,9 @@ export default async function DashboardLayout({
             <main className="flex-1 lg:ml-[240px] pt-14 lg:pt-0">
                 {children}
             </main>
+
+            {/* Fox AI Mascot */}
+            <FoxMascot />
         </div>
     );
 }
