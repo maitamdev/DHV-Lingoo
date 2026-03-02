@@ -1,8 +1,0 @@
-feat: implement Admin Dashboard and Lesson Management
-
-- Added courses and lessons tables to Supabase schema with RLS
-- Updated Next.js middleware to protect /admin routes
-- Created Admin Layout with sidebar navigation
-- Implemented Dashboard Overview, Courses CRUD, and Lessons CRUD
-- Added Users list view for admins
-- Added temporary /api/make-me-admin route for easy role elevation

@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Database, Seed & Migration Scripts (PROPRIETARY - DO NOT PUBLISH)
+*.sql
+seed-*.ts
+migrate-*.ts
+test-*.mjs
+test-*.ts
+.gitcommitmsg
