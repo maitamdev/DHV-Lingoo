@@ -18,6 +18,17 @@ export default function FoxMascot() {
     const [isBlinking, setIsBlinking] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
+    // Inject foxFloat keyframe globally
+    useEffect(() => {
+        const styleId = "fox-mascot-keyframes";
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement("style");
+            style.id = styleId;
+            style.textContent = `@keyframes foxFloat { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-4px); } }`;
+            document.head.appendChild(style);
+        }
+    }, []);
+
     // Blink animation
     useEffect(() => {
         const interval = setInterval(() => {
@@ -89,8 +100,8 @@ export default function FoxMascot() {
                                     <span className="text-lg mr-2 flex-shrink-0 mt-1">🦊</span>
                                 )}
                                 <div className={`max-w-[80%] px-3.5 py-2.5 text-sm leading-relaxed ${msg.role === "user"
-                                        ? "bg-cyan-600 text-white"
-                                        : "bg-white border border-gray-200 text-gray-800"
+                                    ? "bg-cyan-600 text-white"
+                                    : "bg-white border border-gray-200 text-gray-800"
                                     }`} style={{
                                         borderRadius: msg.role === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px"
                                     }}>
@@ -237,14 +248,6 @@ export default function FoxMascot() {
                     <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
                 </div>
             </button>
-
-            {/* CSS Animations */}
-            <style jsx>{`
-                @keyframes foxFloat {
-                    0%, 100% { transform: translateY(0px); }
-                    50% { transform: translateY(-4px); }
-                }
-            `}</style>
         </div>
     );
 }
