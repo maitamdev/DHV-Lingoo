@@ -55,7 +55,7 @@ async function callHuggingFace(messages: any[]): Promise<string> {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                model: "meta-llama/Llama-3.2-3B-Instruct",
+                model: "Qwen/Qwen2.5-72B-Instruct",
                 messages: messages,
                 max_tokens: 400,
                 temperature: 0.7,
