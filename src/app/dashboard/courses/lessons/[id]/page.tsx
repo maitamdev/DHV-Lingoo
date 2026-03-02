@@ -150,6 +150,28 @@ export default function LessonViewerPage() {
                 longest_streak: Math.max(profile.longest_streak || 0, newStreak),
                 last_active_date: today,
             }).eq("id", user.id);
+
+            // Create lesson completion notification
+            await supabase.from("notifications").insert({
+                user_id: user.id,
+                type: "lesson_complete",
+                title: "Hoàn thành bài học! 🎉",
+                message: `Bạn đã hoàn thành "${lesson.title}" và nhận được ${xpReward} XP.`,
+            });
+
+            // Check XP milestones
+            const newXP = (profile.xp || 0) + xpReward;
+            const milestones = [100, 500, 1000, 5000];
+            for (const ms of milestones) {
+                if ((profile.xp || 0) < ms && newXP >= ms) {
+                    await supabase.from("notifications").insert({
+                        user_id: user.id,
+                        type: "xp_milestone",
+                        title: `Cột mốc ${ms} XP! ⭐`,
+                        message: `Tuyệt vời! Bạn đã đạt ${ms} XP. Tiếp tục phát huy nhé!`,
+                    });
+                }
+            }
         }
 
         setLessonCompleted(true);

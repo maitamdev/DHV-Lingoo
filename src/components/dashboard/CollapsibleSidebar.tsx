@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { NotificationBell } from "./NotificationBell";
 
 export function CollapsibleSidebar({
     children,
@@ -59,11 +60,12 @@ export function CollapsibleSidebar({
                     </SidebarContext.Provider>
                 </nav>
 
-                {/* Toggle Button */}
-                <div className={`px-3 py-2 ${collapsed ? "flex justify-center" : ""}`}>
+                {/* Toggle & Notification */}
+                <div className={`px-3 py-2 flex items-center ${collapsed ? "justify-center" : "justify-between"}`}>
+                    {!collapsed && <NotificationBell />}
                     <button
                         onClick={() => setCollapsed(!collapsed)}
-                        className="w-full flex items-center justify-center gap-2 py-2.5 text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-all rounded-lg text-xs font-medium"
+                        className="flex items-center justify-center gap-2 py-2.5 px-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-all rounded-lg text-xs font-medium"
                         title={collapsed ? "Mở rộng" : "Thu gọn"}
                     >
                         {collapsed ? (

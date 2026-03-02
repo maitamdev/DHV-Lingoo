@@ -5,6 +5,7 @@ import SignOutButton from "@/components/auth/SignOutButton";
 import { NavItem } from "@/components/dashboard/NavItem";
 import { CollapsibleSidebar } from "@/components/dashboard/CollapsibleSidebar";
 import { MobileMenu } from "@/components/dashboard/MobileMenu";
+import { NotificationBell } from "@/components/dashboard/NotificationBell";
 import FoxMascot from "@/components/FoxMascot";
 
 export default async function DashboardLayout({
@@ -67,13 +68,16 @@ export default async function DashboardLayout({
                     <Image src="/images/logo.png" alt="DHV-Lingoo" width={32} height={32} className="h-8 w-8 rounded-full object-cover" />
                     <span className="font-bold text-gray-900">DHV-Lingoo</span>
                 </Link>
-                <MobileMenu
-                    displayName={displayName}
-                    role={role}
-                    avatarUrl={profile?.avatar_url}
-                    signOutButton={<SignOutButton />}
-                    isAdmin={profile?.role === "admin"}
-                />
+                <div className="flex items-center gap-1">
+                    <NotificationBell />
+                    <MobileMenu
+                        displayName={displayName}
+                        role={role}
+                        avatarUrl={profile?.avatar_url}
+                        signOutButton={<SignOutButton />}
+                        isAdmin={profile?.role === "admin"}
+                    />
+                </div>
             </header>
 
             {/* Main content */}
