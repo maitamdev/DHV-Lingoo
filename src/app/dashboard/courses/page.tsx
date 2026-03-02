@@ -2,20 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Loader2, BookOpen, GraduationCap, ArrowRight } from "lucide-react";
+import { Loader2, GraduationCap, Star, Clock, BookOpen } from "lucide-react";
 import Link from "next/link";
 
-const levelColors: Record<string, { gradient: string; badge: string; glow: string }> = {
-    A1: { gradient: "from-emerald-500 to-teal-600", badge: "bg-emerald-400/20 text-emerald-100", glow: "shadow-emerald-500/20" },
-    A2: { gradient: "from-blue-500 to-indigo-600", badge: "bg-blue-400/20 text-blue-100", glow: "shadow-blue-500/20" },
-    B1: { gradient: "from-violet-500 to-purple-600", badge: "bg-violet-400/20 text-violet-100", glow: "shadow-violet-500/20" },
-    B2: { gradient: "from-orange-500 to-red-600", badge: "bg-orange-400/20 text-orange-100", glow: "shadow-orange-500/20" },
-    C1: { gradient: "from-pink-500 to-rose-600", badge: "bg-pink-400/20 text-pink-100", glow: "shadow-pink-500/20" },
-    C2: { gradient: "from-amber-500 to-yellow-600", badge: "bg-amber-400/20 text-amber-100", glow: "shadow-amber-500/20" },
-};
-
-const levelEmojis: Record<string, string> = {
-    A1: "🌱", A2: "🌿", B1: "🌳", B2: "🔥", C1: "⚡", C2: "👑",
+// Thumbnail gradient per level (acts as image placeholder)
+const levelThumbnails: Record<string, { bg: string; emoji: string; label: string }> = {
+    A1: { bg: "from-emerald-400 via-teal-500 to-cyan-600", emoji: "🌱", label: "Vỡ Lòng" },
+    A2: { bg: "from-blue-400 via-indigo-500 to-violet-600", emoji: "📖", label: "Sơ Cấp" },
+    B1: { bg: "from-violet-400 via-purple-500 to-pink-600", emoji: "💡", label: "Trung Cấp" },
+    B2: { bg: "from-orange-400 via-red-500 to-rose-600", emoji: "🔥", label: "Trên Trung Cấp" },
+    C1: { bg: "from-pink-400 via-rose-500 to-purple-600", emoji: "⚡", label: "Cao Cấp" },
+    C2: { bg: "from-amber-400 via-yellow-500 to-orange-600", emoji: "👑", label: "Thành Thạo" },
 };
 
 export default function CoursesPage() {
@@ -76,52 +73,63 @@ export default function CoursesPage() {
             </div>
 
             {courses.length === 0 ? (
-                <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm max-w-3xl mx-auto">
+                <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm max-w-sm">
                     <GraduationCap className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                    <p className="text-gray-500 text-lg">Chưa có khóa học nào được tạo.</p>
+                    <p className="text-gray-500 text-lg">Chưa có khóa học nào.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                <div className="flex flex-wrap gap-6">
                     {courses.map(course => {
-                        const colors = levelColors[course.level] || levelColors["A1"];
-                        const emoji = levelEmojis[course.level] || "📘";
-                        const count = lessonCounts[course.id] || 0;
+                        const thumb = levelThumbnails[course.level] || levelThumbnails["A1"];
+                        const lessonCount = lessonCounts[course.id] || 0;
+                        const totalXP = lessonCount * 50;
+                        const estimatedHours = Math.max(1, Math.round(lessonCount * 0.5));
 
                         return (
                             <Link
                                 key={course.id}
                                 href={`/dashboard/courses/${course.id}`}
-                                className={`group relative bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl ${colors.glow} transition-all duration-300 hover:-translate-y-2`}
+                                className="group bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 w-full sm:w-72"
                             >
-                                {/* Gradient Header */}
-                                <div className={`bg-gradient-to-br ${colors.gradient} px-6 py-8 relative overflow-hidden`}>
-                                    {/* Decorative circles */}
-                                    <div className="absolute -top-6 -right-6 w-24 h-24 bg-white/10 rounded-full"></div>
-                                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-white/10 rounded-full"></div>
-
-                                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold ${colors.badge} mb-4`}>
-                                        {emoji} Level {course.level}
+                                {/* Thumbnail */}
+                                <div className={`relative h-40 bg-gradient-to-br ${thumb.bg} flex items-center justify-center overflow-hidden`}>
+                                    {/* Decorative blobs */}
+                                    <div className="absolute -top-6 -right-6 w-28 h-28 bg-white/15 rounded-full blur-sm" />
+                                    <div className="absolute -bottom-4 -left-4 w-20 h-20 bg-black/10 rounded-full blur-sm" />
+                                    {/* Level badge */}
+                                    <span className="absolute top-3 left-3 bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full border border-white/30 uppercase tracking-wide">
+                                        {thumb.label}
                                     </span>
-                                    <h3 className="text-xl font-heading font-bold text-white leading-tight">
-                                        {course.title}
-                                    </h3>
+                                    {/* Big emoji center */}
+                                    <span className="text-6xl drop-shadow-lg">{thumb.emoji}</span>
                                 </div>
 
-                                {/* Body */}
-                                <div className="px-6 py-5">
-                                    <p className="text-sm text-gray-500 line-clamp-2 mb-4 min-h-[40px]">
+                                {/* Content */}
+                                <div className="p-4">
+                                    <h3 className="font-heading font-bold text-gray-900 text-base leading-snug mb-1.5 group-hover:text-indigo-700 transition line-clamp-2">
+                                        {course.title}
+                                    </h3>
+                                    <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">
                                         {course.description}
                                     </p>
+                                </div>
 
-                                    <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-1.5 text-sm text-gray-400">
-                                            <BookOpen className="w-4 h-4" />
-                                            <span className="font-medium">{count} bài học</span>
-                                        </div>
-                                        <div className="flex items-center gap-1 text-sm font-bold text-indigo-600 group-hover:gap-2 transition-all duration-300">
-                                            Xem khóa học <ArrowRight className="w-4 h-4" />
-                                        </div>
+                                {/* Stats bar */}
+                                <div className="px-4 pb-4 flex items-center justify-between border-t border-gray-50 pt-3">
+                                    <div className="flex items-center gap-3 text-sm text-gray-400">
+                                        <span className="flex items-center gap-1">
+                                            <BookOpen className="w-3.5 h-3.5" />
+                                            {lessonCount} bài
+                                        </span>
+                                        <span className="flex items-center gap-1">
+                                            <Clock className="w-3.5 h-3.5" />
+                                            {estimatedHours}h
+                                        </span>
                                     </div>
+                                    <span className="text-sm font-bold text-indigo-600 flex items-center gap-1">
+                                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                                        {totalXP} XP
+                                    </span>
                                 </div>
                             </Link>
                         );
