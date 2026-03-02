@@ -32,13 +32,13 @@ export default function Navbar() {
     return (
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-                    ? "bg-background/80 backdrop-blur-lg border-b shadow-sm"
-                    : "bg-transparent"
+                ? "bg-background/80 backdrop-blur-lg border-b shadow-sm"
+                : "bg-transparent"
                 }`}
         >
-            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 sm:h-20">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 h-16 sm:h-20 overflow-hidden">
                 {/* Logo */}
-                <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+                <Link href="/" className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">
                     <Image
                         src="/images/logo.png"
                         alt="DHV-Lingoo"
@@ -46,18 +46,18 @@ export default function Navbar() {
                         height={56}
                         className="h-10 w-10 sm:h-14 sm:w-14 rounded-full transition-transform group-hover:scale-110 object-cover drop-shadow-lg"
                     />
-                    <span className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+                    <span className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent whitespace-nowrap">
                         DHV-Lingoo
                     </span>
                 </Link>
 
                 {/* Desktop nav */}
-                <nav className="hidden lg:flex items-center gap-1">
+                <nav className="hidden lg:flex items-center gap-1 flex-shrink min-w-0">
                     {navLinks.map((link) => (
                         <a
                             key={link.href}
                             href={link.href}
-                            className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-accent"
+                            className="px-3 xl:px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-accent whitespace-nowrap"
                         >
                             {link.label}
                         </a>
@@ -65,7 +65,7 @@ export default function Navbar() {
                 </nav>
 
                 {/* Desktop actions */}
-                <div className="hidden lg:flex items-center gap-3">
+                <div className="hidden lg:flex items-center gap-2 xl:gap-3 flex-shrink-0">
                     <Button variant="ghost" asChild>
                         <Link href="/login">Đăng nhập</Link>
                     </Button>

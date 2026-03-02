@@ -5,7 +5,7 @@ import { ArrowRight, Play } from "lucide-react";
 
 export default function Hero() {
     return (
-        <section className="relative min-h-[90vh] sm:min-h-screen flex items-center overflow-hidden pt-20 sm:pt-16 pb-12 sm:pb-0">
+        <section className="relative min-h-[90vh] sm:min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 pb-12 sm:pb-0 overflow-x-hidden">
             {/* Animated background blobs */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute top-10 sm:top-20 left-4 sm:left-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-300 dark:bg-cyan-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob" />
@@ -14,9 +14,9 @@ export default function Hero() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
                     {/* Left content */}
-                    <div className="space-y-5 sm:space-y-8 text-center lg:text-left">
+                    <div className="space-y-5 sm:space-y-8 text-center md:text-left">
                         <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 border border-primary/20 text-xs sm:text-sm text-primary font-medium">
                             <span className="relative flex h-2 w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
@@ -36,13 +36,13 @@ export default function Hero() {
                             </span>
                         </h1>
 
-                        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed mx-auto lg:mx-0">
+                        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed mx-auto md:mx-0">
                             Bài học tương tác, trắc nghiệm thông minh, flashcards ghi nhớ
                             theo chu kỳ, và theo dõi tiến trình thời gian thực — tất cả
                             trong một nền tảng duy nhất.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
                             <Button
                                 size="lg"
                                 asChild
@@ -67,7 +67,7 @@ export default function Hero() {
                         </div>
 
                         {/* Social proof */}
-                        <div className="flex items-center gap-4 pt-2 sm:pt-4 justify-center lg:justify-start">
+                        <div className="flex items-center gap-4 pt-2 sm:pt-4 justify-center md:justify-start">
                             <div className="flex -space-x-3">
                                 {[1, 2, 3].map((i) => (
                                     <div
@@ -103,8 +103,8 @@ export default function Hero() {
                     </div>
 
                     {/* Right hero image */}
-                    <div className="relative flex justify-center lg:justify-end mt-4 lg:mt-0">
-                        <div className="relative w-full max-w-sm sm:max-w-md lg:max-w-lg">
+                    <div className="relative flex justify-center md:justify-end mt-4 md:mt-0">
+                        <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
                             <div className="absolute inset-0 bg-gradient-to-tr from-cyan-400/20 to-blue-500/20 rounded-3xl blur-2xl" />
                             <Image
                                 src="/images/hero-illustration.svg"
