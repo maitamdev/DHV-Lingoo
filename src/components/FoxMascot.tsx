@@ -146,98 +146,42 @@ export default function FoxMascot() {
                 </div>
             )}
 
-            {/* Fox Character (3D CSS) */}
+            {/* Fox Character — Logo Image */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="group relative w-16 h-16 cursor-pointer transition-transform hover:scale-110 active:scale-95"
                 title="Hỏi Lingoo 🦊"
-                style={{ transformStyle: "preserve-3d" }}
             >
-                {/* Glow effect */}
-                <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{ background: "radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 70%)", transform: "scale(1.8)" }}
+                {/* Glow ring */}
+                <div className="absolute inset-[-4px] rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                        background: "conic-gradient(from 0deg, #06b6d4, #22d3ee, #67e8f9, #06b6d4)",
+                        animation: "foxFloat 3s ease-in-out infinite"
+                    }}
                 />
 
                 {/* Shadow */}
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-12 h-3 bg-black/10 rounded-full blur-sm"
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-3 bg-cyan-500/20 rounded-full blur-md"
                     style={{ animation: "foxFloat 3s ease-in-out infinite" }}
                 />
 
-                {/* Fox body */}
-                <div className="relative w-16 h-16" style={{ animation: "foxFloat 3s ease-in-out infinite" }}>
-                    {/* Head base (3D) */}
-                    <div className="absolute inset-0 rounded-full"
-                        style={{
-                            background: "linear-gradient(135deg, #22d3ee 0%, #06b6d4 40%, #0891b2 100%)",
-                            boxShadow: "inset -4px -4px 8px rgba(0,0,0,0.15), inset 3px 3px 6px rgba(255,255,255,0.2), 0 4px 12px rgba(6,182,212,0.4)",
-                            transform: "rotateY(-5deg) rotateX(5deg)"
-                        }}
-                    />
-
-                    {/* Ears */}
-                    <div className="absolute -top-2 left-1 w-0 h-0"
-                        style={{
-                            borderLeft: "8px solid transparent",
-                            borderRight: "8px solid transparent",
-                            borderBottom: "14px solid #06b6d4",
-                            filter: "drop-shadow(1px -1px 1px rgba(0,0,0,0.1))",
-                            transform: "rotate(-15deg)"
-                        }}
-                    />
-                    <div className="absolute -top-2 right-1 w-0 h-0"
-                        style={{
-                            borderLeft: "8px solid transparent",
-                            borderRight: "8px solid transparent",
-                            borderBottom: "14px solid #0891b2",
-                            filter: "drop-shadow(-1px -1px 1px rgba(0,0,0,0.1))",
-                            transform: "rotate(15deg)"
-                        }}
-                    />
-                    {/* Inner ears */}
-                    <div className="absolute -top-0.5 left-2.5 w-0 h-0"
-                        style={{ borderLeft: "4px solid transparent", borderRight: "4px solid transparent", borderBottom: "8px solid #67e8f9", transform: "rotate(-15deg)" }}
-                    />
-                    <div className="absolute -top-0.5 right-2.5 w-0 h-0"
-                        style={{ borderLeft: "4px solid transparent", borderRight: "4px solid transparent", borderBottom: "8px solid #67e8f9", transform: "rotate(15deg)" }}
-                    />
-
-                    {/* Eyes */}
-                    <div className="absolute top-5 left-4 flex gap-4">
-                        <div className="relative">
-                            <div className={`w-3 h-3 bg-white rounded-full shadow-inner transition-all ${isBlinking ? "scale-y-[0.1]" : ""}`}>
-                                <div className="absolute top-0.5 left-0.5 w-2 h-2 bg-gray-900 rounded-full">
-                                    <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="relative">
-                            <div className={`w-3 h-3 bg-white rounded-full shadow-inner transition-all ${isBlinking ? "scale-y-[0.1]" : ""}`}>
-                                <div className="absolute top-0.5 left-0.5 w-2 h-2 bg-gray-900 rounded-full">
-                                    <div className="absolute top-0 right-0 w-1 h-1 bg-white rounded-full"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Nose */}
-                    <div className="absolute top-8 left-1/2 -translate-x-1/2 w-2 h-1.5 bg-gray-800 rounded-full" />
-
-                    {/* Mouth (smile) */}
-                    <div className="absolute top-9.5 left-1/2 -translate-x-1/2 w-4 h-2 border-b-2 border-gray-700 rounded-b-full" />
-
-                    {/* Cheeks */}
-                    <div className="absolute top-7 left-1 w-2.5 h-1.5 bg-cyan-300/40 rounded-full blur-[1px]" />
-                    <div className="absolute top-7 right-1 w-2.5 h-1.5 bg-cyan-300/40 rounded-full blur-[1px]" />
-
-                    {/* Snout highlight */}
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-6 h-4 rounded-full"
-                        style={{ background: "radial-gradient(ellipse, rgba(103,232,249,0.4) 0%, transparent 70%)" }}
+                {/* Logo Image */}
+                <div className="relative w-16 h-16 rounded-full overflow-hidden border-2 border-cyan-400/50"
+                    style={{
+                        animation: "foxFloat 3s ease-in-out infinite",
+                        boxShadow: "0 0 20px rgba(6,182,212,0.4), 0 4px 12px rgba(0,0,0,0.2)"
+                    }}
+                >
+                    <img
+                        src="/images/logo.png"
+                        alt="Lingoo AI"
+                        className="w-full h-full object-cover"
                     />
                 </div>
 
-                {/* Notification dot when chat closed */}
+                {/* Notification dot */}
                 {!isOpen && (
-                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center border-2 border-white shadow-md">
+                    <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center border-2 border-white shadow-md animate-pulse">
                         <span className="text-[9px] text-white font-bold">AI</span>
                     </div>
                 )}
