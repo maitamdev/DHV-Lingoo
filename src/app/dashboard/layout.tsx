@@ -81,7 +81,11 @@ export default async function DashboardLayout({
             </header>
 
             {/* Main content */}
-            <main className="flex-1 pt-14 lg:pt-0">
+            <main className="flex-1 pt-14 lg:pt-0 relative">
+                {/* Desktop notification bell - top right corner */}
+                <div className="hidden lg:block fixed top-4 right-6 z-30">
+                    <NotificationBell />
+                </div>
                 {children}
             </main>
 

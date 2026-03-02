@@ -94,7 +94,6 @@ export function CollapsibleSidebar({
                                     <p className="text-sm font-semibold text-gray-900 truncate">{displayName}</p>
                                     <p className="text-xs text-gray-400">{role}</p>
                                 </div>
-                                <NotificationBell />
                                 {signOutButton}
                             </>
                         )}
