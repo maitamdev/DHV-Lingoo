@@ -46,6 +46,8 @@ export default function LessonViewerPage() {
     const [quizSubmitted, setQuizSubmitted] = useState(false);
     const [score, setScore] = useState(0);
     const [playingLetter, setPlayingLetter] = useState<string | null>(null);
+    const [lessonCompleted, setLessonCompleted] = useState(false);
+    const [completing, setCompleting] = useState(false);
 
     const speakText = useCallback((text: string, lang: string = "en-US") => {
         if (typeof window === "undefined" || !window.speechSynthesis) return;
@@ -86,7 +88,72 @@ export default function LessonViewerPage() {
         if (quizzesRes.data) setQuizzes(quizzesRes.data);
         if (exercisesRes.data) setExercises(exercisesRes.data);
         if (sectionsRes.data) setSections(sectionsRes.data);
+
+        // Check existing completion progress
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+            const { data: progress } = await supabase
+                .from("lesson_progress")
+                .select("completed")
+                .eq("user_id", user.id)
+                .eq("lesson_id", id)
+                .single();
+            if (progress?.completed) setLessonCompleted(true);
+        }
+
         setLoading(false);
+    }
+
+    async function completeLesson() {
+        if (!lesson || completing || lessonCompleted) return;
+        setCompleting(true);
+
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) { setCompleting(false); return; }
+
+        const xpReward = lesson.xp_reward || 10;
+        const quizScore = quizzes.length > 0 ? Math.round((score / quizzes.length) * 100) : 100;
+
+        // Upsert lesson progress
+        await supabase.from("lesson_progress").upsert({
+            user_id: user.id,
+            lesson_id: lesson.id,
+            course_id: lesson.course_id,
+            completed: true,
+            score: quizScore,
+            xp_earned: xpReward,
+            completed_at: new Date().toISOString(),
+        }, { onConflict: "user_id,lesson_id" });
+
+        // Update profile XP and streak
+        const { data: profile } = await supabase
+            .from("profiles")
+            .select("xp, streak, longest_streak, last_active_date")
+            .eq("id", user.id)
+            .single();
+
+        if (profile) {
+            const today = new Date().toISOString().split("T")[0];
+            const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+            const lastActive = profile.last_active_date;
+
+            let newStreak = profile.streak || 0;
+            if (lastActive === yesterday) {
+                newStreak += 1;
+            } else if (lastActive !== today) {
+                newStreak = 1;
+            }
+
+            await supabase.from("profiles").update({
+                xp: (profile.xp || 0) + xpReward,
+                streak: newStreak,
+                longest_streak: Math.max(profile.longest_streak || 0, newStreak),
+                last_active_date: today,
+            }).eq("id", user.id);
+        }
+
+        setLessonCompleted(true);
+        setCompleting(false);
     }
 
     const summaries = sections.filter(s => s.type === "summary");
@@ -497,9 +564,32 @@ export default function LessonViewerPage() {
 
                 {/* Complete Button */}
                 <div className="pt-8 pb-4">
-                    <button className="w-full py-4 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-bold text-lg shadow-lg shadow-indigo-500/30 hover:-translate-y-1 transition-all flex items-center justify-center gap-3">
-                        <CheckCircle className="w-6 h-6" />
-                        Hoàn Thành & Nhận {lesson.xp_reward} XP
+                    <button
+                        onClick={completeLesson}
+                        disabled={lessonCompleted || completing}
+                        className={`w-full py-4 font-bold text-lg shadow-lg flex items-center justify-center gap-3 transition-all ${lessonCompleted
+                            ? "bg-emerald-500 text-white shadow-emerald-500/30 cursor-default"
+                            : completing
+                                ? "bg-gray-400 text-white cursor-wait"
+                                : "bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-indigo-500/30 hover:-translate-y-1"
+                            }`}
+                    >
+                        {lessonCompleted ? (
+                            <>
+                                <CheckCircle className="w-6 h-6" />
+                                Đã hoàn thành ✓
+                            </>
+                        ) : completing ? (
+                            <>
+                                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                Đang lưu...
+                            </>
+                        ) : (
+                            <>
+                                <CheckCircle className="w-6 h-6" />
+                                Hoàn Thành & Nhận {lesson.xp_reward} XP
+                            </>
+                        )}
                     </button>
                 </div>
             </div>
@@ -552,8 +642,8 @@ function MatchingGame({ pairs }: { pairs: any[] }) {
                     {pairs.map((pair: any) => (
                         <button key={pair.left} onClick={() => handleLeftClick(pair.left)}
                             className={`w-14 h-14 flex items-center justify-center font-bold text-xl transition-all ${matched[pair.left] ? "bg-emerald-100 border-emerald-400 text-emerald-700"
-                                    : selectedLeft === pair.left ? "bg-indigo-100 border-indigo-500 text-indigo-700 scale-110 shadow-lg"
-                                        : "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+                                : selectedLeft === pair.left ? "bg-indigo-100 border-indigo-500 text-indigo-700 scale-110 shadow-lg"
+                                    : "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
                                 } border-2`}>
                             {pair.left} {matched[pair.left] ? "✓" : ""}
                         </button>
@@ -567,8 +657,8 @@ function MatchingGame({ pairs }: { pairs: any[] }) {
                         return (
                             <button key={letter} onClick={() => handleRightClick(letter)}
                                 className={`w-14 h-14 flex items-center justify-center font-bold text-xl transition-all border-2 ${isUsed ? "bg-emerald-100 border-emerald-400 text-emerald-700"
-                                        : wrong === letter ? "bg-red-100 border-red-400 text-red-700 animate-pulse"
-                                            : "bg-gray-50 border-dashed border-gray-300 text-gray-600 hover:bg-indigo-50 hover:border-indigo-300"
+                                    : wrong === letter ? "bg-red-100 border-red-400 text-red-700 animate-pulse"
+                                        : "bg-gray-50 border-dashed border-gray-300 text-gray-600 hover:bg-indigo-50 hover:border-indigo-300"
                                     }`}>
                                 {letter}
                             </button>
@@ -619,8 +709,8 @@ function FillBlankGame({ exercises }: { exercises: any[] }) {
                                     onChange={e => handleInput(i, e.target.value)}
                                     disabled={checked[i] === true}
                                     className={`w-12 h-12 text-center font-bold text-xl border-2 outline-none transition uppercase ${checked[i] === true ? "bg-emerald-100 border-emerald-400 text-emerald-700"
-                                            : checked[i] === false ? "bg-red-100 border-red-400 text-red-700 animate-pulse"
-                                                : "bg-white border-amber-300 text-amber-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                                        : checked[i] === false ? "bg-red-100 border-red-400 text-red-700 animate-pulse"
+                                            : "bg-white border-amber-300 text-amber-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
                                         }`}
                                 />
                             ) : (
@@ -693,8 +783,8 @@ function UnscrambleGame({ exercises }: { exercises: any[] }) {
                             <p className="text-xs text-gray-400 mr-2">Đáp án:</p>
                             {item.scrambled.map((_: any, si: number) => (
                                 <span key={si} className={`w-12 h-12 flex items-center justify-center font-bold text-xl border-2 transition ${state.built[si]
-                                        ? results[i] === true ? "bg-emerald-100 border-emerald-400 text-emerald-700" : results[i] === false ? "bg-red-100 border-red-400 text-red-700" : "bg-indigo-50 border-indigo-300 text-indigo-700"
-                                        : "bg-white border-dashed border-gray-300 text-gray-300"
+                                    ? results[i] === true ? "bg-emerald-100 border-emerald-400 text-emerald-700" : results[i] === false ? "bg-red-100 border-red-400 text-red-700" : "bg-indigo-50 border-indigo-300 text-indigo-700"
+                                    : "bg-white border-dashed border-gray-300 text-gray-300"
                                     }`}>
                                     {state.built[si] || "_"}
                                 </span>
@@ -718,7 +808,7 @@ function UnscrambleGame({ exercises }: { exercises: any[] }) {
                                             onClick={() => !isUsed && handleLetterClick(i, ci, item.scrambled, item.answer)}
                                             disabled={isUsed || results[i] === false}
                                             className={`w-12 h-12 font-bold text-lg transition-all border-2 ${isUsed ? "bg-gray-100 border-gray-200 text-gray-300 cursor-default"
-                                                    : "bg-orange-100 border-orange-300 text-orange-700 hover:bg-orange-200 hover:scale-105 cursor-pointer"
+                                                : "bg-orange-100 border-orange-300 text-orange-700 hover:bg-orange-200 hover:scale-105 cursor-pointer"
                                                 }`}
                                         >
                                             {ch}
