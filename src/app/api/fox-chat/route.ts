@@ -30,6 +30,56 @@ interface ChatMessage {
     content: string;
 }
 
+// ===== GROQ =====
+async function callGroq(messages: any[]): Promise<string> {
+    const chatCompletion = await groq.chat.completions.create({
+        messages,
+        model: "llama-3.3-70b-versatile",
+        temperature: 0.7,
+        max_tokens: 400,
+    });
+    return chatCompletion.choices[0]?.message?.content || "";
+}
+
+// ===== HUGGINGFACE (fallback) =====
+async function callHuggingFace(messages: any[]): Promise<string> {
+    const HF_TOKEN = process.env.HUGGINGFACE_API_KEY;
+    if (!HF_TOKEN) throw new Error("No HuggingFace API key");
+
+    // Convert messages format for HF: combine system + history into a single prompt
+    const systemMsg = messages.find((m: any) => m.role === "system")?.content || "";
+    const chatMsgs = messages.filter((m: any) => m.role !== "system");
+
+    const prompt = chatMsgs
+        .map((m: any) => (m.role === "user" ? `User: ${m.content}` : `Assistant: ${m.content}`))
+        .join("\n");
+
+    const fullPrompt = `${systemMsg}\n\n${prompt}\nAssistant:`;
+
+    const res = await fetch(
+        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
+        {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${HF_TOKEN}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                inputs: fullPrompt,
+                parameters: {
+                    max_new_tokens: 400,
+                    temperature: 0.7,
+                    return_full_text: false,
+                },
+            }),
+        }
+    );
+
+    if (!res.ok) throw new Error(`HuggingFace error: ${res.status}`);
+    const data = await res.json();
+    return data[0]?.generated_text?.trim() || "";
+}
+
 export async function POST(req: Request) {
     try {
         const { message, history = [] }: { message: string; history: ChatMessage[] } = await req.json();
@@ -47,16 +97,31 @@ export async function POST(req: Request) {
             { role: "user" as const, content: message },
         ];
 
-        const chatCompletion = await groq.chat.completions.create({
-            messages,
-            model: "llama-3.3-70b-versatile",
-            temperature: 0.7,
-            max_tokens: 300,
-        });
+        let reply = "";
+        let provider = "groq";
 
-        const reply = chatCompletion.choices[0]?.message?.content || "Xin lỗi, Lingoo chưa hiểu. Bạn hỏi lại nhé! 🦊";
+        // Try Groq first, fallback to HuggingFace
+        try {
+            reply = await callGroq(messages);
+        } catch (groqError: any) {
+            console.warn("Groq failed, switching to HuggingFace:", groqError.message);
+            provider = "huggingface";
+            try {
+                reply = await callHuggingFace(messages);
+            } catch (hfError: any) {
+                console.error("HuggingFace also failed:", hfError.message);
+                return NextResponse.json({
+                    reply: "⚠️ Cả hai AI đều đang bận. Bạn thử lại sau vài giây nhé! 🦊",
+                    provider: "none"
+                });
+            }
+        }
 
-        return NextResponse.json({ reply });
+        if (!reply) {
+            reply = "Xin lỗi, Lingoo chưa hiểu. Bạn hỏi lại nhé! 🦊";
+        }
+
+        return NextResponse.json({ reply, provider });
     } catch (error: any) {
         console.error("Fox chat error:", error);
         return NextResponse.json(
