@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import SignOutButton from "@/components/auth/SignOutButton";
 import { NavItem } from "@/components/dashboard/NavItem";
 import { CollapsibleSidebar } from "@/components/dashboard/CollapsibleSidebar";
+import { MobileMenu } from "@/components/dashboard/MobileMenu";
 import FoxMascot from "@/components/FoxMascot";
 
 export default async function DashboardLayout({
@@ -63,7 +64,13 @@ export default async function DashboardLayout({
                     <Image src="/images/logo.png" alt="DHV-Lingoo" width={32} height={32} className="h-8 w-8 rounded-full object-cover" />
                     <span className="font-bold text-gray-900">DHV-Lingoo</span>
                 </Link>
-                <SignOutButton />
+                <MobileMenu
+                    displayName={displayName}
+                    role={role}
+                    avatarUrl={profile?.avatar_url}
+                    signOutButton={<SignOutButton />}
+                    isAdmin={profile?.role === "admin"}
+                />
             </header>
 
             {/* Main content */}
