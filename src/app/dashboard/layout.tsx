@@ -60,6 +60,7 @@ export default async function DashboardLayout({
                 {/* Navigation */}
                 <nav className="flex-1 px-3 mt-2">
                     <NavItem href="/dashboard" icon="dashboard" label="Dashboard" exact />
+                    <NavItem href="/dashboard/roadmap" icon="roadmap" label="Lộ trình" />
                     <NavItem href="/dashboard/courses" icon="courses" label="Khóa học" />
                     <NavItem href="/dashboard/flashcards" icon="flashcards" label="Flashcards" exact />
                     <NavItem href="/dashboard/practice" icon="practice" label="Luyện tập" exact />
