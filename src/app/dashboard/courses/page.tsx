@@ -8,7 +8,7 @@ import Link from "next/link";
 const CATEGORIES = ["Tất cả", "Giao tiếp", "Ngữ pháp", "Từ vựng", "IELTS / TOEIC", "Phát âm", "Trẻ em"];
 
 const levelConfig: Record<string, { bg: string; emoji: string; tag: string; stars: number }> = {
-    A1: { bg: "from-emerald-400 to-teal-600", emoji: "🌱", tag: "Vỡ Lòng", stars: 4.8 },
+    A1: { bg: "from-emerald-400 to-teal-600", emoji: "🌱", tag: "Cơ Bản", stars: 4.8 },
     A2: { bg: "from-blue-400 to-indigo-600", emoji: "📖", tag: "Sơ Cấp", stars: 4.7 },
     B1: { bg: "from-violet-400 to-purple-600", emoji: "💡", tag: "Trung Cấp", stars: 4.9 },
     B2: { bg: "from-orange-400 to-red-600", emoji: "🔥", tag: "Trên TC", stars: 4.6 },

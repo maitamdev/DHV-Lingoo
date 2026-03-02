@@ -64,6 +64,10 @@ export default function CourseDetailPage() {
         <div className="min-h-screen">
             {/* Hero Header */}
             <div className={`bg-gradient-to-br ${colors.gradient} px-6 py-10 lg:px-12 relative overflow-hidden`}>
+                {course.thumbnail_url && (
+                    <img src={course.thumbnail_url} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                )}
+                <div className="absolute inset-0 bg-black/40" />
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-sm"></div>
                 <div className="absolute -bottom-8 left-20 w-28 h-28 bg-white/10 rounded-full blur-sm"></div>
 
