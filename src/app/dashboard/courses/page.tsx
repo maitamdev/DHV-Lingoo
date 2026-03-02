@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Flame, Star, Clock, Target, Loader2, Sparkles, BookOpen, CheckCircle2 } from "lucide-react";
+import { Flame, Star, Clock, Target, Loader2, Sparkles, BookOpen, CheckCircle2, ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 
 // Interface for the Roadmap JSON from Groq
@@ -30,6 +31,8 @@ export default function CoursesPage() {
     const [generating, setGenerating] = useState(false);
     const [roadmap, setRoadmap] = useState<RoadmapData | null>(null);
     const [profile, setProfile] = useState<any>(null);
+    const [courses, setCourses] = useState<any[]>([]);
+    const [lessons, setLessons] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -51,6 +54,20 @@ export default function CoursesPage() {
                 if (profileData.ai_roadmap && Object.keys(profileData.ai_roadmap).length > 0) {
                     setRoadmap(profileData.ai_roadmap as unknown as RoadmapData);
                 }
+
+                // Fetch courses and their lessons
+                const { data: coursesData } = await supabase
+                    .from("courses")
+                    .select("*")
+                    .order("created_at", { ascending: true });
+
+                const { data: lessonsData } = await supabase
+                    .from("lessons")
+                    .select("id, title, description, course_id, order_index, xp_reward, topics")
+                    .order("order_index", { ascending: true });
+
+                if (coursesData) setCourses(coursesData);
+                if (lessonsData) setLessons(lessonsData);
             } catch (err) {
                 console.error("Error fetching user data:", err);
             } finally {
@@ -212,6 +229,57 @@ export default function CoursesPage() {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </div>
+            )}
+
+            {/* COURSE LIBRARY SECTION */}
+            {courses.length > 0 && (
+                <div className="mt-16">
+                    <div className="flex items-center justify-between mb-8">
+                        <div>
+                            <h2 className="text-2xl font-bold font-heading text-gray-900">📚 Thư Viện Khóa Học</h2>
+                            <p className="text-gray-500 mt-1">Học theo khóa học — bấm vào bài học bất kỳ để bắt đầu.</p>
+                        </div>
+                    </div>
+                    <div className="space-y-8">
+                        {courses.map(course => {
+                            const courseLessons = lessons.filter(l => l.course_id === course.id);
+                            return (
+                                <div key={course.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                                    <div className="bg-gradient-to-r from-indigo-600 to-blue-600 px-6 py-5 text-white">
+                                        <span className="text-xs font-bold bg-white/20 px-2 py-0.5 rounded-full">{course.level}</span>
+                                        <h3 className="text-xl font-heading font-bold mt-2">{course.title}</h3>
+                                        <p className="text-blue-100 text-sm mt-1 opacity-90">{course.description}</p>
+                                    </div>
+                                    <div className="divide-y divide-gray-50">
+                                        {courseLessons.length === 0 ? (
+                                            <p className="p-6 text-gray-400 text-sm">Khóa học này chưa có bài học nào.</p>
+                                        ) : courseLessons.map((lesson, li) => (
+                                            <div key={lesson.id} className="flex items-center justify-between px-6 py-4 hover:bg-indigo-50 transition group">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center text-sm font-bold text-indigo-600 flex-shrink-0">
+                                                        {li + 1}
+                                                    </div>
+                                                    <div>
+                                                        <p className="font-semibold text-gray-900 group-hover:text-indigo-700 transition">{lesson.title}</p>
+                                                        <p className="text-xs text-gray-400 mt-0.5">
+                                                            {lesson.topics?.join(", ")} • ⭐ {lesson.xp_reward} XP
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <Link
+                                                    href={`/dashboard/courses/lessons/${lesson.id}`}
+                                                    className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm font-bold rounded-xl hover:bg-indigo-700 transition opacity-0 group-hover:opacity-100"
+                                                >
+                                                    Vào Học <ArrowRight className="w-4 h-4" />
+                                                </Link>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             )}
