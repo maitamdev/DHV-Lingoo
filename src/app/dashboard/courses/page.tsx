@@ -85,8 +85,8 @@ export default function CoursesPage() {
                             key={cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`px-4 py-1.5 text-sm font-medium transition-all duration-200 ${activeCategory === cat
-                                    ? "bg-gray-900 text-white shadow-md"
-                                    : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                                ? "bg-gray-900 text-white shadow-md"
+                                : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
                                 }`}
                         >
                             {cat}
@@ -130,10 +130,16 @@ export default function CoursesPage() {
                                         className="group bg-white border border-gray-200 overflow-hidden hover:shadow-lg hover:border-gray-300 transition-all duration-300 hover:-translate-y-1"
                                     >
                                         {/* Thumbnail */}
-                                        <div className={`relative h-44 bg-gradient-to-br ${cfg.bg} flex items-center justify-center`}>
-                                            <div className="absolute inset-0 opacity-20"
-                                                style={{ backgroundImage: "radial-gradient(circle at 80% 20%, white 0%, transparent 60%)" }} />
-                                            <span className="text-7xl drop-shadow-xl">{cfg.emoji}</span>
+                                        <div className={`relative h-44 bg-gradient-to-br ${cfg.bg} flex items-center justify-center overflow-hidden`}>
+                                            {course.thumbnail_url ? (
+                                                <img src={course.thumbnail_url} alt={course.title} className="absolute inset-0 w-full h-full object-cover" />
+                                            ) : (
+                                                <>
+                                                    <div className="absolute inset-0 opacity-20"
+                                                        style={{ backgroundImage: "radial-gradient(circle at 80% 20%, white 0%, transparent 60%)" }} />
+                                                    <span className="text-7xl drop-shadow-xl">{cfg.emoji}</span>
+                                                </>
+                                            )}
                                             {/* Top badges */}
                                             <span className="absolute top-3 left-3 text-[10px] font-bold bg-black/30 backdrop-blur-sm text-white px-2 py-0.5 uppercase tracking-widest">
                                                 {cfg.tag}
