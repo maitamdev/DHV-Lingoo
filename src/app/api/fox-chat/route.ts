@@ -46,18 +46,8 @@ async function callHuggingFace(messages: any[]): Promise<string> {
     const HF_TOKEN = process.env.HUGGINGFACE_API_KEY;
     if (!HF_TOKEN) throw new Error("No HuggingFace API key");
 
-    // Convert messages format for HF: combine system + history into a single prompt
-    const systemMsg = messages.find((m: any) => m.role === "system")?.content || "";
-    const chatMsgs = messages.filter((m: any) => m.role !== "system");
-
-    const prompt = chatMsgs
-        .map((m: any) => (m.role === "user" ? `User: ${m.content}` : `Assistant: ${m.content}`))
-        .join("\n");
-
-    const fullPrompt = `${systemMsg}\n\n${prompt}\nAssistant:`;
-
     const res = await fetch(
-        "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3",
+        "https://router.huggingface.co/v1/chat/completions",
         {
             method: "POST",
             headers: {
@@ -65,19 +55,20 @@ async function callHuggingFace(messages: any[]): Promise<string> {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                inputs: fullPrompt,
-                parameters: {
-                    max_new_tokens: 400,
-                    temperature: 0.7,
-                    return_full_text: false,
-                },
+                model: "meta-llama/Llama-3.2-3B-Instruct",
+                messages: messages,
+                max_tokens: 400,
+                temperature: 0.7,
             }),
         }
     );
 
-    if (!res.ok) throw new Error(`HuggingFace error: ${res.status}`);
+    if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`HuggingFace error ${res.status}: ${errText}`);
+    }
     const data = await res.json();
-    return data[0]?.generated_text?.trim() || "";
+    return data.choices?.[0]?.message?.content?.trim() || "";
 }
 
 export async function POST(req: Request) {
