@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { Plus, Trash2, Loader2, BookOpen } from "lucide-react";
+import { Plus, Trash2, Loader2, BookOpen, Eye } from "lucide-react";
+import Link from "next/link";
 
 export default function AdminLessonsPage() {
     const supabase = createClient();
@@ -169,7 +170,10 @@ export default function AdminLessonsPage() {
                                             {lesson.courses?.title || "Không rõ"}
                                         </td>
                                         <td className="p-4 text-right space-x-2">
-                                            <button onClick={() => handleDelete(lesson.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                                            <Link href={`/admin/lessons/${lesson.id}`} className="inline-block p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition" title="Xem chi tiết">
+                                                <Eye className="w-5 h-5" />
+                                            </Link>
+                                            <button onClick={() => handleDelete(lesson.id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Xóa">
                                                 <Trash2 className="w-5 h-5" />
                                             </button>
                                         </td>
