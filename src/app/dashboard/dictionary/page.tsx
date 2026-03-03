@@ -1,31 +1,39 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { Languages, Search, ArrowRightLeft, Volume2, Loader2, BookOpen, Copy, Check, Sparkles } from "lucide-react";
+import { Languages, Search, ArrowRightLeft, Volume2, Loader2, BookOpen, Copy, Check, Sparkles, ExternalLink } from "lucide-react";
+
+interface DictDefinition {
+    meaning: string;
+    example?: string;
+}
 
 interface DictMeaning {
     partOfSpeech: string;
-    definitions: { meaning: string; example?: string; exampleVi?: string }[];
+    definitions: DictDefinition[];
+    synonyms?: string[];
+    antonyms?: string[];
 }
 
 interface DictResult {
     word: string;
     phonetic: string;
+    audio?: string;
     meanings: DictMeaning[];
     synonyms?: string[];
     antonyms?: string[];
-    tips?: string;
+    source?: string;
 }
 
 export default function DictionaryPage() {
-    const [mode, setMode] = useState<"translate" | "dictionary">("translate");
+    const [mode, setMode] = useState<"translate" | "dictionary">("dictionary");
     const [direction, setDirection] = useState<"en-vi" | "vi-en">("en-vi");
     const [input, setInput] = useState("");
     const [result, setResult] = useState<string | DictResult | null>(null);
     const [loading, setLoading] = useState(false);
     const [copied, setCopied] = useState(false);
     const [isRawDict, setIsRawDict] = useState(false);
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const audioRef = useRef<HTMLAudioElement | null>(null);
 
     async function handleSubmit() {
         if (!input.trim() || loading) return;
@@ -64,6 +72,17 @@ export default function DictionaryPage() {
         }
     }
 
+    function playAudio(url: string) {
+        if (audioRef.current) {
+            audioRef.current.src = url;
+            audioRef.current.play();
+        } else {
+            const audio = new Audio(url);
+            audioRef.current = audio;
+            audio.play();
+        }
+    }
+
     function speak(text: string, lang: string = "en-US") {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = lang;
@@ -71,8 +90,16 @@ export default function DictionaryPage() {
         speechSynthesis.speak(utterance);
     }
 
+    function playWord(dictResult: DictResult) {
+        if (dictResult.audio) {
+            playAudio(dictResult.audio);
+        } else {
+            speak(dictResult.word);
+        }
+    }
+
     function copyResult() {
-        const text = typeof result === "string" ? result : result ? JSON.stringify(result, null, 2) : "";
+        const text = typeof result === "string" ? result : result ? (result as DictResult).word : "";
         navigator.clipboard.writeText(text);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
@@ -86,32 +113,26 @@ export default function DictionaryPage() {
     function lookupWord(word: string) {
         setInput(word);
         setMode("dictionary");
-        setTimeout(() => {
-            handleSubmitDirect(word, "dictionary");
-        }, 100);
-    }
-
-    async function handleSubmitDirect(text: string, m: string) {
         setLoading(true);
         setResult(null);
         setIsRawDict(false);
-        try {
-            const res = await fetch("/api/translate", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ text, mode: m, direction }),
-            });
-            const data = await res.json();
-            if (data.mode === "dictionary" && !data.raw) {
-                setResult(data.result as DictResult);
-            } else {
-                setResult(data.result);
-                setIsRawDict(data.raw || false);
-            }
-        } catch {
-            setResult("Lỗi kết nối!");
-        }
-        setLoading(false);
+
+        fetch("/api/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: word, mode: "dictionary", direction }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.mode === "dictionary" && !data.raw) {
+                    setResult(data.result as DictResult);
+                } else {
+                    setResult(data.result);
+                    setIsRawDict(data.raw || false);
+                }
+            })
+            .catch(() => setResult("Lỗi kết nối!"))
+            .finally(() => setLoading(false));
     }
 
     return (
@@ -122,21 +143,11 @@ export default function DictionaryPage() {
                     <Languages className="w-6 h-6 text-blue-500" />
                     Dịch & Tra từ
                 </h1>
-                <p className="text-gray-500 mt-1">Dịch văn bản và tra cứu từ vựng chi tiết với AI</p>
+                <p className="text-gray-500 mt-1">Tra cứu từ điển Anh-Anh và dịch văn bản EN ↔ VI</p>
             </div>
 
             {/* Mode Toggle */}
             <div className="flex gap-2 mb-6">
-                <button
-                    onClick={() => { setMode("translate"); setResult(null); }}
-                    className={`flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-all ${mode === "translate"
-                        ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30"
-                        : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
-                        }`}
-                >
-                    <ArrowRightLeft className="w-4 h-4" />
-                    Dịch văn bản
-                </button>
                 <button
                     onClick={() => { setMode("dictionary"); setResult(null); }}
                     className={`flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-all ${mode === "dictionary"
@@ -146,6 +157,16 @@ export default function DictionaryPage() {
                 >
                     <BookOpen className="w-4 h-4" />
                     Tra từ điển
+                </button>
+                <button
+                    onClick={() => { setMode("translate"); setResult(null); }}
+                    className={`flex items-center gap-2 px-5 py-2.5 text-sm font-bold transition-all ${mode === "translate"
+                        ? "bg-blue-600 text-white shadow-lg shadow-blue-500/30"
+                        : "bg-white text-gray-600 border border-gray-200 hover:border-blue-300"
+                        }`}
+                >
+                    <ArrowRightLeft className="w-4 h-4" />
+                    Dịch văn bản
                 </button>
             </div>
 
@@ -169,23 +190,30 @@ export default function DictionaryPage() {
                     </div>
                 )}
 
+                {/* Dictionary source info */}
+                {mode === "dictionary" && (
+                    <div className="px-6 py-2 bg-violet-50 border-b border-gray-200">
+                        <p className="text-xs text-violet-600 font-medium">📖 Dữ liệu từ Free Dictionary API — từ điển Anh-Anh chính thống</p>
+                    </div>
+                )}
+
                 <div className="p-4">
                     <textarea
-                        ref={textareaRef}
                         value={input}
                         onChange={e => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
+                        rows={mode === "dictionary" ? 1 : 4}
                         placeholder={mode === "translate"
                             ? "Nhập văn bản cần dịch..."
-                            : "Nhập từ cần tra (VD: accomplish, ubiquitous, nghĩa của 'resilient'...)"
+                            : "Nhập từ tiếng Anh cần tra (VD: accomplish, resilient...)"
                         }
-                        className="w-full h-32 resize-none text-sm outline-none placeholder:text-gray-400"
+                        className="w-full resize-none text-sm outline-none placeholder:text-gray-400"
                     />
                     <div className="flex items-center justify-between pt-3 border-t border-gray-100">
                         <div className="flex items-center gap-2">
                             {input && (
                                 <button
-                                    onClick={() => speak(input, direction === "en-vi" ? "en-US" : "vi-VN")}
+                                    onClick={() => speak(input, direction === "en-vi" || mode === "dictionary" ? "en-US" : "vi-VN")}
                                     className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 transition"
                                     title="Phát âm"
                                 >
@@ -199,17 +227,17 @@ export default function DictionaryPage() {
                             disabled={!input.trim() || loading}
                             className={`flex items-center gap-2 px-5 py-2 text-sm font-bold text-white transition-all ${loading
                                 ? "bg-gray-400 cursor-wait"
-                                : mode === "translate"
-                                    ? "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/25"
-                                    : "bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-500/25"
+                                : mode === "dictionary"
+                                    ? "bg-violet-600 hover:bg-violet-700 shadow-lg shadow-violet-500/25"
+                                    : "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/25"
                                 }`}
                         >
                             {loading ? (
-                                <><Loader2 className="w-4 h-4 animate-spin" /> Đang xử lý...</>
-                            ) : mode === "translate" ? (
-                                <><ArrowRightLeft className="w-4 h-4" /> Dịch</>
-                            ) : (
+                                <><Loader2 className="w-4 h-4 animate-spin" /> Đang tra...</>
+                            ) : mode === "dictionary" ? (
                                 <><Search className="w-4 h-4" /> Tra từ</>
+                            ) : (
+                                <><ArrowRightLeft className="w-4 h-4" /> Dịch</>
                             )}
                         </button>
                     </div>
@@ -218,7 +246,7 @@ export default function DictionaryPage() {
 
             {/* Result Section */}
             {result && (
-                <div className="bg-white border border-gray-200 overflow-hidden animate-in fade-in slide-in-from-bottom-2">
+                <div className="bg-white border border-gray-200 overflow-hidden">
                     {/* Translate Result */}
                     {mode === "translate" && typeof result === "string" && (
                         <div>
@@ -226,12 +254,13 @@ export default function DictionaryPage() {
                                 <div className="flex items-center gap-2">
                                     <Sparkles className="w-4 h-4 text-blue-500" />
                                     <span className="text-sm font-bold text-gray-900">Kết quả dịch</span>
+                                    <span className="text-[10px] text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">AI</span>
                                 </div>
                                 <div className="flex items-center gap-1">
-                                    <button onClick={() => speak(result, direction === "en-vi" ? "vi-VN" : "en-US")} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 transition" title="Phát âm">
+                                    <button onClick={() => speak(result, direction === "en-vi" ? "vi-VN" : "en-US")} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 transition">
                                         <Volume2 className="w-4 h-4" />
                                     </button>
-                                    <button onClick={copyResult} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 transition" title="Sao chép">
+                                    <button onClick={copyResult} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-500 transition">
                                         {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
                                     </button>
                                 </div>
@@ -245,14 +274,16 @@ export default function DictionaryPage() {
                     {/* Dictionary Result - Structured */}
                     {mode === "dictionary" && result && typeof result === "object" && !isRawDict && (
                         <div>
+                            {/* Word header */}
                             <div className="px-6 py-4 bg-gradient-to-r from-violet-50 to-purple-50 border-b border-gray-200">
                                 <div className="flex items-center justify-between">
                                     <div>
                                         <div className="flex items-center gap-3">
                                             <h2 className="text-2xl font-black text-gray-900">{(result as DictResult).word}</h2>
                                             <button
-                                                onClick={() => speak((result as DictResult).word)}
-                                                className="w-8 h-8 bg-violet-100 flex items-center justify-center hover:bg-violet-200 transition rounded-full"
+                                                onClick={() => playWord(result as DictResult)}
+                                                className="w-9 h-9 bg-violet-100 flex items-center justify-center hover:bg-violet-200 transition rounded-full"
+                                                title="Phát âm"
                                             >
                                                 <Volume2 className="w-4 h-4 text-violet-600" />
                                             </button>
@@ -261,57 +292,64 @@ export default function DictionaryPage() {
                                             <p className="text-sm text-violet-600 font-mono mt-0.5">{(result as DictResult).phonetic}</p>
                                         )}
                                     </div>
+                                    <button onClick={copyResult} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-violet-500 transition">
+                                        {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                                    </button>
                                 </div>
                             </div>
+
+                            {/* Meanings */}
                             <div className="p-6 space-y-5">
                                 {(result as DictResult).meanings?.map((meaning, i) => (
                                     <div key={i}>
-                                        <span className="inline-block px-2.5 py-0.5 bg-violet-100 text-violet-700 text-xs font-bold uppercase tracking-wider mb-2">
+                                        <span className="inline-block px-2.5 py-0.5 bg-violet-100 text-violet-700 text-xs font-bold uppercase tracking-wider mb-3">
                                             {meaning.partOfSpeech}
                                         </span>
                                         <div className="space-y-3">
                                             {meaning.definitions?.map((def, j) => (
                                                 <div key={j} className="pl-4 border-l-2 border-violet-200">
-                                                    <p className="text-sm text-gray-900 font-medium">{j + 1}. {def.meaning}</p>
+                                                    <p className="text-sm text-gray-900">{j + 1}. {def.meaning}</p>
                                                     {def.example && (
-                                                        <p className="text-xs text-gray-500 mt-1 italic">
-                                                            &quot;{def.example}&quot;
-                                                            {def.exampleVi && <span className="not-italic text-gray-400"> → {def.exampleVi}</span>}
-                                                        </p>
+                                                        <p className="text-xs text-gray-500 mt-1 italic">&quot;{def.example}&quot;</p>
                                                     )}
                                                 </div>
                                             ))}
                                         </div>
+                                        {/* Per-meaning synonyms */}
+                                        {(meaning.synonyms?.length ?? 0) > 0 && (
+                                            <div className="mt-2 flex flex-wrap gap-1.5 items-center">
+                                                <span className="text-[10px] font-bold text-gray-400 uppercase">syn:</span>
+                                                {meaning.synonyms!.map((s, k) => (
+                                                    <button key={k} onClick={() => lookupWord(s)} className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[11px] font-medium border border-emerald-200 hover:bg-emerald-100 transition cursor-pointer">
+                                                        {s}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
 
-                                {/* Synonyms & Antonyms */}
+                                {/* Global synonyms */}
                                 {((result as DictResult).synonyms?.length ?? 0) > 0 && (
-                                    <div>
+                                    <div className="pt-3 border-t border-gray-100">
                                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Từ đồng nghĩa</p>
                                         <div className="flex flex-wrap gap-1.5">
                                             {(result as DictResult).synonyms!.map((s, i) => (
-                                                <button
-                                                    key={i}
-                                                    onClick={() => lookupWord(s)}
-                                                    className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200 hover:bg-emerald-100 transition cursor-pointer"
-                                                >
+                                                <button key={i} onClick={() => lookupWord(s)} className="px-2.5 py-1 bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-200 hover:bg-emerald-100 transition cursor-pointer">
                                                     {s}
                                                 </button>
                                             ))}
                                         </div>
                                     </div>
                                 )}
+
+                                {/* Global antonyms */}
                                 {((result as DictResult).antonyms?.length ?? 0) > 0 && (
                                     <div>
                                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Từ trái nghĩa</p>
                                         <div className="flex flex-wrap gap-1.5">
                                             {(result as DictResult).antonyms!.map((s, i) => (
-                                                <button
-                                                    key={i}
-                                                    onClick={() => lookupWord(s)}
-                                                    className="px-2.5 py-1 bg-red-50 text-red-700 text-xs font-medium border border-red-200 hover:bg-red-100 transition cursor-pointer"
-                                                >
+                                                <button key={i} onClick={() => lookupWord(s)} className="px-2.5 py-1 bg-red-50 text-red-700 text-xs font-medium border border-red-200 hover:bg-red-100 transition cursor-pointer">
                                                     {s}
                                                 </button>
                                             ))}
@@ -319,18 +357,19 @@ export default function DictionaryPage() {
                                     </div>
                                 )}
 
-                                {/* Tips */}
-                                {(result as DictResult).tips && (
-                                    <div className="mt-4 p-3 bg-amber-50 border border-amber-200">
-                                        <p className="text-xs font-bold text-amber-700 mb-1">💡 Mẹo ghi nhớ</p>
-                                        <p className="text-xs text-amber-800">{(result as DictResult).tips}</p>
+                                {/* Source */}
+                                {(result as DictResult).source && (
+                                    <div className="pt-3 border-t border-gray-100">
+                                        <a href={(result as DictResult).source} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-violet-500 flex items-center gap-1">
+                                            <ExternalLink className="w-3 h-3" /> Nguồn: Wiktionary
+                                        </a>
                                     </div>
                                 )}
                             </div>
                         </div>
                     )}
 
-                    {/* Dictionary Result - Raw text fallback */}
+                    {/* Dictionary - Raw text fallback */}
                     {mode === "dictionary" && typeof result === "string" && (
                         <div className="p-6">
                             <p className="text-sm text-gray-800 whitespace-pre-wrap leading-relaxed">{result}</p>
@@ -343,21 +382,21 @@ export default function DictionaryPage() {
             {!result && !loading && (
                 <div className="bg-white border border-gray-200 p-5">
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
-                        {mode === "translate" ? "Thử dịch" : "Thử tra từ"}
+                        {mode === "dictionary" ? "Thử tra từ" : "Thử dịch"}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                        {mode === "translate" ? (
+                        {mode === "dictionary" ? (
                             <>
-                                {["How are you today?", "I love learning English", "The weather is beautiful", "Tôi muốn đặt phòng khách sạn"].map(s => (
-                                    <button key={s} onClick={() => { setInput(s); }} className="px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-medium border border-blue-200 hover:bg-blue-100 transition">
+                                {["accomplish", "resilient", "ubiquitous", "serendipity", "ephemeral", "pragmatic", "algorithm", "sustainable"].map(s => (
+                                    <button key={s} onClick={() => lookupWord(s)} className="px-3 py-1.5 bg-violet-50 text-violet-700 text-xs font-medium border border-violet-200 hover:bg-violet-100 transition">
                                         {s}
                                     </button>
                                 ))}
                             </>
                         ) : (
                             <>
-                                {["accomplish", "resilient", "ubiquitous", "serendipity", "ephemeral", "pragmatic"].map(s => (
-                                    <button key={s} onClick={() => { setInput(s); }} className="px-3 py-1.5 bg-violet-50 text-violet-700 text-xs font-medium border border-violet-200 hover:bg-violet-100 transition">
+                                {["How are you today?", "I love learning English", "The weather is beautiful", "Tôi muốn đặt phòng khách sạn"].map(s => (
+                                    <button key={s} onClick={() => setInput(s)} className="px-3 py-1.5 bg-blue-50 text-blue-700 text-xs font-medium border border-blue-200 hover:bg-blue-100 transition">
                                         {s}
                                     </button>
                                 ))}
