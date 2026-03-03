@@ -5,7 +5,7 @@ class FlashcardModel {
   final String meaning;
   final String? phonetic;
   final String? example;
-  final String rarity;
+  String rarity;
   bool isRevealed;
 
   FlashcardModel({
@@ -28,3 +28,4 @@ class FlashcardModel {
     );
   }
 }
+
