@@ -24,24 +24,32 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
   }
 
   Future<void> _loadData() async {
-    final client = Supabase.instance.client;
-    final courseRes = await client
-        .from('courses')
-        .select()
-        .eq('id', widget.courseId)
-        .single();
-    final lessonsRes = await client
-        .from('lessons')
-        .select('id, title, order_index, description')
-        .eq('course_id', widget.courseId)
-        .order('order_index');
+    try {
+      final client = Supabase.instance.client;
+      final courseRes = await client
+          .from('courses')
+          .select()
+          .eq('id', widget.courseId)
+          .single();
 
-    if (mounted) {
-      setState(() {
-        _course = courseRes;
-        _lessons = List<Map<String, dynamic>>.from(lessonsRes);
-        _loading = false;
-      });
+      List<dynamic> lessonsRes = [];
+      try {
+        lessonsRes = await client
+            .from('lessons')
+            .select('id, title, description')
+            .eq('course_id', widget.courseId)
+            .order('title');
+      } catch (_) {}
+
+      if (mounted) {
+        setState(() {
+          _course = courseRes;
+          _lessons = List<Map<String, dynamic>>.from(lessonsRes);
+          _loading = false;
+        });
+      }
+    } catch (e) {
+      if (mounted) setState(() => _loading = false);
     }
   }
 
