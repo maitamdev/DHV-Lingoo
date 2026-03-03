@@ -164,3 +164,30 @@
 .flashcard.flipped .flashcard-inner {
   transform: rotateY(180deg);
 }
+
+/* ═══ Card Front & Back ═══ */
+.flashcard-front,
+.flashcard-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.flashcard-front {
+  background: white;
+  border: 2px solid transparent;
+}
+
+.flashcard-back {
+  background: white;
+  transform: rotateY(180deg);
+  border: 2px solid transparent;
+}
