@@ -1,0 +1,1 @@
+class CacheService { static final _c=<String,dynamic>{}; static final _e=<String,DateTime>{}; static void set(String k,dynamic v,{Duration t=const Duration(minutes:5)}){_c[k]=v;_e[k]=DateTime.now().add(t);} static T? get<T>(String k){if(_e[k]?.isBefore(DateTime.now())??true){_c.remove(k);_e.remove(k);return null;}return _c[k] as T?;} static void clear(){_c.clear();_e.clear();} }
