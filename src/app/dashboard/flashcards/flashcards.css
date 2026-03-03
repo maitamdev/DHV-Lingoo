@@ -323,3 +323,6 @@
 
 /* Shimmer */
 @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } } .animate-shimmer { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite; }
+
+/* Mobile Tap */
+@media (hover: none) { .mystery-bag:active { transform: scale(0.95); } .mystery-bag:hover { transform: none; } }
