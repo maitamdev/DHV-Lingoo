@@ -1,0 +1,7 @@
+/* TEAM */
+Project: DHV-Lingoo
+University: DHV University
+/* TECH */
+Frontend: Next.js 15
+Mobile: Flutter 3.27
+Database: Supabase
