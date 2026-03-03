@@ -1,3 +1,4 @@
+import React from 'react';
 // Particle explosion effect when opening a mystery bag
 'use client';
 
@@ -38,3 +39,4 @@ export default function ParticleEffect({ color, count = 12 }: ParticleEffectProp
     </div>
   );
 }
+
