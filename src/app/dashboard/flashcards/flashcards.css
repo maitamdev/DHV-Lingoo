@@ -311,3 +311,6 @@
 
 /* Reduced Motion */
 @media (prefers-reduced-motion: reduce) { .bag-icon,.bag-inner::before { animation: none; } .flashcard-inner { transition-duration: 0.1s; } .confetti-piece { display: none; } }
+
+/* Keyboard Focus */
+.mystery-bag:focus-visible, .flashcard:focus-visible { outline: 3px solid #6366f1; outline-offset: 4px; border-radius: 16px; }
