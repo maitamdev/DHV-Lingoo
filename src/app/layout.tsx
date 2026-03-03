@@ -30,6 +30,21 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "DHV-Lingoo",
     locale: "vi_VN",
+    url: "https://dhv-lingoo.vercel.app",
+    images: [
+      {
+        url: "https://dhv-lingoo.vercel.app/images/og-cover.png",
+        width: 1200,
+        height: 630,
+        alt: "DHV-Lingoo – Học Tiếng Anh Nhanh Hơn",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DHV-Lingoo – Học Tiếng Anh Nhanh Hơn, Kiên Trì Mỗi Ngày",
+    description: "Bài học tương tác, trắc nghiệm thông minh, flashcards và theo dõi tiến trình thời gian thực.",
+    images: ["https://dhv-lingoo.vercel.app/images/og-cover.png"],
   },
 };
 
