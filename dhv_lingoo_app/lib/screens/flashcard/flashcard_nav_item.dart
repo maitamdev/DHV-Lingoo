@@ -1,0 +1,1 @@
+import 'package:flutter/material.dart'; class FlashcardNavItem { static const String routeName = '/flashcards'; static const String label = 'Flashcards'; static const IconData icon = Icons.style_outlined; static const IconData activeIcon = Icons.style; }
