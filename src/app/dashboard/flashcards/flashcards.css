@@ -1,0 +1,23 @@
+/* ═══ Mystery Bag Container ═══ */
+.mystery-bag-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .mystery-bag-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mystery-bag-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
