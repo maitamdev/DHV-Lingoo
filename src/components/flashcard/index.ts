@@ -8,3 +8,6 @@ export { default as ConfettiEffect } from './ConfettiEffect';
 export { default as CompletionCard } from './CompletionCard';
 export { default as DailyHeader } from './DailyHeader';
 export { default as FlashcardSkeleton } from './FlashcardSkeleton';
+export { default as FlashcardStats } from './FlashcardStats';
+export { default as NextDayCountdown } from './NextDayCountdown';
+export { default as CardCollection } from './CardCollection';
