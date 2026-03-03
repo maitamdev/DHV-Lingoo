@@ -6,6 +6,7 @@ import { NavItem } from "@/components/dashboard/NavItem";
 import { CollapsibleSidebar } from "@/components/dashboard/CollapsibleSidebar";
 import { MobileMenu } from "@/components/dashboard/MobileMenu";
 import { NotificationBell } from "@/components/dashboard/NotificationBell";
+import { StudyBanner } from "@/components/dashboard/StudyBanner";
 import FoxMascot from "@/components/FoxMascot";
 
 export default async function DashboardLayout({
@@ -91,6 +92,9 @@ export default async function DashboardLayout({
 
             {/* Fox AI Mascot */}
             <FoxMascot />
+
+            {/* Study Reminder Banner */}
+            <StudyBanner />
         </div>
     );
 }

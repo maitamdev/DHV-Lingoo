@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Image from "next/image";
 import { Save, Loader2, User, Target, Clock, BookOpen, Camera } from "lucide-react";
+import { StudyReminder } from "@/components/dashboard/StudyReminder";
 
 const LEVELS = [
     { value: "A1", label: "A1 - Vỡ lòng", desc: "Mới bắt đầu" },
@@ -364,6 +365,9 @@ export default function SettingsPage() {
                         </div>
                     </div>
                 </section>
+
+                {/* Study Reminder */}
+                <StudyReminder />
 
                 {/* Save Button */}
                 <button
