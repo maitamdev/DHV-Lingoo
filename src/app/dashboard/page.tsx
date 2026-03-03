@@ -48,6 +48,22 @@ export default async function DashboardPage() {
     const { count: totalVocab } = await supabase.from("lesson_vocabularies").select("id", { count: "exact", head: true });
     const { count: totalCourses } = await supabase.from("courses").select("id", { count: "exact", head: true });
 
+    // Fetch user's lesson progress for charts
+    const { data: lessonProgress } = await supabase
+        .from("lesson_progress")
+        .select("completed_at, xp_earned, score, course_id")
+        .eq("user_id", user.id)
+        .eq("completed", true)
+        .order("completed_at", { ascending: true });
+
+    const progressData = (lessonProgress || []).map(p => ({
+        completed_at: p.completed_at || new Date().toISOString(),
+        xp_earned: p.xp_earned || 0,
+        score: p.score || 0,
+        course_id: p.course_id || "",
+    }));
+    const completedLessons = progressData.length;
+
     const displayName = profile?.full_name || user.email?.split("@")[0] || "Học viên";
     const level = profile?.level || "A1";
     const levelInfo = levelConfig[level] || levelConfig.A1;
@@ -159,8 +175,8 @@ export default async function DashboardPage() {
 
                         {/* ══════ CHARTS ROW ══════ */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            <WeeklyActivityChart />
-                            <XPProgressChart currentXP={xp} />
+                            <WeeklyActivityChart progressData={progressData} />
+                            <XPProgressChart currentXP={xp} progressData={progressData} />
                         </div>
 
                         {/* ══════ COURSES SECTION ══════ */}
@@ -225,7 +241,7 @@ export default async function DashboardPage() {
                                 tagColor="bg-violet-50 text-violet-700 border-violet-200"
                                 iconBg="bg-violet-50 border-violet-200"
                             />
-                            <SkillsBreakdownChart interests={interests} />
+                            <SkillsBreakdownChart progressData={progressData} completedLessons={completedLessons} />
                         </div>
 
                         {/* Quick Actions */}
