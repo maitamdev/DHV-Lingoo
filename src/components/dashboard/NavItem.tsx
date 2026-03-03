@@ -1,3 +1,4 @@
+// NavItem - individual navigation item with icon and active state
 "use client";
 
 import Link from "next/link";
