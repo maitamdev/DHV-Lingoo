@@ -1,3 +1,4 @@
+// StudyBanner - motivational study streak banner
 "use client";
 
 import { useState, useEffect } from "react";
