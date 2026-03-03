@@ -43,7 +43,7 @@ const faqs = [
 
 export default function FAQ() {
     return (
-        <section id="faq" className="py-16 sm:py-24 bg-muted/30">
+        <section aria-label='FAQ' id="faq" className="py-16 sm:py-24 bg-muted/30">
             <div className="max-w-3xl mx-auto px-4 sm:px-6">
                 {/* Section header */}
                 <div className="text-center mb-10 sm:mb-16">
