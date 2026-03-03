@@ -1,0 +1,1 @@
+import 'package:flutter/material.dart'; import 'package:dhv_lingoo/config/theme.dart'; class EditProfileScreen extends StatelessWidget { const EditProfileScreen({super.key}); @override Widget build(BuildContext c) => Scaffold(backgroundColor:AppTheme.bg, appBar:AppBar(title:const Text('Chinh sua')),body:const Center(child:Text('Coming soon...'))); }
