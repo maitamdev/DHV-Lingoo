@@ -329,3 +329,6 @@
 
 /* Print */
 @media print { .mystery-bag, .confetti-piece, .particles { display: none; } .flashcard-inner { transform: none !important; } }
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) { .flashcard-front, .flashcard-back { background: #1e293b; color: #f1f5f9; } .flashcard-progress-bar { background: #334155; } .daily-header h1 { color: #f1f5f9; } }
