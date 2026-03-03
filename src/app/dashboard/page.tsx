@@ -1,3 +1,4 @@
+// Dashboard home - user stats, charts, leaderboard, quick actions
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import {
