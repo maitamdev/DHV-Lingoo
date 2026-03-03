@@ -314,3 +314,6 @@
 
 /* Keyboard Focus */
 .mystery-bag:focus-visible, .flashcard:focus-visible { outline: 3px solid #6366f1; outline-offset: 4px; border-radius: 16px; }
+
+/* High Contrast */
+@media (prefers-contrast: high) { .flashcard-front, .flashcard-back { border-width: 3px; } .rarity-badge { border: 1px solid currentColor; } }
