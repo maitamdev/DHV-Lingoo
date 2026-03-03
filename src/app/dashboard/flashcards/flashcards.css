@@ -203,3 +203,21 @@
 .rarity-epic .flashcard-back { border-color: #a855f7; box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2); }
 .rarity-legendary .flashcard-front,
 .rarity-legendary .flashcard-back { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.3); }
+
+/* ═══ Legendary Card Shine ═══ */
+.rarity-legendary .flashcard-front::after,
+.rarity-legendary .flashcard-back::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, rgba(245,158,11,0.1), transparent, rgba(245,158,11,0.05));
+  animation: legendary-shine 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes legendary-shine {
+  100% { transform: rotate(360deg); }
+}
