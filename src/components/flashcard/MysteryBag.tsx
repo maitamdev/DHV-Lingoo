@@ -28,7 +28,7 @@ export default function MysteryBag({ index, gradient, onOpen, isOpened }: Myster
   };
 
   return (
-    <div className={`mystery-bag ${isOpening ? 'bag-opening' : ''}`} onClick={handleClick}>
+    <div className={`mystery-bag ${isOpening ? 'bag-opening' : ''}`} onClick={handleClick} role="button" tabIndex={0} aria-label={`Open mystery bag ${index + 1}`} onKeyDown={(e) => e.key === "Enter" && handleClick()}>
       {showParticles && <ParticleEffect color="#fff" count={16} />}
       <div className={`bag-inner bg-gradient-to-br ${gradient}`}>
         <div className="bag-number">{index + 1}</div>
@@ -38,3 +38,4 @@ export default function MysteryBag({ index, gradient, onOpen, isOpened }: Myster
     </div>
   );
 }
+
