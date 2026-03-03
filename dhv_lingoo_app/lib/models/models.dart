@@ -1,1 +1,6 @@
-export * from './user_model.dart'; export * from './course_model.dart'; export * from './lesson_model.dart'; export * from './vocabulary_model.dart';
+// Barrel export for all models
+export 'user_model.dart';
+export 'course_model.dart';
+export 'lesson_model.dart';
+export 'vocabulary_model.dart';
+export 'flashcard_model.dart';
