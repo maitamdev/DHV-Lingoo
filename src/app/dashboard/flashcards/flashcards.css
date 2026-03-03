@@ -320,3 +320,6 @@
 
 /* Hover Effects */
 .flashcard:hover .flashcard-front { box-shadow: 0 8px 30px rgba(0,0,0,0.12); } .flashcard:active { transform: scale(0.98); } .flashcard { transition: transform 0.2s ease; }
+
+/* Shimmer */
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } } .animate-shimmer { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite; }
