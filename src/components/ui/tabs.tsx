@@ -1,3 +1,4 @@
+// Tabs - tabbed navigation component with content panels
 "use client"
 
 import * as React from "react"
