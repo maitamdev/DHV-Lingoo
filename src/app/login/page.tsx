@@ -1,3 +1,4 @@
+// Login page - user authentication entry point
 import LoginForm from "@/components/auth/LoginForm";
 
 export default function LoginPage() {
