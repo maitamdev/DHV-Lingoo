@@ -317,3 +317,6 @@
 
 /* High Contrast */
 @media (prefers-contrast: high) { .flashcard-front, .flashcard-back { border-width: 3px; } .rarity-badge { border: 1px solid currentColor; } }
+
+/* Hover Effects */
+.flashcard:hover .flashcard-front { box-shadow: 0 8px 30px rgba(0,0,0,0.12); } .flashcard:active { transform: scale(0.98); } .flashcard { transition: transform 0.2s ease; }
