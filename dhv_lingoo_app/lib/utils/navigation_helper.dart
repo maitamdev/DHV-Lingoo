@@ -1,0 +1,1 @@
+import 'package:go_router/go_router.dart'; import 'package:flutter/material.dart'; class Nav { static void toDashboard(BuildContext c)=>c.go('/dashboard'); static void toCourses(BuildContext c)=>c.go('/courses'); static void toSettings(BuildContext c)=>c.go('/settings'); static void toLogin(BuildContext c)=>c.go('/login'); }
