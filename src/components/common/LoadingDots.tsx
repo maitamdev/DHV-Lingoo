@@ -1,0 +1,1 @@
+export default function LoadingDots(){return(<div className='flex items-center gap-1'>{[0,1,2].map(i=>(<div key={i} className='h-2 w-2 bg-blue-500 rounded-full animate-bounce' style={{animationDelay:i*150+'ms'}}/>))}</div>)}
