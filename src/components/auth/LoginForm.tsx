@@ -1,3 +1,4 @@
+import React from 'react';
 // LoginForm - email/password authentication form with validation
 "use client";
 
@@ -140,3 +141,4 @@ export default function LoginForm() {
         </Card>
     );
 }
+
