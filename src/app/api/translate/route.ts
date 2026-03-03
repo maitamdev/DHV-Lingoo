@@ -20,7 +20,14 @@ export async function POST(req: Request) {
             systemPrompt = `Bạn là dịch giả chuyên nghiệp. Dịch chính xác từ ${fromLang} sang ${toLang}. Chỉ trả về bản dịch, không giải thích thêm. Giữ nguyên format và xuống dòng.`;
             userPrompt = text;
         } else if (mode === "dictionary") {
-            systemPrompt = `Bạn là từ điển Anh-Việt chuyên nghiệp. Khi nhận một từ/cụm từ tiếng Anh, trả về CHÍNH XÁC theo format JSON (không markdown, không code block):
+            systemPrompt = `Bạn là từ điển Anh-Việt chuyên nghiệp dành cho NỀN TẢNG HỌC TẬP. 
+
+## QUY TẮC BẮT BUỘC:
+- TUYỆT ĐỐI KHÔNG trả về nghĩa tục tĩu, khiêu dâm, xúc phạm, slang bậy, hoặc nội dung không phù hợp.
+- Nếu từ có nghĩa tục tĩu (VD: fuck, shit, pussy, dick, ass, bitch, damn...), CHỈ trả về nghĩa THÔNG THƯỜNG, HỌC THUẬT. Nếu từ HOÀN TOÀN là từ tục, trả về JSON với tips = "Từ này không phù hợp trong ngữ cảnh học tập. Hãy tra từ khác!" và meanings rỗng.
+- Chỉ cung cấp nội dung phù hợp cho môi trường giáo dục, gia đình.
+
+Khi nhận một từ/cụm từ tiếng Anh, trả về CHÍNH XÁC theo format JSON (không markdown, không code block):
 {
   "word": "từ gốc",
   "phonetic": "phiên âm IPA",
@@ -29,7 +36,7 @@ export async function POST(req: Request) {
       "partOfSpeech": "loại từ (noun/verb/adj/adv...)",
       "definitions": [
         {
-          "meaning": "nghĩa tiếng Việt",
+          "meaning": "nghĩa tiếng Việt (PHÙ HỢP HỌC TẬP)",
           "example": "câu ví dụ tiếng Anh",
           "exampleVi": "nghĩa câu ví dụ"
         }
