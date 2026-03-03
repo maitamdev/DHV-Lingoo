@@ -13,3 +13,13 @@
 - Settings and profile
 - Learning roadmap
 - Flutter mobile app
+
+
+## [1.3.0] - 2026-03-04
+### Added
+- Daily Flashcard Mystery Bag feature
+- 5 unique cards per user per day (seeded random)
+- Card rarities: Common, Uncommon, Rare, Epic, Legendary
+- 3D card flip, bag opening, particle burst, confetti
+- Dark mode, a11y, responsive layout
+- Flutter: DailyFlashcardScreen
