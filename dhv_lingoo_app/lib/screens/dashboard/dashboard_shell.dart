@@ -1,3 +1,4 @@
+// Dashboard shell - bottom navigation bar wrapper for main screens
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dhv_lingoo/config/theme.dart';
