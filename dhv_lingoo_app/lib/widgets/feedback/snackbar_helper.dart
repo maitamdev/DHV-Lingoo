@@ -1,0 +1,1 @@
+import 'package:flutter/material.dart'; class SnackBarHelper { static void show(BuildContext ctx, String msg, {bool isError = false}) { ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(content: Text(msg), backgroundColor: isError ? Colors.red : Colors.green)); } }
