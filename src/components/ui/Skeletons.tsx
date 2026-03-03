@@ -1,3 +1,4 @@
+// Skeletons - reusable loading skeleton components for pages
 import "../ui/skeleton.css";
 
 /* ── Base Skeleton Block ── */
