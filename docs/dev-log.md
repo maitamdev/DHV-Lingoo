@@ -11,3 +11,4 @@
 2026-03-04 01:35:36 - a11y: add screen reader support for navigation
 2026-03-04 01:35:36 - a11y: improve keyboard navigation flow
 2026-03-04 01:35:36 - a11y: add ARIA landmarks to all pages
+2026-03-04 01:35:36 - a11y: add focus trap for modals
