@@ -1,3 +1,4 @@
+// Badge - small label component for status and categories
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "radix-ui"
