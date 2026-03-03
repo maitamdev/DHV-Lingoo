@@ -1,3 +1,4 @@
+// DashboardCharts - real-time analytics charts using Supabase data
 "use client";
 
 import {
