@@ -191,3 +191,15 @@
   transform: rotateY(180deg);
   border: 2px solid transparent;
 }
+
+/* ═══ Card Rarity Borders ═══ */
+.rarity-common .flashcard-front,
+.rarity-common .flashcard-back { border-color: #cbd5e1; }
+.rarity-uncommon .flashcard-front,
+.rarity-uncommon .flashcard-back { border-color: #22c55e; box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15); }
+.rarity-rare .flashcard-front,
+.rarity-rare .flashcard-back { border-color: #3b82f6; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.15); }
+.rarity-epic .flashcard-front,
+.rarity-epic .flashcard-back { border-color: #a855f7; box-shadow: 0 4px 20px rgba(168, 85, 247, 0.2); }
+.rarity-legendary .flashcard-front,
+.rarity-legendary .flashcard-back { border-color: #f59e0b; box-shadow: 0 0 30px rgba(245, 158, 11, 0.3); }
