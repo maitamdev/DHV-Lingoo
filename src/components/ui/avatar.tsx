@@ -1,3 +1,4 @@
+// Avatar - user profile image with fallback initials
 "use client"
 
 import * as React from "react"
