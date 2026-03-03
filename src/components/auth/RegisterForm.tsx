@@ -1,3 +1,4 @@
+// RegisterForm - new user registration form with validation
 "use client";
 
 import { useState } from "react";
