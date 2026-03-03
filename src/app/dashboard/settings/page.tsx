@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
+import Image from "next/image";
 import { Save, Loader2, User, Target, Clock, BookOpen, Camera } from "lucide-react";
 
 const LEVELS = [
@@ -43,6 +44,9 @@ export default function SettingsPage() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
+    const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+    const [uploadingAvatar, setUploadingAvatar] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
     const [profile, setProfile] = useState({
         full_name: "",
         date_of_birth: "",
@@ -64,7 +68,7 @@ export default function SettingsPage() {
 
         const { data } = await supabase
             .from("profiles")
-            .select("full_name, date_of_birth, gender, level, goals, interests, daily_time")
+            .select("full_name, date_of_birth, gender, level, goals, interests, daily_time, avatar_url")
             .eq("id", user.id)
             .single();
 
@@ -78,8 +82,39 @@ export default function SettingsPage() {
                 interests: data.interests || [],
                 daily_time: data.daily_time || 30,
             });
+            setAvatarUrl(data.avatar_url || null);
         }
         setLoading(false);
+    }
+
+    async function handleAvatarUpload(e: React.ChangeEvent<HTMLInputElement>) {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setUploadingAvatar(true);
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) { setUploadingAvatar(false); return; }
+
+        const fileExt = file.name.split(".").pop();
+        const filePath = `${user.id}/avatar.${fileExt}`;
+
+        const { error: uploadError } = await supabase.storage
+            .from("avatars")
+            .upload(filePath, file, { upsert: true });
+
+        if (uploadError) {
+            alert("Lỗi upload: " + uploadError.message);
+            setUploadingAvatar(false);
+            return;
+        }
+
+        const { data: { publicUrl } } = supabase.storage
+            .from("avatars")
+            .getPublicUrl(filePath);
+
+        await supabase.from("profiles").update({ avatar_url: publicUrl }).eq("id", user.id);
+        setAvatarUrl(publicUrl);
+        setUploadingAvatar(false);
     }
 
     async function handleSave() {
@@ -134,7 +169,7 @@ export default function SettingsPage() {
 
             <div className="space-y-6">
 
-                {/* Personal Info */}
+                {/* Avatar & Personal Info */}
                 <section className="bg-white border border-gray-200 overflow-hidden">
                     <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
                         <h2 className="font-bold text-gray-900 flex items-center gap-2">
@@ -143,6 +178,47 @@ export default function SettingsPage() {
                         </h2>
                     </div>
                     <div className="p-6 space-y-4">
+                        {/* Avatar Upload */}
+                        <div className="flex items-center gap-5 pb-4 border-b border-gray-100">
+                            <div className="relative group">
+                                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-2xl overflow-hidden flex-shrink-0">
+                                    {avatarUrl ? (
+                                        <Image src={avatarUrl} alt="Avatar" width={80} height={80} className="w-full h-full object-cover" />
+                                    ) : (
+                                        profile.full_name ? profile.full_name.charAt(0).toUpperCase() : "?"
+                                    )}
+                                </div>
+                                <button
+                                    onClick={() => fileInputRef.current?.click()}
+                                    disabled={uploadingAvatar}
+                                    className="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                                >
+                                    {uploadingAvatar ? (
+                                        <Loader2 className="w-5 h-5 text-white animate-spin" />
+                                    ) : (
+                                        <Camera className="w-5 h-5 text-white" />
+                                    )}
+                                </button>
+                                <input
+                                    ref={fileInputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleAvatarUpload}
+                                    className="hidden"
+                                />
+                            </div>
+                            <div>
+                                <p className="text-sm font-semibold text-gray-900">Ảnh đại diện</p>
+                                <p className="text-xs text-gray-400 mt-0.5">Nhấn vào ảnh để thay đổi</p>
+                                <button
+                                    onClick={() => fileInputRef.current?.click()}
+                                    className="text-xs text-blue-600 hover:underline mt-1 font-medium"
+                                >
+                                    {uploadingAvatar ? "Đang tải lên..." : "Chọn ảnh mới"}
+                                </button>
+                            </div>
+                        </div>
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Họ và tên</label>
                             <input
@@ -152,6 +228,7 @@ export default function SettingsPage() {
                                 className="w-full px-4 py-2.5 border border-gray-200 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition"
                                 placeholder="Nhập họ và tên"
                             />
+                            <p className="text-xs text-gray-400 mt-1">💡 Tên này sẽ hiển thị ở Dashboard thay vì email</p>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div>
