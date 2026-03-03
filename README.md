@@ -273,7 +273,7 @@ flutter build ios --release
 | Vai trò       | Tên                    |
 | ------------- | ---------------------- |
 | **Developer** | Mai Tâm                |
-| **Trường**    | Đại học Văn Hiến (DHV) |
+| **Trường**    | Đại học Hùng Vương TPHCM (DHV) |
 | **Môn học**   | Đồ án chuyên ngành     |
 
 ---
@@ -285,5 +285,5 @@ Dự án này được phát triển cho mục đích học tập tại Đại h
 ---
 
 <p align="center">
-  Made with ❤️ by <b>Mai Tâm</b> — Đại học Văn Hiến
+  Made with ❤️ by <b>Mai Tâm</b> — Đại học Hùng Vương TPHCM
 </p>
