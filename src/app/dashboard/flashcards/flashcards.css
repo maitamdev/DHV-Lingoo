@@ -21,3 +21,20 @@
     gap: 10px;
   }
 }
+
+/* ═══ Mystery Bag (Unopened Card) ═══ */
+.mystery-bag {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  cursor: pointer;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+}
+
+.mystery-bag:hover {
+  transform: translateY(-8px) scale(1.03);
+}
+
+.mystery-bag:active {
+  transform: scale(0.97);
+}
