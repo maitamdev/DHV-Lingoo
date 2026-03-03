@@ -1,3 +1,4 @@
+// Showcase section - platform screenshots and demos
 "use client";
 
 import Image from "next/image";
