@@ -2,17 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import webpush from "web-push";
 
-const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!;
-const VAPID_PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY!;
-
-webpush.setVapidDetails(
-    "mailto:dhvlingoo@gmail.com",
-    VAPID_PUBLIC_KEY,
-    VAPID_PRIVATE_KEY
-);
-
 // Send push notifications to users whose reminder time matches NOW
 export async function POST(request: NextRequest) {
+    // Init VAPID (inside handler to avoid build-time crash)
+    const vapidPublic = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+    const vapidPrivate = process.env.VAPID_PRIVATE_KEY;
+
+    if (!vapidPublic || !vapidPrivate) {
+        return NextResponse.json({ error: "VAPID keys not configured" }, { status: 500 });
+    }
+
+    webpush.setVapidDetails("mailto:dhvlingoo@gmail.com", vapidPublic, vapidPrivate);
+
     // Verify cron secret
     const authHeader = request.headers.get("authorization");
     const cronSecret = process.env.CRON_SECRET;
