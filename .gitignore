@@ -1,11 +1,1 @@
 .vscode/
-node_modules/
-.next/
-.env.local
-*.log
-.DS_Store
-build/
-.dart_tool/
-dhv_lingoo_app/build/
-dhv_lingoo_app/.dart_tool/
-.gitcommitmsg
