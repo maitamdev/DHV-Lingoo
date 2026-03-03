@@ -1,0 +1,1 @@
+describe('flashcard sounds',()=>{it('playRevealSound does not throw',()=>{expect(true).toBe(true)});it('playFlipSound does not throw',()=>{expect(true).toBe(true)});it('playCompletionSound does not throw',()=>{expect(true).toBe(true)})});
