@@ -1,0 +1,1 @@
+import 'package:flutter/material.dart'; class FlashcardAnimations { static const Duration bagOpenDuration = Duration(milliseconds: 700); static const Duration cardFlipDuration = Duration(milliseconds: 500); static const Curve bagOpenCurve = Curves.easeInOutCubicEmphasized; static const double hoverScale = 1.03; static const double pressScale = 0.97; }
