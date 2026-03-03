@@ -1,0 +1,2 @@
+'use client';
+export default function RelativeDate({date}:{date:string}){const d=new Date(date);const diff=Date.now()-d.getTime();const m=Math.floor(diff/60000);const h=Math.floor(m/60);const days=Math.floor(h/24);let t='';if(days>30)t=d.toLocaleDateString('vi-VN');else if(days>0)t=days+' ngay truoc';else if(h>0)t=h+' gio truoc';else if(m>0)t=m+' phut truoc';else t='Vua xong';return(<time dateTime={d.toISOString()}>{t}</time>)}
