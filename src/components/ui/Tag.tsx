@@ -1,1 +1,3 @@
+import React from 'react';
 export default function Tag({children,color='blue'}:{children:React.ReactNode;color?:string}){const c:Record<string,string>={blue:'bg-blue-100 text-blue-700',green:'bg-emerald-100 text-emerald-700',red:'bg-red-100 text-red-700'};return(<span className={'inline-block px-2 py-0.5 text-xs font-semibold '+(c[color]||c.blue)}>{children}</span>)}
+
