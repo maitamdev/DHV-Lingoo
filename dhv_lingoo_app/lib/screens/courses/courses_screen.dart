@@ -22,15 +22,19 @@ class _CoursesScreenState extends State<CoursesScreen> {
   }
 
   Future<void> _loadCourses() async {
-    final res = await Supabase.instance.client
-        .from('courses')
-        .select('id, title, level, description, thumbnail_url')
-        .order('created_at');
-    if (mounted)
-      setState(() {
-        _courses = List<Map<String, dynamic>>.from(res);
-        _loading = false;
-      });
+    try {
+      final res = await Supabase.instance.client
+          .from('courses')
+          .select('id, title, level, description')
+          .order('title');
+      if (mounted)
+        setState(() {
+          _courses = List<Map<String, dynamic>>.from(res);
+          _loading = false;
+        });
+    } catch (e) {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
   @override
