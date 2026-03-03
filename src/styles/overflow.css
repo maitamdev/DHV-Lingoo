@@ -1,0 +1,1 @@
+/* Overflow utilities */ .overflow-hidden{overflow:hidden} .overflow-auto{overflow:auto} .overflow-x-auto{overflow-x:auto} .overflow-y-auto{overflow-y:auto} .truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap} .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
