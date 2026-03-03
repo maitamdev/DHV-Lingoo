@@ -1,3 +1,4 @@
+// Accordion - expandable content sections with smooth animation
 "use client"
 
 import * as React from "react"
