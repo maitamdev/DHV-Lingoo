@@ -67,7 +67,7 @@ export default function FlashcardClient() {
       setCards(cardsWithRarity);
       setRevealed(savedRevealed);
       setLoading(false);
-    } catch (err) {
+    } catch {
       setError('Failed to load flashcards');
       setLoading(false);
     }
@@ -162,3 +162,4 @@ export default function FlashcardClient() {
     </div>
   );
 }
+
