@@ -1,3 +1,4 @@
+// LogoStrip section - technology partner logos
 import Image from "next/image";
 
 const logos = [
