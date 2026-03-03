@@ -1,0 +1,1 @@
+export default function UserAvatar({name,size='md'}:{name:string;size?:'sm'|'md'|'lg'}){const s={sm:'w-8 h-8 text-xs',md:'w-10 h-10 text-sm',lg:'w-16 h-16 text-xl'};return(<div className={'rounded-full bg-blue-500 text-white flex items-center justify-center font-bold '+s[size]}>{name?name[0].toUpperCase():'?'}</div>)}
