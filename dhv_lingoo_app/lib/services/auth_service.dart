@@ -1,3 +1,4 @@
+// Authentication service - Supabase auth wrapper for sign in/up/out and profile management
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService {
