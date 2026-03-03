@@ -1,3 +1,4 @@
+// StudyReminder - daily study reminder configuration
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
