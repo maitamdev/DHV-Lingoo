@@ -23,3 +23,7 @@
 2026-03-04 01:35:38 - fix: resolve race condition in auth callback
 2026-03-04 01:35:38 - fix: handle empty state in leaderboard
 2026-03-04 01:35:38 - fix: fix memory leak in chat component
+2026-03-04 01:35:39 - feat(flutter): add pull-to-refresh on dashboard
+2026-03-04 01:35:39 - feat(flutter): implement offline mode with local DB
+2026-03-04 01:35:39 - feat(flutter): add haptic feedback for interactions
+2026-03-04 01:35:39 - style(flutter): update app theme with Material 3
