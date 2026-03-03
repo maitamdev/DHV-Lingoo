@@ -1,3 +1,4 @@
+// Translation API - Free Dictionary API + AI Vietnamese translation via Groq
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
 
