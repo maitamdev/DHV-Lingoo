@@ -1,7 +1,7 @@
 // Client-side flashcard page with state management
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { getDailySeed, seededRandom, pickRandomItems, getTodayDateString, getCardRarity } from '@/lib/flashcard-seed';
 import { CARDS_PER_DAY, BAG_COLORS, XP_PER_CARD } from '@/lib/flashcard-config';
@@ -26,54 +26,53 @@ export default function FlashcardClient() {
   const [showConfetti, setShowConfetti] = useState(false);
   const [today] = useState(getTodayDateString());
 
-  const loadCards = useCallback(async () => {
-    try {
-      setLoading(true);
-      setError(null);
+  useEffect(() => {
+    let cancelled = false;
+    async function loadCards() {
+      try {
+        setLoading(true);
+        setError(null);
 
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { setError('Please log in'); setLoading(false); return; }
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) { if (!cancelled) { setError('Please log in'); setLoading(false); } return; }
 
-      // Check localStorage for already revealed cards today
-      const storageKey = `flashcards_${user.id}_${today}`;
-      const saved = localStorage.getItem(storageKey);
-      const savedRevealed = saved ? JSON.parse(saved) as boolean[] : [false, false, false, false, false];
+        const storageKey = `flashcards_${user.id}_${today}`;
+        const saved = localStorage.getItem(storageKey);
+        const savedRevealed = saved ? JSON.parse(saved) as boolean[] : [false, false, false, false, false];
 
-      // Fetch all vocabulary
-      const { data: allWords } = await supabase
-        .from('lesson_vocabularies')
-        .select('id, word, meaning, phonetic, example');
+        const { data: allWords } = await supabase
+          .from('lesson_vocabularies')
+          .select('id, word, meaning, phonetic, example');
 
-      if (!allWords || allWords.length === 0) {
-        setError('No vocabulary available');
-        setLoading(false);
-        return;
+        if (!allWords || allWords.length === 0) {
+          if (!cancelled) { setError('No vocabulary available'); setLoading(false); }
+          return;
+        }
+
+        const seed = getDailySeed(user.id, today);
+        const rng = seededRandom(seed);
+        const picked = pickRandomItems(allWords, Math.min(CARDS_PER_DAY, allWords.length), rng);
+
+        const cardsWithRarity = picked.map(w => ({
+          ...w,
+          phonetic: w.phonetic || null,
+          example: w.example || null,
+          rarity: getCardRarity(seededRandom(getDailySeed(w.id, today))),
+        }));
+
+        if (!cancelled) {
+          setCards(cardsWithRarity);
+          setRevealed(savedRevealed);
+          setLoading(false);
+        }
+      } catch {
+        if (!cancelled) { setError('Failed to load flashcards'); setLoading(false); }
       }
-
-      // Use seeded random for consistent daily cards
-      const seed = getDailySeed(user.id, today);
-      const rng = seededRandom(seed);
-      const picked = pickRandomItems(allWords, Math.min(CARDS_PER_DAY, allWords.length), rng);
-
-      // Assign rarities deterministically
-      const cardsWithRarity = picked.map(w => ({
-        ...w,
-        phonetic: w.phonetic || null,
-        example: w.example || null,
-        rarity: getCardRarity(seededRandom(getDailySeed(w.id, today))),
-      }));
-
-      setCards(cardsWithRarity);
-      setRevealed(savedRevealed);
-      setLoading(false);
-    } catch {
-      setError('Failed to load flashcards');
-      setLoading(false);
     }
+    loadCards();
+    return () => { cancelled = true; };
   }, [today]);
-
-  useEffect(() => { void loadCards(); }, [loadCards]);
 
   const handleOpenBag = async (index: number) => {
     const newRevealed = [...revealed];
@@ -114,7 +113,7 @@ export default function FlashcardClient() {
       <div style={{ textAlign: 'center', padding: 60 }}>
         <div style={{ fontSize: 48, marginBottom: 16 }}>😢</div>
         <h2 style={{ fontWeight: 800 }}>{error}</h2>
-        <button onClick={loadCards} style={{ marginTop: 16, padding: '8px 24px', background: '#6366f1', color: 'white', border: 'none', borderRadius: 8, fontWeight: 700, cursor: 'pointer' }}>
+        <button onClick={() => window.location.reload()} style={{ marginTop: 16, padding: '8px 24px', background: '#6366f1', color: 'white', border: 'none', borderRadius: 8, fontWeight: 700, cursor: 'pointer' }}>
           Try again
         </button>
       </div>
