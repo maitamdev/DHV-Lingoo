@@ -19,3 +19,4 @@
 2026-03-04 01:35:37 - seo: add structured data for courses
 2026-03-04 01:35:37 - seo: optimize meta tags for all pages
 2026-03-04 01:35:38 - seo: add sitemap.xml generation
+2026-03-04 01:35:38 - seo: add robots.txt configuration
