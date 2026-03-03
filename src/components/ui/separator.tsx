@@ -1,3 +1,4 @@
+// Separator - visual divider between content sections
 "use client"
 
 import * as React from "react"
