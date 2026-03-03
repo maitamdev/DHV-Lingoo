@@ -29,3 +29,4 @@
 2026-03-04 01:35:39 - style(flutter): update app theme with Material 3
 2026-03-04 01:35:40 - feat(gamification): add daily login bonus system
 2026-03-04 01:35:40 - feat(gamification): implement badge collection
+2026-03-04 01:35:40 - feat(gamification): add level-up animation
