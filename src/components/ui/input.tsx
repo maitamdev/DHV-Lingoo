@@ -1,3 +1,4 @@
+// Input - styled form input with consistent theming
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
