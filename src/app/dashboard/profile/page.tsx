@@ -1,0 +1,1 @@
+import type {Metadata} from 'next'; export const metadata:Metadata={title:'Profile | DHV-Lingoo'}; export default function Profile(){return(<div className='p-6'><h1 className='text-2xl font-bold mb-4'>My Profile</h1><p className='text-gray-500'>Profile management coming soon...</p></div>)}
