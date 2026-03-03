@@ -1,0 +1,2 @@
+/* Print styles */
+@media print { nav,footer,button,.no-print { display:none !important; } body { background:white !important; } * { color:#000 !important; box-shadow:none !important; } @page { margin:2cm; } }
