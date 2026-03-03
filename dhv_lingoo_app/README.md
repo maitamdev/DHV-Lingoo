@@ -1,16 +1,32 @@
-# dhv_lingoo
+# DHV-Lingoo Mobile App
 
-A new Flutter project.
+Flutter mobile application for DHV-Lingoo platform.
 
-## Getting Started
+## Setup
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Screens
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+| Screen | Description |
+|--------|-------------|
+| Login | Email/password authentication |
+| Register | New user signup |
+| Dashboard | Stats, charts, leaderboard |
+| Courses | Course listing with levels |
+| Course Detail | Lessons with gradient header |
+| Lesson Viewer | Content, vocab, TTS, XP |
+| Dictionary | Free Dictionary API lookup |
+| Settings | Profile, preferences, logout |
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Dependencies
+
+- supabase_flutter - Backend integration
+- go_router - Navigation
+- fl_chart - Charts
+- flutter_tts - Text-to-speech
+- google_fonts - Typography
+- cached_network_image - Image caching
