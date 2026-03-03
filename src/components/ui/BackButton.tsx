@@ -1,0 +1,1 @@
+'use client';export default function BackButton({label='Back'}:{label?:string}){return(<button onClick={()=>window.history.back()} className='flex items-center gap-1 text-sm text-gray-500 hover:text-gray-900 transition-colors'><span>Back</span> {label}</button>)}
