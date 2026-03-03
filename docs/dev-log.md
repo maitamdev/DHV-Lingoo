@@ -20,3 +20,6 @@
 2026-03-04 01:35:37 - seo: optimize meta tags for all pages
 2026-03-04 01:35:38 - seo: add sitemap.xml generation
 2026-03-04 01:35:38 - seo: add robots.txt configuration
+2026-03-04 01:35:38 - fix: resolve race condition in auth callback
+2026-03-04 01:35:38 - fix: handle empty state in leaderboard
+2026-03-04 01:35:38 - fix: fix memory leak in chat component
