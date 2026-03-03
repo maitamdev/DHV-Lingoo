@@ -28,10 +28,6 @@ export default function CourseDetailPage() {
     const [lessons, setLessons] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        if (params.id) fetchCourseData(params.id as string);
-    }, [params.id]);
-
     async function fetchCourseData(courseId: string) {
         setLoading(true);
         const [courseRes, lessonsRes] = await Promise.all([
@@ -43,6 +39,10 @@ export default function CourseDetailPage() {
         if (lessonsRes.data) setLessons(lessonsRes.data);
         setLoading(false);
     }
+
+    useEffect(() => {
+        if (params.id) fetchCourseData(params.id as string);
+    }, [params.id]);
 
     if (loading) {
         return (
