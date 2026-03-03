@@ -5,6 +5,7 @@ import { Languages, Search, ArrowRightLeft, Volume2, Loader2, BookOpen, Copy, Ch
 
 interface DictDefinition {
     meaning: string;
+    meaningVi?: string;
     example?: string;
 }
 
@@ -143,7 +144,7 @@ export default function DictionaryPage() {
                     <Languages className="w-6 h-6 text-blue-500" />
                     Dịch & Tra từ
                 </h1>
-                <p className="text-gray-500 mt-1">Tra cứu từ điển Anh-Anh và dịch văn bản EN ↔ VI</p>
+                <p className="text-gray-500 mt-1">Từ điển Anh-Việt và dịch văn bản EN ↔ VI</p>
             </div>
 
             {/* Mode Toggle */}
@@ -193,7 +194,7 @@ export default function DictionaryPage() {
                 {/* Dictionary source info */}
                 {mode === "dictionary" && (
                     <div className="px-6 py-2 bg-violet-50 border-b border-gray-200">
-                        <p className="text-xs text-violet-600 font-medium">📖 Từ điển Anh-Anh + hỗ trợ tra từ tiếng Việt bằng AI</p>
+                        <p className="text-xs text-violet-600 font-medium">📖 Từ điển Anh-Việt — dữ liệu từ điển thật + nghĩa Việt</p>
                     </div>
                 )}
 
@@ -309,6 +310,9 @@ export default function DictionaryPage() {
                                             {meaning.definitions?.map((def, j) => (
                                                 <div key={j} className="pl-4 border-l-2 border-violet-200">
                                                     <p className="text-sm text-gray-900">{j + 1}. {def.meaning}</p>
+                                                    {def.meaningVi && (
+                                                        <p className="text-sm text-blue-600 font-medium mt-0.5">🇻🇳 {def.meaningVi}</p>
+                                                    )}
                                                     {def.example && (
                                                         <p className="text-xs text-gray-500 mt-1 italic">&quot;{def.example}&quot;</p>
                                                     )}
