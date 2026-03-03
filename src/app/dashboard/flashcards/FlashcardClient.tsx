@@ -91,7 +91,7 @@ export default function FlashcardClient() {
       const card = cards[index];
       if (card) {
         const xp = XP_PER_CARD[card.rarity] || 2;
-        await supabase.rpc('increment_xp', { user_id: user.id, amount: xp }).catch(() => {});
+        try { await supabase.rpc('increment_xp', { user_id: user.id, amount: xp }); } catch {}
       }
     }
 
