@@ -1,0 +1,3 @@
+'use client';
+import { useState } from 'react';
+export default function SearchInput({placeholder='Tim kiem...',onSearch,className=''}:{placeholder?:string;onSearch:(q:string)=>void;className?:string}) { const [q,setQ]=useState(''); return (<div className={'relative '+className}><input type='search' value={q} onChange={e=>{setQ(e.target.value);onSearch(e.target.value)}} placeholder={placeholder} className='w-full pl-10 pr-10 py-2.5 border border-gray-200 focus:border-blue-500 outline-none text-sm'/>{q&&<button onClick={()=>{setQ('');onSearch('')}} className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400'>X</button>}</div>); }
