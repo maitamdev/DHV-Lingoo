@@ -1,3 +1,4 @@
+// Settings page - user profile and preferences management
 "use client";
 
 import { useState, useEffect, useRef } from "react";
