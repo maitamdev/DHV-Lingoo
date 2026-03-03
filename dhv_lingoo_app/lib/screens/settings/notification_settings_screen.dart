@@ -1,0 +1,1 @@
+import 'package:flutter/material.dart'; import 'package:dhv_lingoo/config/theme.dart'; class NotificationSettingsScreen extends StatelessWidget { const NotificationSettingsScreen({super.key}); @override Widget build(BuildContext c) => Scaffold(backgroundColor:AppTheme.bg, appBar:AppBar(title:const Text('Thong bao')),body:const Center(child:Text('Coming soon...'))); }
