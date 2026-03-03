@@ -1,3 +1,4 @@
+// HowItWorks section - step-by-step platform guide
 import { BookOpen, Clock, Trophy } from "lucide-react";
 
 const steps = [
