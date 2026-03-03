@@ -1,6 +1,6 @@
-import React from 'react';
 // NavItem - individual navigation item with icon and active state
 "use client";
+import React from 'react';
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
