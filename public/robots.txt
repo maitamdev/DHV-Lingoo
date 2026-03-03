@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard/
+Sitemap: https://dhv-lingoo.vercel.app/sitemap.xml
