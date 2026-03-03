@@ -14,3 +14,4 @@
 2026-03-04 01:35:36 - a11y: add focus trap for modals
 2026-03-04 01:35:37 - test: add unit tests for auth flows
 2026-03-04 01:35:37 - test: add integration tests for API routes
+2026-03-04 01:35:37 - test: add snapshot tests for UI components
