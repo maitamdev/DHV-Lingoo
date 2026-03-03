@@ -1,0 +1,1 @@
+import type {Metadata} from 'next'; export const metadata:Metadata={title:'Practice | DHV-Lingoo'}; export default function Practice(){return(<div className='p-6'><h1 className='text-2xl font-bold mb-4'>Practice Mode</h1><p className='text-gray-500'>Coming soon...</p></div>)}
