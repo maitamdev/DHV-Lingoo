@@ -1,3 +1,4 @@
+// Features section - showcases platform capabilities
 import { Card, CardContent } from "@/components/ui/card";
 import {
     BookOpen,
