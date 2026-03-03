@@ -16,3 +16,4 @@
 2026-03-04 01:35:37 - test: add integration tests for API routes
 2026-03-04 01:35:37 - test: add snapshot tests for UI components
 2026-03-04 01:35:37 - test: add e2e test for login flow
+2026-03-04 01:35:37 - seo: add structured data for courses
