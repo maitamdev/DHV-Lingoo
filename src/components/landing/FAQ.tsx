@@ -1,3 +1,4 @@
+// FAQ section - frequently asked questions with accordion
 "use client";
 
 import {
