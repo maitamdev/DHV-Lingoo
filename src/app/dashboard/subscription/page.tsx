@@ -1,3 +1,4 @@
+// Subscription page - premium plan management
 "use client";
 
 import { useState, useEffect } from "react";
