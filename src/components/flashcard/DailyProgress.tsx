@@ -11,7 +11,7 @@ export default function DailyProgress({ opened }: DailyProgressProps) {
   const percentage = (opened / CARDS_PER_DAY) * 100;
 
   return (
-    <div className="flashcard-progress">
+    <div className="flashcard-progress" role="progressbar" aria-valuenow={opened} aria-valuemin={0} aria-valuemax={CARDS_PER_DAY} aria-label={`${opened} of ${CARDS_PER_DAY} cards opened`}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 13, fontWeight: 700 }}>
         <span style={{ color: '#64748b' }}>
           {opened}/{CARDS_PER_DAY} cards opened
@@ -26,3 +26,4 @@ export default function DailyProgress({ opened }: DailyProgressProps) {
     </div>
   );
 }
+
