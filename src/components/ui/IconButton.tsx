@@ -1,0 +1,1 @@
+export default function IconButton({icon,onClick,label,className=''}:{icon:string;onClick:()=>void;label:string;className?:string}){return(<button onClick={onClick} aria-label={label} className={'p-2 hover:bg-gray-100 transition-colors '+className} title={label}>{icon}</button>)}
