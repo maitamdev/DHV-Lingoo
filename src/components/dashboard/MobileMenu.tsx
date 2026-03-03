@@ -1,3 +1,4 @@
+import React from 'react';
 // MobileMenu - responsive mobile navigation menu
 "use client";
 
@@ -182,3 +183,4 @@ export function MobileMenu({
         </>
     );
 }
+
