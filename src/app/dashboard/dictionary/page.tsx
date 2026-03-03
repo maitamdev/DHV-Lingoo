@@ -1,3 +1,4 @@
+// Dictionary page - EN-VI dictionary lookup and text translation
 "use client";
 
 import { useState, useRef } from "react";
