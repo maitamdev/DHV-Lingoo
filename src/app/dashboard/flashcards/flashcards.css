@@ -308,3 +308,6 @@
   z-index: 100;
   animation: confetti-fall 3s ease-in forwards;
 }
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) { .bag-icon,.bag-inner::before { animation: none; } .flashcard-inner { transition-duration: 0.1s; } .confetti-piece { display: none; } }
