@@ -30,7 +30,7 @@ const steps = [
 
 export default function HowItWorks() {
     return (
-        <section id="how" className="py-16 sm:py-24 bg-muted/30">
+        <section aria-label='HowItWorks' id="how" className="py-16 sm:py-24 bg-muted/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
                 {/* Section header */}
                 <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-16">
