@@ -1,3 +1,4 @@
+// Register screen - new user signup with profile creation
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
