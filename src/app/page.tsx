@@ -1,3 +1,4 @@
+// Landing page - main marketing page with all sections
 import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
 import LogoStrip from "@/components/landing/LogoStrip";
