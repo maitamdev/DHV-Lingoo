@@ -1,0 +1,1 @@
+/* Border radius utilities */ .rounded-none{border-radius:0} .rounded-sm{border-radius:2px} .rounded{border-radius:4px} .rounded-md{border-radius:6px} .rounded-lg{border-radius:8px} .rounded-xl{border-radius:12px} .rounded-full{border-radius:9999px}
