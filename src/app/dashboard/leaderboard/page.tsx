@@ -1,0 +1,1 @@
+import type {Metadata} from 'next'; export const metadata:Metadata={title:'Leaderboard | DHV-Lingoo'}; export default function Leaderboard(){return(<div className='p-6'><h1 className='text-2xl font-bold mb-4'>Leaderboard</h1><p className='text-gray-500'>View top learners...</p></div>)}
