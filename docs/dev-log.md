@@ -40,3 +40,4 @@
 2026-03-04 01:35:42 - feat(social): add shared vocabulary lists
 2026-03-04 01:35:42 - feat(social): create group leaderboard
 2026-03-04 01:35:42 - feat(notification): add in-app notification center
+2026-03-04 01:35:43 - feat(notification): implement smart study reminders
