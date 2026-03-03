@@ -1,3 +1,4 @@
+// Sheet - slide-out panel component for contextual content
 "use client"
 
 import * as React from "react"
