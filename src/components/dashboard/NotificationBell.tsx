@@ -1,3 +1,4 @@
+// NotificationBell - push notification subscription manager
 "use client";
 
 import { useState, useEffect, useRef } from "react";
