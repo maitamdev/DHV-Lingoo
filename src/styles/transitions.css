@@ -1,0 +1,1 @@
+/* Transition utilities */ .transition-all{transition:all 0.2s ease} .transition-colors{transition:color 0.2s,background-color 0.2s,border-color 0.2s} .transition-transform{transition:transform 0.2s ease} .transition-opacity{transition:opacity 0.2s ease} .duration-300{transition-duration:300ms} .duration-500{transition-duration:500ms}
