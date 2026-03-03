@@ -1,3 +1,4 @@
+// Progress - animated progress bar for completion tracking
 "use client"
 
 import * as React from "react"
