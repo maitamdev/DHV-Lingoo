@@ -1,3 +1,4 @@
+import React from 'react';
 // CollapsibleSidebar - expandable navigation sidebar for dashboard
 "use client";
 
@@ -113,3 +114,4 @@ export const SidebarContext = createContext(false);
 export function useSidebarCollapsed() {
     return useContext(SidebarContext);
 }
+
