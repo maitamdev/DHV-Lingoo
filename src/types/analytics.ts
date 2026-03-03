@@ -1,0 +1,1 @@
+export interface AnalyticsEvent { name: string; properties?: Record<string, string | number | boolean>; timestamp: Date; userId?: string; } export type EventName = 'page_view' | 'lesson_complete' | 'quiz_submit' | 'dictionary_search' | 'chat_message';
