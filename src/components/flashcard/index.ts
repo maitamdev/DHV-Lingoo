@@ -1,4 +1,3 @@
-// Barrel export for flashcard components
 export { default as MysteryBag } from './MysteryBag';
 export { default as FlashcardItem } from './FlashcardItem';
 export { default as ParticleEffect } from './ParticleEffect';
