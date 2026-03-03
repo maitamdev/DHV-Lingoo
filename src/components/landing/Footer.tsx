@@ -1,3 +1,4 @@
+// Footer section - navigation links and copyright
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
