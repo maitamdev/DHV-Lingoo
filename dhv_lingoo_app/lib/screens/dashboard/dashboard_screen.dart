@@ -31,48 +31,74 @@ class _DashboardScreenState extends State<DashboardScreen> {
     try {
       final client = Supabase.instance.client;
       final user = AuthService.currentUser;
-      if (user == null) return;
+      if (user == null) {
+        if (mounted) setState(() => _loading = false);
+        return;
+      }
 
-      final profileRes =
-          await client.from('profiles').select().eq('id', user.id).single();
-      final leaderboardRes = await client
-          .from('profiles')
-          .select('id, full_name, xp, avatar_url')
-          .order('xp', ascending: false)
-          .limit(5);
-      final coursesRes = await client
-          .from('courses')
-          .select('id, title, level, description')
-          .order('created_at', ascending: true)
-          .limit(4);
-
-      List<dynamic> progressRes = [];
+      // Each query independently try-caught
       try {
-        progressRes = await client
+        _profile =
+            await client.from('profiles').select().eq('id', user.id).single();
+      } catch (_) {
+        _profile = {
+          'full_name': 'Học viên',
+          'level': 'A1',
+          'xp': 0,
+          'streak': 0
+        };
+      }
+
+      try {
+        final lb = await client
+            .from('profiles')
+            .select('id, full_name, xp, avatar_url')
+            .order('xp', ascending: false)
+            .limit(5);
+        _leaderboard = List<Map<String, dynamic>>.from(lb);
+      } catch (_) {}
+
+      try {
+        final cr = await client
+            .from('courses')
+            .select('id, title, level, description')
+            .order('created_at', ascending: true)
+            .limit(4);
+        _courses = List<Map<String, dynamic>>.from(cr);
+      } catch (_) {}
+
+      try {
+        final pr = await client
             .from('lesson_progress')
             .select('completed_at, xp_earned, score, course_id')
             .eq('user_id', user.id)
             .eq('completed', true)
             .order('completed_at', ascending: true);
+        _progress = List<Map<String, dynamic>>.from(pr);
       } catch (_) {}
 
-      if (mounted) {
-        setState(() {
-          _profile = profileRes;
-          _leaderboard = List<Map<String, dynamic>>.from(leaderboardRes);
-          _courses = List<Map<String, dynamic>>.from(coursesRes);
-          _progress = List<Map<String, dynamic>>.from(progressRes);
-          _loading = false;
-        });
-      }
+      if (mounted) setState(() => _loading = false);
     } catch (e) {
-      if (mounted) {
+      if (mounted)
         setState(() {
           _loading = false;
           _error = e.toString();
         });
-      }
     }
+  }
+
+  // Safe int extraction
+  int _safeInt(dynamic val) {
+    if (val is int) return val;
+    if (val is double) return val.toInt();
+    if (val is String) return int.tryParse(val) ?? 0;
+    return 0;
+  }
+
+  // Safe string extraction
+  String _safeStr(dynamic val, String fallback) {
+    if (val is String && val.isNotEmpty) return val;
+    return fallback;
   }
 
   @override
@@ -81,13 +107,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     if (_error != null) {
-      return Scaffold(body: Center(child: Text('Lỗi: $_error')));
+      return Scaffold(
+        backgroundColor: AppTheme.bg,
+        body: Center(
+            child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.error_outline, size: 48, color: AppTheme.rose),
+            const SizedBox(height: 12),
+            Text('Lỗi tải dữ liệu',
+                style: GoogleFonts.inter(
+                    fontSize: 16, fontWeight: FontWeight.w700)),
+            const SizedBox(height: 8),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _loading = true;
+                    _error = null;
+                  });
+                  _loadData();
+                },
+                child: const Text('Thử lại')),
+          ],
+        )),
+      );
     }
 
-    final name = (_profile?['full_name'] ?? 'Học viên').toString();
-    final level = (_profile?['level'] ?? 'A1').toString();
-    final xp = (_profile?['xp'] ?? 0) as int;
-    final streak = (_profile?['streak'] ?? 0) as int;
+    final name = _safeStr(_profile?['full_name'], 'Học viên');
+    final level = _safeStr(_profile?['level'], 'A1');
+    final xp = _safeInt(_profile?['xp']);
+    final streak = _safeInt(_profile?['streak']);
+
     final levelLabel = AppTheme.levelLabels[level] ?? 'Beginner';
     final levelColors = AppTheme.levelGradients[level] ??
         [AppTheme.primary, AppTheme.primaryDark];
