@@ -1,3 +1,4 @@
+// MobileMenu - responsive mobile navigation menu
 "use client";
 
 import { useState } from "react";
