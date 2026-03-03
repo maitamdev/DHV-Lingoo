@@ -1,7 +1,2 @@
-// Security headers for Next.js
-export const securityHeaders = [
-  { key: 'X-Content-Type-Options', value: 'nosniff' },
-  { key: 'X-Frame-Options', value: 'DENY' },
-  { key: 'X-XSS-Protection', value: '1; mode=block' },
-  { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-];
+import { NextResponse } from 'next/server'; import type { NextRequest } from 'next/server'; export function middleware(request: NextRequest) { const response = NextResponse.next(); response.headers.set('X-Content-Type-Options', 'nosniff'); response.headers.set('X-Frame-Options', 'DENY'); return response; } export const config = { matcher: ['/api/:path*'] };
+
