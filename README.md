@@ -10,7 +10,7 @@
 
 > **Nền tảng học tiếng Anh hiện đại** — Kết hợp AI, Flashcards thông minh và Gamification để mang lại trải nghiệm học tập thú vị và hiệu quả.
 
-**DHV-Lingoo** là đồ án chuyên ngành được phát triển bởi sinh viên Đại học Văn Hiến, với mục tiêu xây dựng một hệ thống học tiếng Anh toàn diện trên cả nền tảng **Web** và **Mobile**.
+**DHV-Lingoo** là đồ án chuyên ngành được phát triển bởi sinh viên Đại học Hùng Vương TPHCM, với mục tiêu xây dựng một hệ thống học tiếng Anh toàn diện trên cả nền tảng **Web** và **Mobile**.
 
 ---
 
@@ -270,20 +270,20 @@ flutter build ios --release
 
 ## 👥 Tác giả
 
-| Vai trò       | Tên                    |
-| ------------- | ---------------------- |
-| **Developer** | Mai Tâm                |
-| **Trường**    | Đại học Văn Hiến (DHV) |
-| **Môn học**   | Đồ án chuyên ngành     |
+| Vai trò       | Tên                      |
+| ------------- | ------------------------ |
+| **Developer** | Mai Tâm                  |
+| **Trường**    | Đại học Hùng Vương TPHCM |
+| **Môn học**   | Đồ án chuyên ngành       |
 
 ---
 
 ## 📄 License
 
-Dự án này được phát triển cho mục đích học tập tại Đại học Văn Hiến.
+Dự án này được phát triển cho mục đích học tập tại Đại học Hùng Vương TPHCM.
 
 ---
 
 <p align="center">
-  Made with ❤️ by <b>Mai Tâm</b> — Đại học Văn Hiến
+  Made with ❤️ by <b>Mai Tâm</b> — Đại học Hùng Vương TPHCM
 </p>
