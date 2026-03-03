@@ -49,4 +49,4 @@ test-*.mjs
 test-*.ts
 .gitcommitmsg
 
-dhv_lingoo_app/
+# Flutter
