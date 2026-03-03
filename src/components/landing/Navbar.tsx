@@ -1,3 +1,4 @@
+// Navbar - responsive navigation bar with auth links
 "use client";
 
 import Link from "next/link";
