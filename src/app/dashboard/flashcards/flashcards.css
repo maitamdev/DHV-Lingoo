@@ -332,3 +332,6 @@
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) { .flashcard-front, .flashcard-back { background: #1e293b; color: #f1f5f9; } .flashcard-progress-bar { background: #334155; } .daily-header h1 { color: #f1f5f9; } }
+
+/* Landscape */
+@media (orientation: landscape) and (max-height: 500px) { .mystery-bag-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; } .daily-header { padding: 12px 20px 8px; } .daily-header h1 { font-size: 20px; } }
