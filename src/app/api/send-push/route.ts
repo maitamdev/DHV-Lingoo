@@ -1,3 +1,4 @@
+// Push Notification API - sends web push notifications for study reminders
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import webpush from "web-push";
