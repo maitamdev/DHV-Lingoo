@@ -1,1 +1,14 @@
-import type {Metadata} from 'next'; export const metadata:Metadata={title:'Flashcards | DHV-Lingoo'}; export default function Flashcards(){return(<div className='p-6'><h1 className='text-2xl font-bold mb-4'>Flashcards</h1><p className='text-gray-500'>Coming soon...</p></div>)}
+// Daily Flashcards - Mystery Bag Feature
+// Each user gets 5 unique flashcards per day based on seeded random
+
+import type { Metadata } from 'next';
+import FlashcardClient from './FlashcardClient';
+
+export const metadata: Metadata = {
+  title: 'Daily Flashcards | DHV-Lingoo',
+  description: 'Open 5 mystery bags each day to discover new vocabulary',
+};
+
+export default function FlashcardsPage() {
+  return <FlashcardClient />;
+}
