@@ -326,3 +326,6 @@
 
 /* Mobile Tap */
 @media (hover: none) { .mystery-bag:active { transform: scale(0.95); } .mystery-bag:hover { transform: none; } }
+
+/* Print */
+@media print { .mystery-bag, .confetti-piece, .particles { display: none; } .flashcard-inner { transform: none !important; } }
