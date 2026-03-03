@@ -1,3 +1,4 @@
+// CollapsibleSidebar - expandable navigation sidebar for dashboard
 "use client";
 
 import { useState } from "react";
