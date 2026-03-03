@@ -1,3 +1,4 @@
+// Router configuration - GoRouter with auth guard and shell navigation
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:dhv_lingoo/services/auth_service.dart';
