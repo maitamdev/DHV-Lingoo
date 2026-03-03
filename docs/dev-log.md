@@ -44,3 +44,4 @@
 2026-03-04 01:35:43 - feat(notification): add achievement unlock alerts
 2026-03-04 01:35:43 - feat(ai): add AI-powered pronunciation scoring
 2026-03-04 01:35:43 - feat(ai): implement smart vocabulary recommendations
+2026-03-04 01:35:44 - feat(ai): add conversation practice mode
