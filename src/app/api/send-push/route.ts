@@ -23,39 +23,25 @@ export async function POST(request: NextRequest) {
 
     const supabase = await createClient();
 
-    // Get current time in HH:MM format (Vietnam timezone)
-    const now = new Date();
-    const vnTime = new Intl.DateTimeFormat("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-        timeZone: "Asia/Ho_Chi_Minh",
-    }).format(now);
-
-    // Get today's date
-    const today = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Ho_Chi_Minh" }).format(now);
-
-    // Find subscriptions matching reminder time
+    // Send midnight greeting to all enabled subscriptions
     const { data: subs } = await supabase
         .from("push_subscriptions")
-        .select("*, profiles!inner(last_active_date, full_name)")
-        .eq("enabled", true)
-        .eq("reminder_time", vnTime);
+        .select("*, profiles!inner(last_active_date, full_name, streak)")
+        .eq("enabled", true);
 
     if (!subs || subs.length === 0) {
-        return NextResponse.json({ sent: 0, time: vnTime });
+        return NextResponse.json({ sent: 0 });
     }
 
     let sent = 0;
     let failed = 0;
 
     for (const sub of subs) {
-        // Skip users who already studied today
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const profile = sub.profiles as any;
-        if (profile?.last_active_date === today) continue;
-
         const name = profile?.full_name || "bạn";
+        const streak = profile?.streak || 0;
+
         const pushSubscription = {
             endpoint: sub.endpoint,
             keys: {
@@ -64,20 +50,27 @@ export async function POST(request: NextRequest) {
             },
         };
 
+        const messages = [
+            `Chào ngày mới, ${name}! 🌅 Hãy bắt đầu ngày mới bằng một bài học nhé!`,
+            `Ngày mới tràn đầy năng lượng, ${name}! 💪 Cùng chinh phục tiếng Anh nào!`,
+            `Good morning, ${name}! ☀️ Một ngày mới, một cơ hội mới để tiến bộ!`,
+            `Hey ${name}! 🔥 Ngày mới đến rồi — duy trì streak ${streak} ngày nhé!`,
+        ];
+        const body = messages[Math.floor(Math.random() * messages.length)];
+
         try {
             await webpush.sendNotification(
                 pushSubscription,
                 JSON.stringify({
-                    title: `Chào ${name}! 📚`,
-                    body: "Đến giờ học rồi! Dành vài phút luyện tập để duy trì streak nhé 🔥",
-                    url: "/dashboard/courses",
-                    tag: "daily-reminder",
+                    title: "DHV-Lingoo — Chào ngày mới! 🌟",
+                    body,
+                    url: "/dashboard",
+                    tag: "daily-greeting",
                 })
             );
             sent++;
         } catch (err: unknown) {
             failed++;
-            // Remove invalid subscriptions (410 Gone = user unsubscribed)
             if (err && typeof err === "object" && "statusCode" in err) {
                 const pushErr = err as { statusCode: number };
                 if (pushErr.statusCode === 410 || pushErr.statusCode === 404) {
@@ -87,5 +80,5 @@ export async function POST(request: NextRequest) {
         }
     }
 
-    return NextResponse.json({ sent, failed, time: vnTime, total: subs.length });
+    return NextResponse.json({ sent, failed, total: subs.length });
 }
