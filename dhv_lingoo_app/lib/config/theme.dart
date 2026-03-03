@@ -1,3 +1,4 @@
+// App theme - colors, typography, and widget styles matching web design
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
