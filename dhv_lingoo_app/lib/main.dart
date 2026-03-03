@@ -1,3 +1,4 @@
+// Main entry point - initializes Supabase and runs MaterialApp with GoRouter
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'config/supabase_config.dart';
