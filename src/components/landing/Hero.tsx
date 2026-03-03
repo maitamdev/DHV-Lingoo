@@ -6,7 +6,7 @@ import { ArrowRight, Play } from "lucide-react";
 
 export default function Hero() {
     return (
-        <section className="relative min-h-[90vh] sm:min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 pb-12 sm:pb-0 overflow-x-hidden">
+        <section aria-label='Hero' className="relative min-h-[90vh] sm:min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 pb-12 sm:pb-0 overflow-x-hidden">
             {/* Animated background blobs */}
             <div className="absolute inset-0 -z-10">
                 <div className="absolute top-10 sm:top-20 left-4 sm:left-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-300 dark:bg-cyan-900 rounded-full mix-blend-multiply dark:mix-blend-screen blur-xl opacity-40 animate-blob" />
