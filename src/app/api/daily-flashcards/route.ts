@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import { getDailySeed, seededRandom, pickRandomItems, getTodayDateString } from "@/lib/flashcard-seed";
 import { CARDS_PER_DAY } from "@/lib/flashcard-config";
 
-export async function GET() {
+export const dynamic = "force-dynamic";`n`nexport async function GET() {
   try {
     const supabase = await createClient();
     const { data: { user } } = await supabase.auth.getUser();
@@ -40,3 +40,4 @@ export async function GET() {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
