@@ -1,3 +1,4 @@
+// Courses page - browse and enroll in language courses
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
