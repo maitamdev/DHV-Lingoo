@@ -1,0 +1,1 @@
+class LessonModel { final String id; final String courseId; final String title; final String content; LessonModel({required this.id, required this.courseId, required this.title, this.content=''}); factory LessonModel.fromMap(Map<String,dynamic> m) => LessonModel(id:m['id']??'', courseId:m['course_id']??'', title:m['title']??'', content:m['content']??''); }
