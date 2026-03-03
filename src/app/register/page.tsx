@@ -1,3 +1,4 @@
+// Register page - new user signup flow
 import RegisterForm from "@/components/auth/RegisterForm";
 
 export default function RegisterPage() {
