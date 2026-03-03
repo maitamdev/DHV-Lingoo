@@ -1,4 +1,3 @@
-import React from 'react';
 // NotificationBell - push notification subscription manager
 "use client";
 

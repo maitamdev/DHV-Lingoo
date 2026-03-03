@@ -1,3 +1,2 @@
-import React from 'react';
 'use client';import{useState}from'react';export default function Accordion({title,children}:{title:string;children:React.ReactNode}){const[o,s]=useState(false);return(<div className='border-b'><button onClick={()=>s(!o)} className='w-full flex items-center justify-between py-4 font-semibold text-left'>{title}<span className={'transition-transform '+(o?'rotate-180':'')}>{String.fromCharCode(9660)}</span></button>{o&&<div className='pb-4 text-gray-600 text-sm'>{children}</div>}</div>)}
 

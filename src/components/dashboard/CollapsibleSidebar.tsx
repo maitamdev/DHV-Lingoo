@@ -1,4 +1,3 @@
-import React from 'react';
 // CollapsibleSidebar - expandable navigation sidebar for dashboard
 "use client";
 

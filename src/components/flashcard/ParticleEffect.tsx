@@ -1,4 +1,3 @@
-import React from 'react';
 // Particle explosion effect when opening a mystery bag
 'use client';
 
