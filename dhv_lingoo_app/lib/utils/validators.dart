@@ -1,0 +1,1 @@
+class Validators { static String? email(String? v) { if (v == null || v.isEmpty) return 'Email required'; return null; } static String? password(String? v) { if (v == null || v.length < 6) return 'Min 6 chars'; return null; } }
