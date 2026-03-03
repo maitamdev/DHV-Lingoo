@@ -48,3 +48,4 @@
 2026-03-04 01:35:44 - feat(ai): create AI grammar correction
 2026-03-04 01:35:44 - release: bump version to 1.3.0
 2026-03-04 01:35:44 - release: update CHANGELOG for v1.3.0
+2026-03-04 01:35:44 - release: finalize documentation for v1.3.0
