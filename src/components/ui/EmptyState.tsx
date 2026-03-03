@@ -1,0 +1,1 @@
+export default function EmptyState({icon='No data',title,description}:{icon?:string;title:string;description?:string}){return(<div className='flex flex-col items-center justify-center p-12 text-center'><div className='text-5xl mb-4'>{icon}</div><h3 className='text-lg font-bold mb-2'>{title}</h3>{description&&<p className='text-gray-500 max-w-sm'>{description}</p>}</div>)}
