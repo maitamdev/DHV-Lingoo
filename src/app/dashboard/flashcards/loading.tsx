@@ -1,5 +1,6 @@
-import { PageSkeleton } from "@/components/ui/Skeletons";
+// Loading state for flashcards page
+import { FlashcardSkeleton } from '@/components/flashcard';
 
-export default function Loading() {
-    return <PageSkeleton />;
+export default function FlashcardsLoading() {
+  return <FlashcardSkeleton />;
 }
