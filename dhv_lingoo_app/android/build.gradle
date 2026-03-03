@@ -6,9 +6,20 @@ allprojects {
 }
 
 rootProject.buildDir = "../build"
+
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
+    afterEvaluate {
+        // Fix cross-drive build path for Windows
+        // When Pub cache is on a different drive than the project
+        project.tasks.configureEach { task ->
+            if (task.name.contains("UnitTest")) {
+                task.enabled = false
+            }
+        }
+    }
 }
+
 subprojects {
     project.evaluationDependsOn(":app")
 }
