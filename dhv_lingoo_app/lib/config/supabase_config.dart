@@ -1,3 +1,4 @@
+// Supabase configuration - project URL and anonymous API key
 class SupabaseConfig {
   static const String url = 'https://tibqcvlhlrjdcobfxbkm.supabase.co';
   static const String anonKey =
