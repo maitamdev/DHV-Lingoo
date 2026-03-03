@@ -22,16 +22,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _loadProfile() async {
-    final profile = await AuthService.getProfile();
-    if (mounted)
-      setState(() {
-        _profile = profile;
-        _loading = false;
-      });
+    try {
+      final profile = await AuthService.getProfile();
+      if (mounted)
+        setState(() {
+          _profile = profile;
+          _loading = false;
+        });
+    } catch (_) {
+      if (mounted) setState(() => _loading = false);
+    }
   }
 
   Future<void> _signOut() async {
-    await AuthService.signOut();
+    try {
+      await AuthService.signOut();
+    } catch (_) {}
     if (mounted) context.go('/login');
   }
 
@@ -40,9 +46,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (_loading)
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
 
-    final name = _profile?['full_name'] ?? 'Học viên';
+    final name = (_profile?['full_name'] ?? 'Học viên').toString();
     final email = AuthService.currentUser?.email ?? '';
-    final level = _profile?['level'] ?? 'A1';
+    final level = (_profile?['level'] ?? 'A1').toString();
     final xp = _profile?['xp'] ?? 0;
     final streak = _profile?['streak'] ?? 0;
 
