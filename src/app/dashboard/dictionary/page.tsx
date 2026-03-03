@@ -193,7 +193,7 @@ export default function DictionaryPage() {
                 {/* Dictionary source info */}
                 {mode === "dictionary" && (
                     <div className="px-6 py-2 bg-violet-50 border-b border-gray-200">
-                        <p className="text-xs text-violet-600 font-medium">📖 Dữ liệu từ Free Dictionary API — từ điển Anh-Anh chính thống</p>
+                        <p className="text-xs text-violet-600 font-medium">📖 Từ điển Anh-Anh + hỗ trợ tra từ tiếng Việt bằng AI</p>
                     </div>
                 )}
 
@@ -205,7 +205,7 @@ export default function DictionaryPage() {
                         rows={mode === "dictionary" ? 1 : 4}
                         placeholder={mode === "translate"
                             ? "Nhập văn bản cần dịch..."
-                            : "Nhập từ tiếng Anh cần tra (VD: accomplish, resilient...)"
+                            : "Nhập từ tiếng Anh hoặc tiếng Việt (VD: accomplish, con mèo...)"
                         }
                         className="w-full resize-none text-sm outline-none placeholder:text-gray-400"
                     />
@@ -358,11 +358,18 @@ export default function DictionaryPage() {
                                 )}
 
                                 {/* Source */}
-                                {(result as DictResult).source && (
+                                {(result as DictResult).source && (result as DictResult).source !== "AI" && (
                                     <div className="pt-3 border-t border-gray-100">
                                         <a href={(result as DictResult).source} target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 hover:text-violet-500 flex items-center gap-1">
                                             <ExternalLink className="w-3 h-3" /> Nguồn: Wiktionary
                                         </a>
+                                    </div>
+                                )}
+                                {(result as DictResult).source === "AI" && (
+                                    <div className="pt-3 border-t border-gray-100">
+                                        <p className="text-xs text-gray-400 flex items-center gap-1">
+                                            <Sparkles className="w-3 h-3" /> Kết quả từ AI — có thể không chính xác 100%
+                                        </p>
                                     </div>
                                 )}
                             </div>

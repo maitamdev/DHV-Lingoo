@@ -58,17 +58,52 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Vui lòng nhập nội dung" }, { status: 400 });
         }
 
-        // ── DICTIONARY MODE: Real API ──
+        // ── DICTIONARY MODE: Real API first, AI fallback ──
         if (mode === "dictionary") {
+            // Try real dictionary first (English words)
             const result = await lookupDictionary(text);
 
             if (result) {
                 return NextResponse.json({ result, mode: "dictionary" });
             }
 
-            // Fallback: word not found
+            // Fallback: AI lookup (for Vietnamese words or words not in free API)
+            try {
+                const aiPrompt = `Bạn là từ điển chuyên nghiệp cho nền tảng học tập. Tra nghĩa của "${text}".
+KHÔNG trả về nội dung tục tĩu hay không phù hợp.
+Trả về CHÍNH XÁC JSON (không markdown):
+{
+  "word": "từ tiếng Anh tương ứng",
+  "phonetic": "/phiên âm IPA/",
+  "meanings": [{"partOfSpeech": "loại từ", "definitions": [{"meaning": "nghĩa", "example": "ví dụ"}], "synonyms": [], "antonyms": []}],
+  "synonyms": [],
+  "antonyms": [],
+  "source": "AI"
+}`;
+
+                const completion = await groq.chat.completions.create({
+                    messages: [
+                        { role: "system", content: "Trả về JSON thuần, không markdown." },
+                        { role: "user", content: aiPrompt },
+                    ],
+                    model: "llama-3.3-70b-versatile",
+                    temperature: 0.3,
+                    max_tokens: 600,
+                });
+
+                const reply = completion.choices[0]?.message?.content || "";
+                const jsonMatch = reply.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                    const parsed = JSON.parse(jsonMatch[0]);
+                    parsed.source = "AI";
+                    return NextResponse.json({ result: parsed, mode: "dictionary" });
+                }
+            } catch (e) {
+                console.error("AI dictionary fallback error:", e);
+            }
+
             return NextResponse.json({
-                result: `Không tìm thấy từ "${text}" trong từ điển. Hãy kiểm tra chính tả hoặc thử từ khác.`,
+                result: `Không tìm thấy từ "${text}". Hãy kiểm tra chính tả hoặc thử từ khác.`,
                 mode: "dictionary",
                 raw: true
             });
