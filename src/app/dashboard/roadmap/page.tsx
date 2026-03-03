@@ -1,3 +1,4 @@
+// Roadmap page - learning path visualization
 "use client";
 
 import { useState, useEffect } from "react";
