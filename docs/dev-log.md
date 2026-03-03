@@ -7,3 +7,4 @@
 2026-03-04 01:35:35 - perf: add React.memo to heavy components
 2026-03-04 01:35:35 - perf: implement virtual scrolling for lists
 2026-03-04 01:35:35 - perf: optimize image loading with blur placeholder
+2026-03-04 01:35:35 - perf: add service worker for offline caching
