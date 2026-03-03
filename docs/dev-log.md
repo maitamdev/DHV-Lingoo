@@ -34,3 +34,4 @@
 2026-03-04 01:35:41 - feat(analytics): add learning time tracking
 2026-03-04 01:35:41 - feat(analytics): create study heatmap component
 2026-03-04 01:35:41 - feat(analytics): add vocabulary mastery metrics
+2026-03-04 01:35:41 - feat(analytics): implement progress export to PDF
