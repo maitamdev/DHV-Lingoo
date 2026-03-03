@@ -1,3 +1,4 @@
+import React from 'react';
 // NavItem - individual navigation item with icon and active state
 "use client";
 
@@ -84,3 +85,4 @@ export function NavItem({
         </Link>
     );
 }
+
