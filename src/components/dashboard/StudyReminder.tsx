@@ -4,21 +4,35 @@ import { useState, useEffect, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Bell, BellOff, Clock, X } from "lucide-react";
 
+const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || "";
+
+function urlBase64ToUint8Array(base64String: string) {
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+}
+
 export function StudyReminder() {
     const supabase = createClient();
     const [enabled, setEnabled] = useState(false);
     const [reminderTime, setReminderTime] = useState("20:00");
     const [showBanner, setShowBanner] = useState(false);
-    const [permission, setPermission] = useState<NotificationPermission>("default");
+    const [permission, setPermission] = useState<string>("default");
+    const [swSupported, setSwSupported] = useState(false);
 
     useEffect(() => {
+        setSwSupported("serviceWorker" in navigator && "PushManager" in window);
         if ("Notification" in window) {
             setPermission(Notification.permission);
         }
         loadSettings();
     }, []);
 
-    // Daily check - show study banner if inactive
     useEffect(() => {
         if (!enabled) return;
 
@@ -41,25 +55,6 @@ export function StudyReminder() {
         checkStudyToday();
     }, [enabled]);
 
-    // Schedule browser notification
-    useEffect(() => {
-        if (!enabled || permission !== "granted") return;
-
-        const checkInterval = setInterval(() => {
-            const now = new Date();
-            const [hours, mins] = reminderTime.split(":").map(Number);
-            if (now.getHours() === hours && now.getMinutes() === mins) {
-                new Notification("DHV-Lingoo 📚", {
-                    body: "Đến giờ học rồi! Hãy dành vài phút luyện tập tiếng Anh nhé 🔥",
-                    icon: "/images/logo.png",
-                    tag: "study-reminder",
-                });
-            }
-        }, 60000); // Check every minute
-
-        return () => clearInterval(checkInterval);
-    }, [enabled, permission, reminderTime]);
-
     function loadSettings() {
         const saved = localStorage.getItem("dhv-reminder");
         if (saved) {
@@ -73,6 +68,49 @@ export function StudyReminder() {
         localStorage.setItem("dhv-reminder", JSON.stringify({ enabled: newEnabled, time: newTime }));
     }
 
+    async function subscribePush() {
+        try {
+            // Register Service Worker
+            const registration = await navigator.serviceWorker.register("/sw.js");
+            await navigator.serviceWorker.ready;
+
+            // Subscribe to push
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+            });
+
+            // Save to server
+            await fetch("/api/push-subscribe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    subscription: subscription.toJSON(),
+                    reminderTime,
+                }),
+            });
+
+            return true;
+        } catch (err) {
+            console.error("Push subscription failed:", err);
+            return false;
+        }
+    }
+
+    async function unsubscribePush() {
+        try {
+            const registration = await navigator.serviceWorker.getRegistration();
+            if (registration) {
+                const subscription = await registration.pushManager.getSubscription();
+                if (subscription) await subscription.unsubscribe();
+            }
+
+            await fetch("/api/push-subscribe", { method: "DELETE" });
+        } catch (err) {
+            console.error("Unsubscribe failed:", err);
+        }
+    }
+
     async function toggleReminder() {
         if (!enabled) {
             // Turning on
@@ -81,18 +119,46 @@ export function StudyReminder() {
                 setPermission(perm);
                 if (perm !== "granted") return;
             }
+
+            if (swSupported) {
+                const success = await subscribePush();
+                if (!success) return;
+            }
+
             setEnabled(true);
             saveSettings(true, reminderTime);
         } else {
+            // Turning off
+            if (swSupported) {
+                await unsubscribePush();
+            }
             setEnabled(false);
             saveSettings(false, reminderTime);
             setShowBanner(false);
         }
     }
 
-    function updateTime(time: string) {
+    async function updateTime(time: string) {
         setReminderTime(time);
         saveSettings(enabled, time);
+
+        // Update server-side reminder time
+        if (enabled && swSupported) {
+            const registration = await navigator.serviceWorker.getRegistration();
+            if (registration) {
+                const subscription = await registration.pushManager.getSubscription();
+                if (subscription) {
+                    await fetch("/api/push-subscribe", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            subscription: subscription.toJSON(),
+                            reminderTime: time,
+                        }),
+                    });
+                }
+            }
+        }
     }
 
     return (
@@ -109,7 +175,11 @@ export function StudyReminder() {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm font-medium text-gray-900">Thông báo nhắc nhở hàng ngày</p>
-                            <p className="text-xs text-gray-400 mt-0.5">Nhận thông báo nhắc bạn học mỗi ngày</p>
+                            <p className="text-xs text-gray-400 mt-0.5">
+                                {swSupported
+                                    ? "Nhận thông báo đẩy ngay cả khi không mở web"
+                                    : "Nhận thông báo khi mở web"}
+                            </p>
                         </div>
                         <button
                             onClick={toggleReminder}
@@ -136,9 +206,14 @@ export function StudyReminder() {
                                     ⚠️ Bạn đã chặn thông báo. Vui lòng bật lại trong cài đặt trình duyệt.
                                 </p>
                             )}
-                            {permission === "granted" && (
+                            {permission === "granted" && swSupported && (
                                 <p className="text-xs text-emerald-600 mt-2">
-                                    ✅ Thông báo đã được bật — sẽ nhắc bạn lúc {reminderTime} mỗi ngày
+                                    ✅ Push notification đã bật — nhắc bạn lúc {reminderTime} mỗi ngày (kể cả khi tắt web)
+                                </p>
+                            )}
+                            {permission === "granted" && !swSupported && (
+                                <p className="text-xs text-amber-600 mt-2">
+                                    ⚠️ Trình duyệt không hỗ trợ push — chỉ nhắc khi mở web
                                 </p>
                             )}
                         </div>
@@ -148,8 +223,8 @@ export function StudyReminder() {
 
             {/* Floating Study Reminder Banner */}
             {showBanner && (
-                <div className="fixed bottom-24 right-6 z-40 max-w-sm animate-in slide-in-from-bottom-4">
-                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 shadow-2xl shadow-blue-500/30 border border-blue-400/20">
+                <div className="fixed bottom-24 right-6 z-40 max-w-sm">
+                    <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 shadow-2xl shadow-blue-500/30 border border-blue-400/20 relative">
                         <button
                             onClick={() => setShowBanner(false)}
                             className="absolute top-2 right-2 text-white/60 hover:text-white"
@@ -162,7 +237,7 @@ export function StudyReminder() {
                             </div>
                             <div>
                                 <p className="font-bold text-sm">Hôm nay bạn chưa học! 📚</p>
-                                <p className="text-xs text-blue-100 mt-0.5">Dành vài phút để duy trì streak và tiến bộ nhé</p>
+                                <p className="text-xs text-blue-100 mt-0.5">Dành vài phút để duy trì streak nhé</p>
                                 <a
                                     href="/dashboard/courses"
                                     className="inline-block mt-2 px-3 py-1.5 bg-white text-blue-600 text-xs font-bold hover:bg-blue-50 transition"
