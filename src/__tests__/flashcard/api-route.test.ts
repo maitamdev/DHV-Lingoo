@@ -1,1 +1,0 @@
-describe('daily-flashcards API',()=>{it('returns 401 without auth',()=>{expect(true).toBe(true)});it('returns 5 cards for valid user',()=>{expect(true).toBe(true)});it('returns same cards for same user+date',()=>{expect(true).toBe(true)});it('returns different cards for different users',()=>{expect(true).toBe(true)})});

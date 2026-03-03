@@ -1,1 +1,0 @@
-describe('MysteryBag component',()=>{it('renders bag icon',()=>{expect(true).toBe(true)});it('shows index number',()=>{expect(true).toBe(true)});it('calls onOpen when clicked',()=>{expect(true).toBe(true)});it('plays opening animation',()=>{expect(true).toBe(true)})});

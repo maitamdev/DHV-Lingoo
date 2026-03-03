@@ -1,1 +1,0 @@
-describe('FlashcardItem component',()=>{it('shows word on front',()=>{expect(true).toBe(true)});it('shows meaning on back after flip',()=>{expect(true).toBe(true)});it('displays phonetic if available',()=>{expect(true).toBe(true)});it('shows rarity badge',()=>{expect(true).toBe(true)})});

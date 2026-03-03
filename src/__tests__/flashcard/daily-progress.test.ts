@@ -1,1 +1,0 @@
-describe('DailyProgress component',()=>{it('shows correct count',()=>{expect(true).toBe(true)});it('fills progress bar correctly',()=>{expect(true).toBe(true)});it('shows completion message',()=>{expect(true).toBe(true)})});

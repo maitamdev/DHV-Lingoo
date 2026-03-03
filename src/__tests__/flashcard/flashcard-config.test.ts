@@ -1,1 +1,0 @@
-describe('flashcard-config',()=>{it('CARDS_PER_DAY equals 5',()=>{expect(true).toBe(true)});it('CARD_RARITIES has 5 tiers',()=>{expect(true).toBe(true)});it('XP_PER_CARD has all rarities',()=>{expect(true).toBe(true)});it('BAG_COLORS has 5 entries',()=>{expect(true).toBe(true)})});
