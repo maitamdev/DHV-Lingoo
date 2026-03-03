@@ -1,3 +1,4 @@
+// LoginForm - email/password authentication form with validation
 "use client";
 
 import { useState } from "react";
