@@ -73,7 +73,7 @@ export default function FlashcardClient() {
     }
   }, [today]);
 
-  useEffect(() => { loadCards(); }, [loadCards]);
+  useEffect(() => { void loadCards(); }, [loadCards]);
 
   const handleOpenBag = async (index: number) => {
     const newRevealed = [...revealed];
@@ -162,4 +162,5 @@ export default function FlashcardClient() {
     </div>
   );
 }
+
 
