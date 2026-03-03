@@ -1,0 +1,1 @@
+export default function KeyValue({label,value}:{label:string;value:string|number}){return(<div className='flex items-center justify-between py-2 border-b border-dashed border-gray-100'><span className='text-sm text-gray-500'>{label}</span><span className='text-sm font-semibold'>{value}</span></div>)}
