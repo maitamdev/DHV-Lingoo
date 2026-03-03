@@ -19,7 +19,7 @@ export default function FlashcardItem({ word, meaning, phonetic, example, rarity
   return (
     <div
       className={`flashcard rarity-${rarity} ${flipped ? 'flipped' : ''} ${isNew ? 'card-revealing' : ''}`}
-      onClick={() => setFlipped(!flipped)}
+      onClick={() => setFlipped(!flipped)} role="button" tabIndex={0} aria-label={flipped ? `Meaning: ${meaning}` : `Word: ${word}. Tap to flip.`} onKeyDown={(e) => e.key === "Enter" && setFlipped(!flipped)}
     >
       <div className="flashcard-inner">
         {/* Front - English word */}
@@ -57,3 +57,4 @@ export default function FlashcardItem({ word, meaning, phonetic, example, rarity
     </div>
   );
 }
+
