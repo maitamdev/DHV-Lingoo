@@ -1,3 +1,4 @@
+// Dictionary screen - Free Dictionary API lookup with phonetics and TTS
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_tts/flutter_tts.dart';
