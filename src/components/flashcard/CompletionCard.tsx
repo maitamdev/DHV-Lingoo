@@ -1,4 +1,4 @@
-// Card shown when all daily flashcards are revealed
+// Card shown when all daily flashcards are revealed - Cyberpunk theme
 'use client';
 
 interface CompletionCardProps {
@@ -8,46 +8,28 @@ interface CompletionCardProps {
 
 export default function CompletionCard({ totalXP, rarities }: CompletionCardProps) {
   return (
-    <div style={{
-      maxWidth: 400,
-      margin: '32px auto',
-      padding: 32,
-      background: 'linear-gradient(135deg, #6366f1, #a855f7)',
-      borderRadius: 20,
-      textAlign: 'center',
-      color: 'white',
-      boxShadow: '0 20px 60px rgba(99, 102, 241, 0.3)',
-    }}>
-      <div style={{ fontSize: 48 }}>🎉</div>
-      <h2 style={{ fontSize: 24, fontWeight: 900, marginTop: 12 }}>
-        All Cards Revealed!
-      </h2>
-      <p style={{ fontSize: 14, opacity: 0.8, marginTop: 4 }}>
-        Come back tomorrow for new cards
+    <div className="cyber-completion">
+      <div className="cyber-completion-icon">⚡</div>
+      <h2>MISSION COMPLETE</h2>
+      <p className="cyber-completion-sub">
+        ALL MODULES SUCCESSFULLY DECRYPTED
       </p>
 
-      <div style={{
-        display: 'flex',
-        justifyContent: 'center',
-        gap: 16,
-        marginTop: 24,
-        fontSize: 13,
-        fontWeight: 700,
-      }}>
-        <div style={{ background: 'rgba(255,255,255,0.2)', padding: '8px 16px', borderRadius: 10 }}>
+      <div className="cyber-completion-stats">
+        <div className="cyber-completion-stat">
           +{totalXP} XP
         </div>
         {Object.entries(rarities).map(([rarity, count]) => (
           count > 0 && (
-            <div key={rarity} style={{ background: 'rgba(255,255,255,0.2)', padding: '8px 16px', borderRadius: 10 }}>
-              {count}x {rarity}
+            <div key={rarity} className="cyber-completion-stat">
+              {count}x {rarity.toUpperCase()}
             </div>
           )
         ))}
       </div>
 
-      <p style={{ fontSize: 12, opacity: 0.6, marginTop: 20 }}>
-        Daily streak bonus: +5 XP
+      <p className="cyber-completion-bonus">
+        DAILY_STREAK_BONUS: +5 XP — RETURN TOMORROW FOR NEW MODULES
       </p>
     </div>
   );

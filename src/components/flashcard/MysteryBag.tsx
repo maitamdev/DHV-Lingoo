@@ -1,4 +1,4 @@
-// Mystery bag - unopened flashcard with tap to reveal
+// Mystery bag - unopened flashcard with cyberpunk DECRYPT style
 'use client';
 
 import { useState } from 'react';
@@ -11,7 +11,7 @@ interface MysteryBagProps {
   isOpened: boolean;
 }
 
-export default function MysteryBag({ index, gradient, onOpen, isOpened }: MysteryBagProps) {
+export default function MysteryBag({ index, onOpen, isOpened }: MysteryBagProps) {
   const [isOpening, setIsOpening] = useState(false);
   const [showParticles, setShowParticles] = useState(false);
 
@@ -28,14 +28,21 @@ export default function MysteryBag({ index, gradient, onOpen, isOpened }: Myster
   };
 
   return (
-    <div className={`mystery-bag ${isOpening ? 'bag-opening' : ''}`} onClick={handleClick} role="button" tabIndex={0} aria-label={`Open mystery bag ${index + 1}`} onKeyDown={(e) => e.key === "Enter" && handleClick()}>
-      {showParticles && <ParticleEffect color="#fff" count={16} />}
-      <div className={`bag-inner bg-gradient-to-br ${gradient}`}>
-        <div className="bag-number">{index + 1}</div>
-        <div className="bag-icon">🎁</div>
-        <div className="bag-label">Tap to open</div>
+    <div
+      className={`mystery-bag ${isOpening ? 'bag-opening' : ''}`}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+      aria-label={`Decrypt module ${index + 1}`}
+      onKeyDown={(e) => e.key === "Enter" && handleClick()}
+    >
+      {showParticles && <ParticleEffect color="#00f0ff" count={16} />}
+      <div className="bag-inner">
+        <div className="bag-number">NODE_{String(index + 1).padStart(2, '0')}</div>
+        <span className="bag-encrypted-label">ENCRYPTED</span>
+        <div className="bag-icon">🔒</div>
+        <div className="bag-label">DECRYPT</div>
       </div>
     </div>
   );
 }
-

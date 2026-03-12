@@ -1,4 +1,4 @@
-// Client-side flashcard page with state management
+// Client-side flashcard page with state management - Cyberpunk theme
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -110,12 +110,28 @@ export default function FlashcardClient() {
 
   if (error) {
     return (
-      <div style={{ textAlign: 'center', padding: 60 }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>😢</div>
-        <h2 style={{ fontWeight: 800 }}>{error}</h2>
-        <button onClick={() => window.location.reload()} style={{ marginTop: 16, padding: '8px 24px', background: '#6366f1', color: 'white', border: 'none', borderRadius: 8, fontWeight: 700, cursor: 'pointer' }}>
-          Try again
-        </button>
+      <div className="cyber-flashcard-page">
+        <div style={{ textAlign: 'center', padding: 60 }}>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>⚠</div>
+          <h2 style={{ fontWeight: 800, color: 'var(--cyber-accent)', fontFamily: 'var(--cyber-font)', letterSpacing: '2px' }}>{error.toUpperCase()}</h2>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              marginTop: 16,
+              padding: '8px 24px',
+              background: 'rgba(0, 240, 255, 0.1)',
+              color: 'var(--cyber-accent)',
+              border: '1px solid rgba(0, 240, 255, 0.3)',
+              fontWeight: 700,
+              cursor: 'pointer',
+              fontFamily: 'var(--cyber-font)',
+              fontSize: 11,
+              letterSpacing: '2px',
+            }}
+          >
+            RETRY
+          </button>
+        </div>
       </div>
     );
   }
@@ -127,7 +143,7 @@ export default function FlashcardClient() {
   }, {} as Record<string, number>);
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(180deg, #f8fafc 0%, #eef2ff 50%, #f8fafc 100%)' }}>
+    <div className="cyber-flashcard-page">
       {showConfetti && <ConfettiEffect />}
 
       <DailyHeader date={today} />
@@ -144,6 +160,7 @@ export default function FlashcardClient() {
               example={card.example}
               rarity={card.rarity}
               isNew={newlyRevealed === i}
+              index={i}
             />
           ) : (
             <MysteryBag
@@ -158,8 +175,20 @@ export default function FlashcardClient() {
       </div>
 
       {allOpened && <CompletionCard totalXP={totalXP} rarities={rarityCounts} />}
+
+      {/* Log Console */}
+      <div className="cyber-console">
+        <div className="cyber-console-inner">
+          <div className="cyber-console-title">LOG_CONSOLE:</div>
+          <div className="cyber-console-line">initializing lexi_scan_module_v.4.0.1...</div>
+          <div className="cyber-console-line">connection established with neural_thesaurus...</div>
+          <div className="cyber-console-line">
+            {allOpened
+              ? 'all modules decrypted successfully ✓'
+              : 'awaiting user authentication...'}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
-

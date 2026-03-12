@@ -1,8 +1,16 @@
-// Individual flashcard with flip animation - front shows word, back shows meaning
+// Individual flashcard with flip animation - Cyberpunk theme
 'use client';
 
 import { useState } from 'react';
 import RarityBadge from './RarityBadge';
+
+const CARD_ICONS: Record<string, string> = {
+  common: '⬡',
+  uncommon: '◈',
+  rare: '⬢',
+  epic: '◇',
+  legendary: '✦',
+};
 
 interface FlashcardItemProps {
   word: string;
@@ -11,50 +19,50 @@ interface FlashcardItemProps {
   example: string | null;
   rarity: string;
   isNew: boolean;
+  index?: number;
 }
 
-export default function FlashcardItem({ word, meaning, phonetic, example, rarity, isNew }: FlashcardItemProps) {
+export default function FlashcardItem({ word, meaning, phonetic, example, rarity, isNew, index = 0 }: FlashcardItemProps) {
   const [flipped, setFlipped] = useState(false);
+
+  const cardNumber = `CARD_${String(index + 1).padStart(2, '0')}`;
+  const icon = CARD_ICONS[rarity] || CARD_ICONS.common;
 
   return (
     <div
       className={`flashcard rarity-${rarity} ${flipped ? 'flipped' : ''} ${isNew ? 'card-revealing' : ''}`}
-      onClick={() => setFlipped(!flipped)} role="button" tabIndex={0} aria-label={flipped ? `Meaning: ${meaning}` : `Word: ${word}. Tap to flip.`} onKeyDown={(e) => e.key === "Enter" && setFlipped(!flipped)}
+      onClick={() => setFlipped(!flipped)}
+      role="button"
+      tabIndex={0}
+      aria-label={flipped ? `Meaning: ${meaning}` : `Word: ${word}. Tap to flip.`}
+      onKeyDown={(e) => e.key === "Enter" && setFlipped(!flipped)}
     >
       <div className="flashcard-inner">
         {/* Front - English word */}
         <div className="flashcard-front">
           <RarityBadge rarity={rarity} />
-          <div style={{ fontSize: 28, fontWeight: 900, marginTop: 16, letterSpacing: '-0.5px', color: '#0f172a' }}>
-            {word}
-          </div>
+          <div className="cyber-card-icon">{icon}</div>
+          <div className="cyber-card-number">{cardNumber}</div>
+          <div className="cyber-card-word">{word}</div>
           {phonetic && (
-            <div style={{ fontSize: 14, color: '#94a3b8', marginTop: 4 }}>
-              {phonetic}
-            </div>
+            <div className="cyber-card-phonetic">{phonetic}</div>
           )}
-          <div style={{ fontSize: 11, color: '#cbd5e1', marginTop: 'auto', fontWeight: 600 }}>
-            TAP TO FLIP
-          </div>
+          <div className="cyber-flip-btn">FLIP CARD</div>
         </div>
 
         {/* Back - Vietnamese meaning */}
         <div className="flashcard-back">
           <RarityBadge rarity={rarity} />
-          <div style={{ fontSize: 24, fontWeight: 800, marginTop: 16, color: '#0f172a', textAlign: 'center' }}>
-            {meaning}
-          </div>
+          <div className="cyber-card-number">{cardNumber}</div>
+          <div className="cyber-card-meaning">{meaning}</div>
           {example && (
-            <div style={{ fontSize: 12, color: '#64748b', marginTop: 12, textAlign: 'center', fontStyle: 'italic', padding: '0 8px' }}>
+            <div className="cyber-card-example">
               &ldquo;{example}&rdquo;
             </div>
           )}
-          <div style={{ fontSize: 11, color: '#cbd5e1', marginTop: 'auto', fontWeight: 600 }}>
-            TAP TO FLIP BACK
-          </div>
+          <div className="cyber-flip-btn">FLIP BACK</div>
         </div>
       </div>
     </div>
   );
 }
-

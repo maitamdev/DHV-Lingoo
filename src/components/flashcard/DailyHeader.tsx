@@ -1,4 +1,4 @@
-// Header section for daily flashcards page
+// Header section for daily flashcards page - Cyberpunk theme
 'use client';
 
 interface DailyHeaderProps {
@@ -14,13 +14,13 @@ export default function DailyHeader({ date }: DailyHeaderProps) {
   });
 
   return (
-    <div className="daily-header">
-      <div style={{ fontSize: 40, marginBottom: 8 }}>🎴</div>
-      <h1>Daily Flashcards</h1>
-      <p>{formattedDate}</p>
-      <p style={{ fontSize: 12, color: '#cbd5e1', marginTop: 8 }}>
-        Open 5 mystery bags to discover today&apos;s vocabulary
-      </p>
+    <div className="cyber-header">
+      <h1 className="cyber-header-title">DAILY VOCABULARY HUB</h1>
+      <div className="cyber-header-status">
+        <span className="cyber-status-dot" />
+        SYSTEM STATUS: READY
+      </div>
+      <div className="cyber-header-date">{formattedDate}</div>
     </div>
   );
 }
