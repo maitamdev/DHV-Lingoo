@@ -32,3 +32,4 @@ export default function CardCollection({ cards }: CardCollectionProps) {
   );
 }
 // Revealed cards gallery
+// Collection gallery scroll
