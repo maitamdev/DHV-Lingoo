@@ -44,11 +44,11 @@ export default function DailyProgress({ opened, streakDays = 0, wordsLearned = 0
 
       {/* Progress Bar */}
       <div className="flashcard-progress" role="progressbar" aria-valuenow={opened} aria-valuemin={0} aria-valuemax={CARDS_PER_DAY} aria-label={`${opened} of ${CARDS_PER_DAY} cards opened`}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 11, fontWeight: 700, letterSpacing: '1px' }}>
-          <span style={{ color: 'var(--cyber-text-dim)' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8, fontSize: 11, fontWeight: 700, letterSpacing: '1px', fontFamily: 'var(--fc-font-mono)' }}>
+          <span style={{ color: 'var(--fc-text-dim)' }}>
             {opened}/{CARDS_PER_DAY} MODULES DECODED
           </span>
-          <span style={{ color: opened === CARDS_PER_DAY ? 'var(--cyber-success)' : 'var(--cyber-accent)' }}>
+          <span style={{ color: opened === CARDS_PER_DAY ? 'var(--fc-success)' : 'var(--fc-accent)' }}>
             {opened === CARDS_PER_DAY ? 'COMPLETE ✓' : `${CARDS_PER_DAY - opened} REMAINING`}
           </span>
         </div>

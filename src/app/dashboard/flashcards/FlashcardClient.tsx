@@ -112,19 +112,20 @@ export default function FlashcardClient() {
     return (
       <div className="cyber-flashcard-page">
         <div style={{ textAlign: 'center', padding: 60 }}>
-          <div style={{ fontSize: 48, marginBottom: 16 }}>⚠</div>
-          <h2 style={{ fontWeight: 800, color: 'var(--cyber-accent)', fontFamily: 'var(--cyber-font)', letterSpacing: '2px' }}>{error.toUpperCase()}</h2>
+          <div style={{ fontSize: 48, marginBottom: 16 }}>⚠️</div>
+          <h2 style={{ fontWeight: 800, color: 'var(--fc-accent)', fontFamily: 'var(--fc-font-mono)', letterSpacing: '2px' }}>{error.toUpperCase()}</h2>
           <button
             onClick={() => window.location.reload()}
             style={{
               marginTop: 16,
               padding: '8px 24px',
-              background: 'rgba(0, 240, 255, 0.1)',
-              color: 'var(--cyber-accent)',
-              border: '1px solid rgba(0, 240, 255, 0.3)',
+              background: 'linear-gradient(135deg, #0891b2, #06b6d4)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: 6,
               fontWeight: 700,
               cursor: 'pointer',
-              fontFamily: 'var(--cyber-font)',
+              fontFamily: 'var(--fc-font-mono)',
               fontSize: 11,
               letterSpacing: '2px',
             }}
