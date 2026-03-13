@@ -10,3 +10,4 @@ export const metadata: Metadata = {
 export default function ChatPage() {
   return <ChatClient />;
 }
+// Dynamic import for chat client
