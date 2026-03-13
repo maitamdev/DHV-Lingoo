@@ -140,3 +140,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 // Word achievements: 10, 50, 100, 500
 // Perfect score achievements: 1, 5, 10
 // Activity achievements: 7, 30, 100, 365 days
+// Chat achievements: 1, 50 messages
