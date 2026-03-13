@@ -177,3 +177,4 @@ export default function ChatClient() {
 // Auto-scroll to latest message
 // Provider display shows Groq or HF
 // Message count badge in header
+// Input auto-focuses after send
