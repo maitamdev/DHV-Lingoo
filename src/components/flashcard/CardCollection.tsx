@@ -31,3 +31,4 @@ export default function CardCollection({ cards }: CardCollectionProps) {
     </div>
   );
 }
+// Revealed cards gallery
