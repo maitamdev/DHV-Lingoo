@@ -10,3 +10,4 @@ export { default as FlashcardSkeleton } from './FlashcardSkeleton';
 export { default as FlashcardStats } from './FlashcardStats';
 export { default as NextDayCountdown } from './NextDayCountdown';
 export { default as CardCollection } from './CardCollection';
+// Centralized imports
