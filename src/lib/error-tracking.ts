@@ -6,3 +6,4 @@ export function initErrorTracking() {
     });
   }
 }
+// Context capture monitor
