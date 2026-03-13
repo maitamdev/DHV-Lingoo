@@ -154,3 +154,4 @@ export default function AchievementsClient({ stats, userAchievements }: Props) {
 }
 // Grid layout with auto-fill columns
 // Category filter with 6 options
+// Rarity summary shows unlock counts
