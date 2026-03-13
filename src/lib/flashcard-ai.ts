@@ -218,3 +218,4 @@ export function getCategoryIcon(category: string): string {
   return iconMap[category] || '📖';
 }
 // Module: flashcard-ai v1.0
+// Supports: Groq primary, HF fallback
