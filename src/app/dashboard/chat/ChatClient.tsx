@@ -173,3 +173,4 @@ export default function ChatClient() {
 // 6 quick prompts for common questions
 // Message history with timestamps
 // Typing indicator with 3 bouncing dots
+// Clear chat resets conversation
