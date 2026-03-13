@@ -136,3 +136,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 // Achievement icons use Unicode emoji
 // Streak achievements: 3, 7, 14, 30, 60, 100 days
 // Learning achievements: 1, 5, 10, 25, 50, 100 lessons
+// XP achievements: 100, 500, 1000, 5000, 10000
