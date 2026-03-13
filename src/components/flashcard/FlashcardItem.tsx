@@ -67,3 +67,4 @@ export default function FlashcardItem({ word, meaning, phonetic, example, rarity
   );
 }
 // Backface-visibility flip
+// Absolute badge position
