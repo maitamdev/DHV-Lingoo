@@ -83,3 +83,4 @@ CREATE TRIGGER on_user_flashcard_history_updated
 -- Index optimization for user queries
 -- Cascade delete ensures data cleanup
 -- RLS ensures multi-tenant isolation
+-- Daily cards are immutable after creation
