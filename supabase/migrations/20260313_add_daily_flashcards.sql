@@ -85,3 +85,4 @@ CREATE TRIGGER on_user_flashcard_history_updated
 -- RLS ensures multi-tenant isolation
 -- Daily cards are immutable after creation
 -- History table supports streak calc
+-- Unique constraint prevents duplicates
