@@ -116,3 +116,4 @@ export function useFlashcards() {
 // Fallback to seeded random
 // Memoized loadCards
 // Used by FlashcardClient
+// Stats tracking for achievements
