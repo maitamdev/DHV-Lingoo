@@ -226,3 +226,4 @@ export function getCategoryIcon(category: string): string {
 // Category icons for 30 topics
 // Parser handles malformed responses
 // Prompt optimized for Vietnamese
+// All utilities exported
