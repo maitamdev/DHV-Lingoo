@@ -61,3 +61,4 @@ export default function DailyProgress({ opened, streakDays = 0, wordsLearned = 0
 }
 // Decoded remaining count
 // Streak words accuracy
+// Achievement progress integration
