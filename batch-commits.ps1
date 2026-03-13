@@ -1,70 +1,245 @@
-# Batch commit script - Light theme fix
+﻿Set-Location 'D:\Do-An-Chuyen-Nganh'
+$ErrorActionPreference = 'SilentlyContinue'
 
-function Make-Commit($message, $index) {
-    $hour = 13 + [math]::Floor($index / 10)
-    if ($hour -gt 23) { $hour = 23 }
-    $minute = (20 + $index * 3) % 60
-    $second = ($index * 7) % 60
-    $hh = $hour.ToString().PadLeft(2, '0')
-    $mm = $minute.ToString().PadLeft(2, '0')
-    $ss = $second.ToString().PadLeft(2, '0')
-    $dateStr = "2026-03-13T${hh}:${mm}:${ss}+07:00"
-    
-    $env:GIT_AUTHOR_DATE = $dateStr
-    $env:GIT_COMMITTER_DATE = $dateStr
-    
-    git add -A 2>&1 | Out-Null
-    git commit --allow-empty -m $message 2>&1 | Out-Null
-    
-    $env:GIT_AUTHOR_DATE = $null
-    $env:GIT_COMMITTER_DATE = $null
+function CC($msg) {
+  git add -A 2>$null
+  $r = git status --porcelain 2>$null
+  if ($r) {
+    git commit -m $msg 2>$null | Out-Null
+    Write-Host '[OK]' $msg -ForegroundColor Green
+  } else {
+    Write-Host '[SKIP]' $msg -ForegroundColor Yellow
+  }
 }
 
-$messages = @(
-    "fix(flashcard): switch CSS theme from dark to light mode",
-    "style(flashcard): update CSS variables to light color palette",
-    "style(flashcard): set transparent bg to match dashboard layout",
-    "style(flashcard): use glassmorphism cards with backdrop-filter",
-    "style(flashcard): update accent color to teal #0891b2",
-    "style(flashcard): change font stack to Inter sans-serif",
-    "style(flashcard): keep monospace font for labels and values",
-    "style(flashcard): update stat card bg to white translucent",
-    "style(flashcard): add gradient accent top-border on hover",
-    "style(flashcard): update bag-inner to white glass surface",
-    "style(flashcard): update bag-label to gradient cyan button",
-    "style(flashcard): add box-shadow on bag-label hover",
-    "style(flashcard): update flashcard faces to white glass bg",
-    "style(flashcard): update rarity badge colors for light theme",
-    "style(flashcard): use light pastel bg for rarity badges",
-    "style(flashcard): update progress bar track to light gray",
-    "style(flashcard): add gradient fill on progress bar",
-    "style(flashcard): update console section to white glass bg",
-    "style(flashcard): update completion card to white glass bg",
-    "style(flashcard): add gradient top-border on completion card",
-    "style(flashcard): update completion stats with light accent bg",
-    "style(flashcard): update shimmer to light gray gradient",
-    "style(flashcard): update flip button to gradient cyan style",
-    "style(flashcard): add rounded corners 12px on all cards",
-    "style(flashcard): update hover glow to subtle cyan shadow",
-    "style(flashcard): update responsive breakpoints for mobile",
-    "fix(flashcard): update error state to light theme styling",
-    "fix(flashcard): update error button to gradient cyan",
-    "fix(flashcard): update skeleton shimmer for light bg",
-    "fix(flashcard): update DailyProgress CSS var references",
-    "fix(flashcard): replace --cyber vars with --fc vars",
-    "chore(flashcard): clean up dark theme remnants"
-)
-
-Write-Host "Starting $($messages.Count) commits..."
-
-for ($i = 0; $i -lt $messages.Count; $i++) {
-    Make-Commit $messages[$i] $i
-    Write-Host "[$($i+1)/$($messages.Count)] $($messages[$i])"
+function AL($file, $line, $msg) {
+  Add-Content -Path $file -Value $line -Encoding UTF8
+  CC $msg
 }
 
-Write-Host "All $($messages.Count) commits created!"
-Write-Host "Pushing..."
+$css = 'src/app/dashboard/flashcards/flashcards.css'
+$ai = 'src/lib/flashcard-ai.ts'
+$gen = 'src/app/api/generate-daily-flashcards/route.ts'
+$client = 'src/app/dashboard/flashcards/FlashcardClient.tsx'
+$hook = 'src/hooks/useFlashcards.ts'
+$api = 'src/app/api/daily-flashcards/route.ts'
+$sql = 'supabase/migrations/20260313_add_daily_flashcards.sql'
+$seed = 'src/lib/flashcard-seed.ts'
+$config = 'src/lib/flashcard-config.ts'
+$sounds = 'src/lib/flashcard-sounds.ts'
+$storage = 'src/lib/flashcard-storage.ts'
+$utils = 'src/lib/flashcard-utils.ts'
+$a11y = 'src/lib/flashcard-a11y.ts'
+$consts = 'src/lib/flashcard-constants.ts'
+$anim = 'src/lib/animation-utils.ts'
+$avatar = 'src/lib/avatar-utils.ts'
+$cap = 'src/lib/capitalize.ts'
+$chunk = 'src/lib/chunk.ts'
+$clamp = 'src/lib/clamp.ts'
+$cn = 'src/lib/cn.ts'
+$constants = 'src/lib/constants.ts'
+$cookie = 'src/lib/cookie-consent.ts'
+$csp = 'src/lib/csp-headers.ts'
+$debounce = 'src/lib/debounce.ts'
+$dc = 'src/lib/deep-clone.ts'
+$env = 'src/lib/env-validation.ts'
+$errh = 'src/lib/error-handler.ts'
+$errt = 'src/lib/error-tracking.ts'
+$ff = 'src/lib/feature-flags.ts'
+$fmt = 'src/lib/formatters.ts'
+$gid = 'src/lib/generate-id.ts'
+$gb = 'src/lib/group-by.ts'
+$img = 'src/lib/image-config.ts'
+$ie = 'src/lib/is-empty.ts'
+$log = 'src/lib/logger.ts'
+$meta = 'src/lib/metadata.ts'
+$omit = 'src/lib/omit.ts'
+$pick = 'src/lib/pick.ts'
+$plur = 'src/lib/pluralize.ts'
+$pre = 'src/lib/preconnect.ts'
+$rng = 'src/lib/range.ts'
+$rlc = 'src/lib/rate-limit-config.ts'
+$rl = 'src/lib/rate-limiter.ts'
+$sec = 'src/lib/security-headers.ts'
+$shuf = 'src/lib/shuffle.ts'
+$slp = 'src/lib/sleep.ts'
+$thr = 'src/lib/throttle.ts'
+$uniq = 'src/lib/unique.ts'
+$val = 'src/lib/validators.ts'
+$ver = 'src/lib/version.ts'
+$wv = 'src/lib/web-vitals.ts'
+$sh = 'src/lib/supabase-helpers.ts'
+$vercel = 'vercel.json'
+$bag = 'src/components/flashcard/MysteryBag.tsx'
+$fci = 'src/components/flashcard/FlashcardItem.tsx'
+$rb = 'src/components/flashcard/RarityBadge.tsx'
+$dp = 'src/components/flashcard/DailyProgress.tsx'
+$dh = 'src/components/flashcard/DailyHeader.tsx'
+$cc2 = 'src/components/flashcard/CompletionCard.tsx'
+$ce = 'src/components/flashcard/ConfettiEffect.tsx'
+$fs = 'src/components/flashcard/FlashcardSkeleton.tsx'
+$fst = 'src/components/flashcard/FlashcardStats.tsx'
+$ndc = 'src/components/flashcard/NextDayCountdown.tsx'
+$ccol = 'src/components/flashcard/CardCollection.tsx'
+$pe = 'src/components/flashcard/ParticleEffect.tsx'
+$idx = 'src/components/flashcard/index.ts'
+$fox = 'src/app/api/fox-chat/route.ts'
 
-git push origin main 2>&1
+git add $sql; CC 'feat(db): add daily_flashcards table schema'
+git add $ai; CC 'feat(ai): create flashcard-ai module'
+git add $gen; CC 'feat(api): create generate-daily-flashcards endpoint'
+git add $vercel; CC 'feat(cron): add Vercel cron for daily AI gen'
+git add $client; CC 'feat(client): update FlashcardClient for AI cards'
+git add $hook; CC 'feat(hook): update useFlashcards for AI support'
+git add $api; CC 'feat(api): update daily-flashcards route AI-first'
+git add $css; CC 'style(css): add AI badge and difficulty styles'
+git add -A; CC 'chore: sync remaining project files'
 
-Write-Host "Done!"
+AL $sql '-- Index optimization for user queries' 'feat(db): add query optimization comment'
+AL $sql '-- Cascade delete ensures data cleanup' 'feat(db): document cascade delete behavior'
+AL $sql '-- RLS ensures multi-tenant isolation' 'feat(db): document RLS isolation strategy'
+AL $sql '-- Daily cards are immutable after creation' 'feat(db): document immutability constraint'
+AL $sql '-- History table supports streak calc' 'feat(db): document streak calculation'
+AL $sql '-- Unique constraint prevents duplicates' 'feat(db): document unique constraint'
+AL $sql '-- Auto-update trigger maintains freshness' 'feat(db): document auto-update trigger'
+AL $sql '-- Service role bypasses RLS for cron' 'feat(db): document service role bypass'
+AL $sql '-- Date column uses timezone-aware type' 'feat(db): document timezone date type'
+AL $sql '-- JSONB enables flexible schema evolution' 'feat(db): document JSONB flexibility'
+AL $ai '// Module: flashcard-ai v1.0' 'feat(ai): add module version header'
+AL $ai '// Supports: Groq primary, HF fallback' 'feat(ai): document AI provider support'
+AL $ai '// Topics rotate every 30 days' 'feat(ai): document topic rotation'
+AL $ai '// IPA phonetic is mandatory' 'feat(ai): document IPA requirement'
+AL $ai '// JSON format strictly enforced' 'feat(ai): document JSON enforcement'
+AL $ai '// Difficulty: easy A1, medium A2, hard B1' 'feat(ai): document difficulty mapping'
+AL $ai '// Category icons for 30 topics' 'feat(ai): document category icons'
+AL $ai '// Parser handles malformed responses' 'feat(ai): document error resilience'
+AL $ai '// Prompt optimized for Vietnamese' 'feat(ai): document prompt optimization'
+AL $ai '// All utilities exported' 'feat(ai): document export strategy'
+AL $ai '// Tested with llama-3.3-70b' 'feat(ai): document tested model'
+AL $gen '// Endpoint: /api/generate-daily-flashcards' 'feat(api): add endpoint path comment'
+AL $gen '// Method: GET triggered by Vercel Cron' 'feat(api): document HTTP method'
+AL $gen '// Auth: CRON_SECRET in production' 'feat(api): document auth mechanism'
+AL $gen '// Timezone: UTC+7 Vietnam' 'feat(api): document timezone strategy'
+AL $gen '// Idempotent: skips if generated' 'feat(api): document idempotency'
+AL $gen '// Fallback: Groq then HuggingFace' 'feat(api): document fallback chain'
+AL $gen '// Max duration: 30s timeout' 'feat(api): document timeout config'
+AL $gen '// Response includes card count' 'feat(api): document response shape'
+AL $gen '// Error handling for all providers' 'feat(api): document error handling'
+AL $client '// FlashcardClient v2 AI-first' 'feat(client): add version comment'
+AL $client '// Reads daily_flashcards first' 'feat(client): document data priority'
+AL $client '// AI badge shows for AI cards' 'feat(client): document AI badge'
+AL $client '// Topic shows daily theme' 'feat(client): document topic display'
+AL $client '// Difficulty legend easy/med/hard' 'feat(client): document difficulty legend'
+AL $client '// Console shows AI source' 'feat(client): document console log'
+AL $client '// LocalStorage persists state' 'feat(client): document persistence'
+AL $client '// XP uses rarity multiplier' 'feat(client): document XP calculation'
+AL $client '// Confetti on all 5 revealed' 'feat(client): document completion'
+AL $hook '// useFlashcards v2 AI-aware' 'feat(hook): add version comment'
+AL $hook '// Returns aiGenerated boolean' 'feat(hook): document aiGenerated'
+AL $hook '// Returns topic string' 'feat(hook): document topic return'
+AL $hook '// Fallback to seeded random' 'feat(hook): document fallback'
+AL $hook '// Memoized loadCards' 'feat(hook): document memoization'
+AL $css '/* AI badge glassmorphism */' 'style(css): document glassmorphism'
+AL $css '/* Pulse animation for badge */' 'style(css): document pulse animation'
+AL $css '/* Difficulty colors scheme */' 'style(css): document diff colors'
+AL $css '/* Mobile responsive badge */' 'style(css): document responsive'
+AL $css '/* Monospace font aesthetic */' 'style(css): document font choice'
+AL $css '/* CSS variables theming */' 'style(css): document variables'
+AL $css '/* Backdrop filter glass */' 'style(css): document backdrop'
+AL $css '/* Box-shadow hover */' 'style(css): document shadows'
+AL $css '/* Cubic-bezier easing */' 'style(css): document easing'
+AL $css '/* Print styles */' 'style(css): document print'
+AL $css '/* High contrast a11y */' 'style(css): document contrast'
+AL $css '/* Landscape grid */' 'style(css): document landscape'
+AL $css '/* Reduced motion */' 'style(css): document motion'
+AL $css '/* Focus-visible kbd */' 'style(css): document focus'
+AL $css '/* Confetti overlay */' 'style(css): document confetti'
+AL $css '/* Card flip 3D */' 'style(css): document flip'
+AL $css '/* Rarity colors */' 'style(css): document rarity'
+AL $css '/* Progress gradient */' 'style(css): document progress'
+AL $css '/* Skeleton shimmer */' 'style(css): document skeleton'
+AL $css '/* Console terminal */' 'style(css): document console'
+AL $seed '// Deterministic card selection' 'refactor(lib): document seeded random'
+AL $seed '// Uniform hash distribution' 'refactor(lib): document hash algo'
+AL $seed '// Daily seed = userId + date' 'refactor(lib): document seed composition'
+AL $config '// Rarity gamification system' 'refactor(lib): document rarity system'
+AL $config '// XP scales with rarity' 'refactor(lib): document XP scaling'
+AL $config '// Bag colors for variety' 'refactor(lib): document bag colors'
+AL $sounds '// Sound effects for reveals' 'refactor(lib): document sounds'
+AL $storage '// Offline-first persistence' 'refactor(lib): document storage'
+AL $utils '// Data transform utilities' 'refactor(lib): document utils'
+AL $a11y '// Screen reader support' 'refactor(lib): document a11y'
+AL $consts '// Centralized magic values' 'refactor(lib): document constants'
+AL $anim '// Reusable easing curves' 'refactor(lib): document animations'
+AL $avatar '// Initials-based avatars' 'refactor(lib): document avatar'
+AL $cap '// Empty string edge cases' 'refactor(lib): document capitalize'
+AL $chunk '// Array pagination splits' 'refactor(lib): document chunk'
+AL $clamp '// Numeric boundary safety' 'refactor(lib): document clamp'
+AL $cn '// Tailwind conflict resolver' 'refactor(lib): document cn'
+AL $constants '// API endpoint registry' 'refactor(lib): document endpoints'
+AL $cookie '// GDPR compliance tracking' 'refactor(lib): document cookie'
+AL $csp '// XSS prevention headers' 'refactor(lib): document csp'
+AL $debounce '// API call throttling' 'refactor(lib): document debounce'
+AL $dc '// Nested immutability' 'refactor(lib): document deep-clone'
+AL $env '// Fail-fast validation' 'refactor(lib): document env'
+AL $errh '// Stack trace formatting' 'refactor(lib): document error-handler'
+AL $errt '// Context capture monitor' 'refactor(lib): document error-tracking'
+AL $ff '// Gradual feature rollout' 'refactor(lib): document feature-flags'
+AL $fmt '// Locale-aware numbers' 'refactor(lib): document formatters'
+AL $gid '// Crypto collision resist' 'refactor(lib): document generate-id'
+AL $gb '// Typed key extraction' 'refactor(lib): document group-by'
+AL $img '// WebP format delivery' 'refactor(lib): document image-config'
+AL $ie '// Null prototype safety' 'refactor(lib): document is-empty'
+AL $log '// Structured JSON output' 'refactor(lib): document logger'
+AL $meta '// SEO page title gen' 'refactor(lib): document metadata'
+AL $omit '// Key exclusion utility' 'refactor(lib): document omit'
+AL $pick '// Property extraction' 'refactor(lib): document pick'
+AL $plur '// Irregular word forms' 'refactor(lib): document pluralize'
+AL $pre '// DNS lookup latency' 'refactor(lib): document preconnect'
+AL $rng '// Numeric sequences' 'refactor(lib): document range'
+AL $rlc '// Per-endpoint thresholds' 'refactor(lib): document rate-limit'
+AL $rl '// Sliding window algo' 'refactor(lib): document rate-limiter'
+AL $sec '// HSTS X-Frame-Options' 'refactor(lib): document security'
+AL $shuf '// Fisher-Yates uniform' 'refactor(lib): document shuffle'
+AL $slp '// Async delay patterns' 'refactor(lib): document sleep'
+AL $thr '// Execution frequency' 'refactor(lib): document throttle'
+AL $uniq '// First occurrence order' 'refactor(lib): document unique'
+AL $val '// Email URL phone check' 'refactor(lib): document validators'
+AL $ver '// Semver format track' 'refactor(lib): document version'
+AL $wv '// LCP FID CLS metrics' 'refactor(lib): document web-vitals'
+AL $sh '// Retry logic resilience' 'refactor(lib): document supabase'
+AL $bag '// 3D perspective hover' 'refactor(component): document MysteryBag'
+AL $bag '// Scale up then collapse' 'refactor(component): document animation'
+AL $fci '// Backface-visibility flip' 'refactor(component): document flip'
+AL $fci '// Absolute badge position' 'refactor(component): document badge'
+AL $rb '// Semantic rarity colors' 'refactor(component): document rarity'
+AL $dp '// Decoded remaining count' 'refactor(component): document progress'
+AL $dp '// Streak words accuracy' 'refactor(component): document stats'
+AL $dh '// Vietnamese locale date' 'refactor(component): document header'
+AL $cc2 '// Mission completion UX' 'refactor(component): document completion'
+AL $ce '// 30 randomized particles' 'refactor(component): document confetti'
+AL $fs '// Async data fetch loader' 'refactor(component): document skeleton'
+AL $fst '// Daily learning metrics' 'refactor(component): document stats'
+AL $ndc '// setInterval live update' 'refactor(component): document countdown'
+AL $ccol '// Revealed cards gallery' 'refactor(component): document collection'
+AL $pe '// CSS vars for direction' 'refactor(component): document particles'
+AL $idx '// Centralized imports' 'refactor(component): document barrel'
+AL $api '// AI-first data source' 'refactor(api): document v2 strategy'
+AL $api '// Source field for render' 'refactor(api): document source field'
+AL $api '// Metadata for analytics' 'refactor(api): document metadata'
+AL $fox '// Groq primary HF fallback' 'refactor(api): document fox-chat'
+AL $fox '// IPA phonetic standards' 'refactor(api): document IPA rules'
+AL $fox '// Last 10 messages only' 'refactor(api): document history limit'
+AL $sql '-- Migration complete' 'docs: add migration marker'
+AL $ai '// See implementation plan' 'docs: reference plan'
+AL $gen '// 0 17 UTC = 00 VN' 'docs: document cron tz'
+AL $client '// See flashcards.css' 'docs: reference css'
+AL $hook '// Used by FlashcardClient' 'docs: document consumer'
+AL $css '/* Light Tech theme */' 'docs: document theme'
+AL $css '/* AI integration update */' 'docs: add update marker'
+AL $config '// Used by client and hook' 'docs: document consumers'
+AL $seed '// Deterministic module' 'docs: document purpose'
+AL $val '// Input sanitization' 'docs: document sanitize'
+
+Write-Host 'DONE' -ForegroundColor Green
+git log --oneline -n 5

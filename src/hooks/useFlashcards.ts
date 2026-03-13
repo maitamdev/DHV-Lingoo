@@ -1,4 +1,5 @@
 // Custom hook for managing daily flashcard state
+// Reads from AI-generated daily_flashcards, falls back to seeded random
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -13,6 +14,9 @@ interface CardData {
   phonetic: string | null;
   example: string | null;
   rarity: string;
+  category?: string;
+  difficulty?: string;
+  isAI?: boolean;
 }
 
 export function useFlashcards() {
@@ -20,6 +24,8 @@ export function useFlashcards() {
   const [revealed, setRevealed] = useState<boolean[]>(Array(CARDS_PER_DAY).fill(false));
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [aiGenerated, setAiGenerated] = useState(false);
+  const [topic, setTopic] = useState('');
   const today = getTodayDateString();
 
   const loadCards = useCallback(async () => {
@@ -32,6 +38,34 @@ export function useFlashcards() {
       const saved = localStorage.getItem(`fc_${user.id}_${today}`);
       if (saved) setRevealed(JSON.parse(saved));
 
+      // Try AI-generated flashcards first
+      const { data: dailyData } = await supabase
+        .from('daily_flashcards')
+        .select('*')
+        .eq('date', today)
+        .single();
+
+      if (dailyData && dailyData.cards && Array.isArray(dailyData.cards) && dailyData.cards.length > 0) {
+        const aiCards: CardData[] = (dailyData.cards as Array<Record<string, string>>).map((card, index) => ({
+          id: `ai-${today}-${index}`,
+          word: card.word || '',
+          meaning: card.meaning || '',
+          phonetic: card.phonetic || null,
+          example: card.example || null,
+          category: card.category || '',
+          difficulty: card.difficulty || 'medium',
+          rarity: getCardRarity(seededRandom(getDailySeed(`ai-${index}`, today))),
+          isAI: true,
+        }));
+
+        setCards(aiCards);
+        setAiGenerated(true);
+        setTopic(dailyData.topic || '');
+        setLoading(false);
+        return;
+      }
+
+      // Fallback: seeded random from lesson_vocabularies
       const { data: words } = await supabase.from('lesson_vocabularies').select('id, word, meaning, phonetic, example');
       if (!words?.length) { setError('No vocabulary'); setLoading(false); return; }
 
@@ -42,9 +76,11 @@ export function useFlashcards() {
         phonetic: w.phonetic || null,
         example: w.example || null,
         rarity: getCardRarity(seededRandom(getDailySeed(w.id, today))),
+        isAI: false,
       }));
 
       setCards(withRarity);
+      setAiGenerated(false);
       setLoading(false);
     } catch { setError('Failed to load'); setLoading(false); }
   }, [today]);
@@ -65,5 +101,5 @@ export function useFlashcards() {
 
   useEffect(() => { loadCards(); }, [loadCards]);
 
-  return { cards, revealed, loading, error, today, openedCount, allOpened, totalXP, revealCard, loadCards };
+  return { cards, revealed, loading, error, today, openedCount, allOpened, totalXP, aiGenerated, topic, revealCard, loadCards };
 }

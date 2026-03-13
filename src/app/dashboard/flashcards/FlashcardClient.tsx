@@ -1,10 +1,11 @@
-// Client-side flashcard page with state management - Cyberpunk theme
+// Client-side flashcard page — reads AI-generated daily cards
 'use client';
 
 import { useState, useEffect } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { getDailySeed, seededRandom, pickRandomItems, getTodayDateString, getCardRarity } from '@/lib/flashcard-seed';
 import { CARDS_PER_DAY, BAG_COLORS, XP_PER_CARD } from '@/lib/flashcard-config';
+import { getDifficultyColor, getDifficultyLabel, getCategoryIcon } from '@/lib/flashcard-ai';
 import { MysteryBag, FlashcardItem, DailyProgress, ConfettiEffect, CompletionCard, DailyHeader, FlashcardSkeleton } from '@/components/flashcard';
 import './flashcards.css';
 
@@ -15,6 +16,9 @@ interface CardData {
   phonetic: string | null;
   example: string | null;
   rarity: string;
+  category?: string;
+  difficulty?: string;
+  isAI?: boolean;
 }
 
 export default function FlashcardClient() {
@@ -25,6 +29,8 @@ export default function FlashcardClient() {
   const [error, setError] = useState<string | null>(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [today] = useState(getTodayDateString());
+  const [aiGenerated, setAiGenerated] = useState(false);
+  const [topic, setTopic] = useState<string>('');
 
   useEffect(() => {
     let cancelled = false;
@@ -41,6 +47,38 @@ export default function FlashcardClient() {
         const saved = localStorage.getItem(storageKey);
         const savedRevealed = saved ? JSON.parse(saved) as boolean[] : [false, false, false, false, false];
 
+        // Try to load AI-generated flashcards first
+        const { data: dailyData } = await supabase
+          .from('daily_flashcards')
+          .select('*')
+          .eq('date', today)
+          .single();
+
+        if (dailyData && dailyData.cards && Array.isArray(dailyData.cards) && dailyData.cards.length > 0) {
+          // Use AI-generated cards
+          const aiCards: CardData[] = (dailyData.cards as Array<Record<string, string>>).map((card, index) => ({
+            id: `ai-${today}-${index}`,
+            word: card.word || '',
+            meaning: card.meaning || '',
+            phonetic: card.phonetic || null,
+            example: card.example || null,
+            category: card.category || '',
+            difficulty: card.difficulty || 'medium',
+            rarity: getCardRarity(seededRandom(getDailySeed(`ai-${index}`, today))),
+            isAI: true,
+          }));
+
+          if (!cancelled) {
+            setCards(aiCards);
+            setRevealed(savedRevealed);
+            setAiGenerated(true);
+            setTopic(dailyData.topic || '');
+            setLoading(false);
+          }
+          return;
+        }
+
+        // Fallback: use old seeded random from lesson_vocabularies
         const { data: allWords } = await supabase
           .from('lesson_vocabularies')
           .select('id, word, meaning, phonetic, example');
@@ -59,11 +97,13 @@ export default function FlashcardClient() {
           phonetic: w.phonetic || null,
           example: w.example || null,
           rarity: getCardRarity(seededRandom(getDailySeed(w.id, today))),
+          isAI: false,
         }));
 
         if (!cancelled) {
           setCards(cardsWithRarity);
           setRevealed(savedRevealed);
+          setAiGenerated(false);
           setLoading(false);
         }
       } catch {
@@ -148,7 +188,37 @@ export default function FlashcardClient() {
       {showConfetti && <ConfettiEffect />}
 
       <DailyHeader date={today} />
+
+      {/* AI Generated Badge */}
+      {aiGenerated && (
+        <div className="ai-generated-badge">
+          <div className="ai-badge-inner">
+            <span className="ai-badge-icon">🤖</span>
+            <span className="ai-badge-text">AI GENERATED</span>
+            {topic && (
+              <>
+                <span className="ai-badge-separator">—</span>
+                <span className="ai-badge-topic">
+                  {getCategoryIcon(topic)} {topic}
+                </span>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
       <DailyProgress opened={openedCount} />
+
+      {/* Difficulty Legend for AI cards */}
+      {aiGenerated && cards.some(c => c.difficulty) && (
+        <div className="difficulty-legend">
+          {['easy', 'medium', 'hard'].map(diff => (
+            <span key={diff} className="difficulty-tag" style={{ color: getDifficultyColor(diff) }}>
+              ● {getDifficultyLabel(diff)}
+            </span>
+          ))}
+        </div>
+      )}
 
       <div className="mystery-bag-grid">
         {cards.map((card, i) => (
@@ -181,13 +251,26 @@ export default function FlashcardClient() {
       <div className="cyber-console">
         <div className="cyber-console-inner">
           <div className="cyber-console-title">LOG_CONSOLE:</div>
-          <div className="cyber-console-line">initializing lexi_scan_module_v.4.0.1...</div>
-          <div className="cyber-console-line">connection established with neural_thesaurus...</div>
+          <div className="cyber-console-line">
+            {aiGenerated
+              ? 'ai_vocabulary_engine initialized ✓'
+              : 'initializing lexi_scan_module_v.4.0.1...'}
+          </div>
+          <div className="cyber-console-line">
+            {aiGenerated
+              ? `daily_topic: "${topic}" loaded from neural_ai_core`
+              : 'connection established with neural_thesaurus...'}
+          </div>
           <div className="cyber-console-line">
             {allOpened
               ? 'all modules decrypted successfully ✓'
               : 'awaiting user authentication...'}
           </div>
+          {aiGenerated && (
+            <div className="cyber-console-line" style={{ color: 'var(--fc-accent)' }}>
+              source: ai_generated — powered by groq_llama_3.3
+            </div>
+          )}
         </div>
       </div>
     </div>

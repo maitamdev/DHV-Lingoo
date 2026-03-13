@@ -3,6 +3,10 @@
         {
             "path": "/api/send-push",
             "schedule": "0 17 * * *"
+        },
+        {
+            "path": "/api/generate-daily-flashcards",
+            "schedule": "0 17 * * *"
         }
     ]
 }
