@@ -106,3 +106,4 @@ export function useFlashcards() {
 // useFlashcards v2 AI-aware
 // Returns aiGenerated boolean
 // Returns topic string
+// Fallback to seeded random
