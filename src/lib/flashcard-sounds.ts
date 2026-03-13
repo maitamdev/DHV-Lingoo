@@ -50,3 +50,4 @@ export function playCompletionSound() {
     });
   } catch {}
 }
+// Sound effects for reveals
