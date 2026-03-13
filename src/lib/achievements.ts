@@ -129,3 +129,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 }
 // 36 achievements across 5 categories
 // Categories: learning, streak, social, mastery, special
+// Rarity tiers: bronze, silver, gold, platinum, diamond
