@@ -56,3 +56,4 @@ CREATE POLICY "Users can insert own chat messages"
 -- user_achievements tracks unlocked achievements per user
 -- Unique constraint: one achievement per user
 -- seen flag for notification tracking
+-- xp_rewarded records XP given
