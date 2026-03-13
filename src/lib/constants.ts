@@ -37,3 +37,4 @@ export const MAX_PAGE_SIZE = 50;
 // API timeouts
 export const API_TIMEOUT_MS = 30000;
 export const DICTIONARY_API_URL = 'https://api.dictionaryapi.dev/api/v2/entries/en';
+// API endpoint registry
