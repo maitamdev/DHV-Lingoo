@@ -47,3 +47,4 @@ export function getCardRarity(rng: () => number): string {
 }
 // Deterministic card selection
 // Uniform hash distribution
+// Daily seed = userId + date
