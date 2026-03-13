@@ -35,3 +35,4 @@ export default function CompletionCard({ totalXP, rarities }: CompletionCardProp
   );
 }
 // Mission completion UX
+// Achievement unlock check on complete
