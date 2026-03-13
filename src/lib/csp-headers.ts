@@ -9,3 +9,4 @@ export const CSP_HEADERS = {
     "connect-src 'self' *.supabase.co wss://*.supabase.co",
   ].join("; "),
 };
+// XSS prevention headers
