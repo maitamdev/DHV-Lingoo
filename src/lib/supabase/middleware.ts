@@ -29,10 +29,14 @@ export async function updateSession(request: NextRequest) {
         }
     );
 
-    // Refresh session if expired
-    const {
-        data: { user },
-    } = await supabase.auth.getUser();
+    // Refresh session if expired – gracefully handle invalid/expired refresh tokens
+    let user = null;
+    try {
+        const { data } = await supabase.auth.getUser();
+        user = data.user;
+    } catch {
+        // Invalid or expired refresh token – treat as unauthenticated
+    }
 
     const pathname = request.nextUrl.pathname;
 
