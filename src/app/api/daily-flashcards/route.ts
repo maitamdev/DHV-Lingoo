@@ -76,3 +76,4 @@ export async function GET() {
 // Source field for render
 // Metadata for analytics
 // Achievement stats integration
+// Track words revealed count
