@@ -4,3 +4,4 @@ export function getRarityConfig(rarity: string) { return CARD_RARITIES.find(r =>
 export function formatXP(xp: number) { return xp >= 1000 ? (xp/1000).toFixed(1)+'k' : String(xp); }
 export function getStreakEmoji(s: number) { if (s>=30) return 'trophy'; if (s>=14) return 'diamond'; if (s>=7) return 'fire'; return 'star'; }
 // Data transform utilities
+// Achievement stat helpers planned
