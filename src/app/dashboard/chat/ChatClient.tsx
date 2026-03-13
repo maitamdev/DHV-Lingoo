@@ -180,3 +180,4 @@ export default function ChatClient() {
 // Input auto-focuses after send
 // Enter key sends message
 // Quick prompts hide after first message
+// Chat tested with Groq and HuggingFace
