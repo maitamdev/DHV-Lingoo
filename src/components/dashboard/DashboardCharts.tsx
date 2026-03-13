@@ -262,3 +262,4 @@ export function SkillsBreakdownChart({ progressData, completedLessons }: { progr
         </div>
     );
 }
+// Achievement chart widget planned
