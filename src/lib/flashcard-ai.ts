@@ -222,3 +222,4 @@ export function getCategoryIcon(category: string): string {
 // Topics rotate every 30 days
 // IPA phonetic is mandatory
 // JSON format strictly enforced
+// Difficulty: easy A1, medium A2, hard B1
