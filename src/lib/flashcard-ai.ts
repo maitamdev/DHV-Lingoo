@@ -225,3 +225,4 @@ export function getCategoryIcon(category: string): string {
 // Difficulty: easy A1, medium A2, hard B1
 // Category icons for 30 topics
 // Parser handles malformed responses
+// Prompt optimized for Vietnamese
