@@ -32,3 +32,4 @@ export default function NextDayCountdown() {
     </div>
   );
 }
+// setInterval live update
