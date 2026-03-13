@@ -157,3 +157,4 @@ export default function AchievementsClient({ stats, userAchievements }: Props) {
 // Rarity summary shows unlock counts
 // Progress bars for locked achievements
 // Modal shows detailed achievement info
+// Unlock animation with glow effect
