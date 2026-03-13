@@ -86,3 +86,4 @@ CREATE TRIGGER on_user_flashcard_history_updated
 -- Daily cards are immutable after creation
 -- History table supports streak calc
 -- Unique constraint prevents duplicates
+-- Auto-update trigger maintains freshness
