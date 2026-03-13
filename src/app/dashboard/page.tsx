@@ -475,3 +475,4 @@ function LeaderboardItem({ rank, name, points, isYou = false }: {
         </div>
     );
 }
+// Achievement widget on dashboard
