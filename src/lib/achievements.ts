@@ -132,3 +132,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 // Rarity tiers: bronze, silver, gold, platinum, diamond
 // XP rewards range from 10 to 1000
 // Progress tracking via getAchievementProgress()
+// Conditions evaluated against UserStats interface
