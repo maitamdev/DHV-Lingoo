@@ -74,7 +74,7 @@ export function WeeklyActivityChart({ progressData }: { progressData: ProgressRe
                                     fontWeight: 700,
                                     padding: "6px 12px",
                                 }}
-                                formatter={(value: number | undefined, name: string | undefined) => {
+                                formatter={(value, name) => {
                                     if (name === "lessons") return [`${value ?? 0} bài`, ""];
                                     return [`${value ?? 0} XP`, ""];
                                 }}
@@ -163,7 +163,7 @@ export function XPProgressChart({ currentXP, progressData }: { currentXP: number
                                 fontWeight: 700,
                                 padding: "6px 12px",
                             }}
-                            formatter={(value: number | undefined) => [`${(value ?? 0).toLocaleString()} XP`, ""]}
+                            formatter={(value) => [`${(value ?? 0).toLocaleString()} XP`, ""]}
                             labelStyle={{ color: "#94a3b8", fontSize: 10 }}
                         />
                         <Area
