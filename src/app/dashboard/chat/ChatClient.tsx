@@ -178,3 +178,4 @@ export default function ChatClient() {
 // Provider display shows Groq or HF
 // Message count badge in header
 // Input auto-focuses after send
+// Enter key sends message
