@@ -176,3 +176,4 @@ export default function ChatClient() {
 // Clear chat resets conversation
 // Auto-scroll to latest message
 // Provider display shows Groq or HF
+// Message count badge in header
