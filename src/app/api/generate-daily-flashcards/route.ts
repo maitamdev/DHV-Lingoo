@@ -185,3 +185,4 @@ export async function GET(req: Request) {
 // Idempotent: skips if generated
 // Fallback: Groq then HuggingFace
 // Max duration: 30s timeout
+// Response includes card count
