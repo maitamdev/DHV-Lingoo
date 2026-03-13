@@ -34,3 +34,4 @@ export default function CompletionCard({ totalXP, rarities }: CompletionCardProp
     </div>
   );
 }
+// Mission completion UX
