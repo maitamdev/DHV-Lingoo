@@ -278,3 +278,4 @@ export default function FlashcardClient() {
 }
 // FlashcardClient v2 AI-first
 // Reads daily_flashcards first
+// AI badge shows for AI cards
