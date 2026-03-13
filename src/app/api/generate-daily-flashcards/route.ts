@@ -179,3 +179,4 @@ export async function GET(req: Request) {
   }
 }
 // Endpoint: /api/generate-daily-flashcards
+// Method: GET triggered by Vercel Cron
