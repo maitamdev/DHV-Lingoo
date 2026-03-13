@@ -49,3 +49,4 @@ export function getCardRarity(rng: () => number): string {
 // Uniform hash distribution
 // Daily seed = userId + date
 // Deterministic module
+// Used by achievement progress calc
