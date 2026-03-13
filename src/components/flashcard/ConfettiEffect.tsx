@@ -37,3 +37,4 @@ export default function ConfettiEffect() {
   );
 }
 // 30 randomized particles
+// Confetti for achievement unlock
