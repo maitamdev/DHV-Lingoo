@@ -175,3 +175,4 @@ export default function ChatClient() {
 // Typing indicator with 3 bouncing dots
 // Clear chat resets conversation
 // Auto-scroll to latest message
+// Provider display shows Groq or HF
