@@ -28,3 +28,4 @@ export const BAG_COLORS = [
 // Rarity gamification system
 // XP scales with rarity
 // Bag colors for variety
+// Used by client and hook
