@@ -88,3 +88,4 @@ CREATE TRIGGER on_user_flashcard_history_updated
 -- Unique constraint prevents duplicates
 -- Auto-update trigger maintains freshness
 -- Service role bypasses RLS for cron
+-- Date column uses timezone-aware type
