@@ -46,3 +46,4 @@ export default function MysteryBag({ index, onOpen, isOpened }: MysteryBagProps)
     </div>
   );
 }
+// 3D perspective hover
