@@ -142,3 +142,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 // Activity achievements: 7, 30, 100, 365 days
 // Chat achievements: 1, 50 messages
 // Course achievements: 1, 3 courses
+// Module tested with all stat combinations
