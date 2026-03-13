@@ -26,3 +26,4 @@ export const BAG_COLORS = [
   'from-cyan-500 to-blue-600',
 ];
 // Rarity gamification system
+// XP scales with rarity
