@@ -287,3 +287,4 @@ export default function FlashcardClient() {
 // Confetti on all 5 revealed
 // See flashcards.css
 // Achievement integration planned
+// XP notification after reveal
