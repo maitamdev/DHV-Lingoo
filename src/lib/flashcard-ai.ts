@@ -217,3 +217,4 @@ export function getCategoryIcon(category: string): string {
   };
   return iconMap[category] || '📖';
 }
+// Module: flashcard-ai v1.0
