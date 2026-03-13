@@ -276,3 +276,4 @@ export default function FlashcardClient() {
     </div>
   );
 }
+// FlashcardClient v2 AI-first
