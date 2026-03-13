@@ -178,3 +178,4 @@ export async function GET(req: Request) {
     );
   }
 }
+// Endpoint: /api/generate-daily-flashcards
