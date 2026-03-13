@@ -55,3 +55,4 @@ CREATE POLICY "Users can insert own chat messages"
   WITH CHECK (auth.uid() = user_id);
 -- user_achievements tracks unlocked achievements per user
 -- Unique constraint: one achievement per user
+-- seen flag for notification tracking
