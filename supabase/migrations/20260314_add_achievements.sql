@@ -57,3 +57,4 @@ CREATE POLICY "Users can insert own chat messages"
 -- Unique constraint: one achievement per user
 -- seen flag for notification tracking
 -- xp_rewarded records XP given
+-- chat_messages enables AI chat analytics
