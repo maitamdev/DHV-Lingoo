@@ -285,3 +285,4 @@ export default function FlashcardClient() {
 // LocalStorage persists state
 // XP uses rarity multiplier
 // Confetti on all 5 revealed
+// See flashcards.css
