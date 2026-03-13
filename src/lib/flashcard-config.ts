@@ -25,3 +25,4 @@ export const BAG_COLORS = [
   'from-amber-500 to-orange-600',
   'from-cyan-500 to-blue-600',
 ];
+// Rarity gamification system
