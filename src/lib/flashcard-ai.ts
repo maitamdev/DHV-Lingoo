@@ -227,3 +227,4 @@ export function getCategoryIcon(category: string): string {
 // Parser handles malformed responses
 // Prompt optimized for Vietnamese
 // All utilities exported
+// Tested with llama-3.3-70b
