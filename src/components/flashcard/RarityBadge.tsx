@@ -15,3 +15,4 @@ export default function RarityBadge({ rarity }: RarityBadgeProps) {
   );
 }
 // Semantic rarity colors
+// New AI rarity tier
