@@ -54,3 +54,4 @@
   .chat-quick-grid { grid-template-columns: 1fr; }
   .chat-input-area { padding: 8px 12px 12px; }
 }
+/* Chat uses full viewport height */
