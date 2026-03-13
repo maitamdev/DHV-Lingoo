@@ -2,3 +2,4 @@ export function getBagAriaLabel(i: number, opened: boolean) { return opened ? 'B
 export function getCardAriaLabel(word: string, meaning: string, flipped: boolean) { return flipped ? 'Meaning: '+meaning : 'Word: '+word; }
 export function getProgressAriaLabel(opened: number, total: number) { return opened+' of '+total+' opened'; }
 // Screen reader support
+// Achievement ARIA labels planned
