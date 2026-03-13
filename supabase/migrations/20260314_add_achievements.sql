@@ -59,3 +59,4 @@ CREATE POLICY "Users can insert own chat messages"
 -- xp_rewarded records XP given
 -- chat_messages enables AI chat analytics
 -- RLS policies restrict to own data
+-- Index on user_id for fast lookups
