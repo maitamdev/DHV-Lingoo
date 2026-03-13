@@ -170,3 +170,4 @@ export default function ChatClient() {
     </div>
   );
 }
+// 6 quick prompts for common questions
