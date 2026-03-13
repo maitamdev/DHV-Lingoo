@@ -3,3 +3,4 @@ export const PRECONNECT_URLS = [
   'https://fonts.googleapis.com',
   'https://fonts.gstatic.com',
 ];
+// DNS lookup latency
