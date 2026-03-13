@@ -282,3 +282,4 @@ export default function FlashcardClient() {
 // Topic shows daily theme
 // Difficulty legend easy/med/hard
 // Console shows AI source
+// LocalStorage persists state
