@@ -30,3 +30,4 @@ export default function FlashcardStats({ totalOpened, totalXP, streakDays }: Fla
     </div>
   );
 }
+// Daily learning metrics
