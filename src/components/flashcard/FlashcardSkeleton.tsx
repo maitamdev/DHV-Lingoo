@@ -27,3 +27,4 @@ export default function FlashcardSkeleton() {
   );
 }
 // Async data fetch loader
+// Improved skeleton with AI badge
