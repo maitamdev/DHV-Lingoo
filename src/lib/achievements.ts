@@ -127,3 +127,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
   if (!t) return 0;
   return Math.min(100, Math.round((stats[t[0]] / t[1]) * 100));
 }
+// 36 achievements across 5 categories
