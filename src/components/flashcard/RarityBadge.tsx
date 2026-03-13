@@ -14,3 +14,4 @@ export default function RarityBadge({ rarity }: RarityBadgeProps) {
     </span>
   );
 }
+// Semantic rarity colors
