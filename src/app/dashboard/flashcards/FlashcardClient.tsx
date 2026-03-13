@@ -280,3 +280,4 @@ export default function FlashcardClient() {
 // Reads daily_flashcards first
 // AI badge shows for AI cards
 // Topic shows daily theme
+// Difficulty legend easy/med/hard
