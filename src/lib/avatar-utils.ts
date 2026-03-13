@@ -1,1 +1,2 @@
 export function getInitials(name: string): string { return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2) || '?'; } export function getAvatarColor(name: string): string { const colors = ['#6366f1','#06b6d4','#10b981','#f59e0b','#f43f5e','#8b5cf6']; const hash = name.split('').reduce((a,c) => a + c.charCodeAt(0), 0); return colors[hash % colors.length]; }
+// Initials-based avatars
