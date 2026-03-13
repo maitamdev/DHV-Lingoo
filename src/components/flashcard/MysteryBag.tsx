@@ -47,3 +47,4 @@ export default function MysteryBag({ index, onOpen, isOpened }: MysteryBagProps)
   );
 }
 // 3D perspective hover
+// Scale up then collapse
