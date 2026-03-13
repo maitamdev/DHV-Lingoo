@@ -230,3 +230,4 @@ export function getCategoryIcon(category: string): string {
 // Tested with llama-3.3-70b
 // See implementation plan
 // Achievement trigger on card generation
+// Stats reporting for dashboard
