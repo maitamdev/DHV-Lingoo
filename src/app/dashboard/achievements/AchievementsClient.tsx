@@ -156,3 +156,4 @@ export default function AchievementsClient({ stats, userAchievements }: Props) {
 // Category filter with 6 options
 // Rarity summary shows unlock counts
 // Progress bars for locked achievements
+// Modal shows detailed achievement info
