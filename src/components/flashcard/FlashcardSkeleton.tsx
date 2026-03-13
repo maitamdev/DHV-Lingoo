@@ -26,3 +26,4 @@ export default function FlashcardSkeleton() {
     </div>
   );
 }
+// Async data fetch loader
