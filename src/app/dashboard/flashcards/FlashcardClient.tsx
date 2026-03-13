@@ -286,3 +286,4 @@ export default function FlashcardClient() {
 // XP uses rarity multiplier
 // Confetti on all 5 revealed
 // See flashcards.css
+// Achievement integration planned
