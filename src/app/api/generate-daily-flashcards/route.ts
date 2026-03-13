@@ -181,3 +181,4 @@ export async function GET(req: Request) {
 // Endpoint: /api/generate-daily-flashcards
 // Method: GET triggered by Vercel Cron
 // Auth: CRON_SECRET in production
+// Timezone: UTC+7 Vietnam
