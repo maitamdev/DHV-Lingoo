@@ -134,3 +134,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 // Progress tracking via getAchievementProgress()
 // Conditions evaluated against UserStats interface
 // Achievement icons use Unicode emoji
+// Streak achievements: 3, 7, 14, 30, 60, 100 days
