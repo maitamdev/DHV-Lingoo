@@ -123,3 +123,4 @@ export async function POST(req: Request) {
 }
 // Groq primary HF fallback
 // IPA phonetic standards
+// Last 10 messages only
