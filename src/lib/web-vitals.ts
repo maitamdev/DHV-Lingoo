@@ -4,3 +4,4 @@ export function reportWebVitals(metric: any) {
     console.log(metric.name, metric.value);
   }
 }
+// LCP FID CLS metrics
