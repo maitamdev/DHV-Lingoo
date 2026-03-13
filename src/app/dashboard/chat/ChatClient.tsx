@@ -181,3 +181,4 @@ export default function ChatClient() {
 // Enter key sends message
 // Quick prompts hide after first message
 // Chat tested with Groq and HuggingFace
+// v1.0 AI Chat system release
