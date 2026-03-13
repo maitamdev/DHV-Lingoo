@@ -183,3 +183,4 @@ export async function GET(req: Request) {
 // Auth: CRON_SECRET in production
 // Timezone: UTC+7 Vietnam
 // Idempotent: skips if generated
+// Fallback: Groq then HuggingFace
