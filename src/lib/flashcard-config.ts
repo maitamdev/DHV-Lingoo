@@ -29,3 +29,4 @@ export const BAG_COLORS = [
 // XP scales with rarity
 // Bag colors for variety
 // Used by client and hook
+// Achievement XP integration
