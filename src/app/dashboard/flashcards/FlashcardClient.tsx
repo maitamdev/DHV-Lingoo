@@ -281,3 +281,4 @@ export default function FlashcardClient() {
 // AI badge shows for AI cards
 // Topic shows daily theme
 // Difficulty legend easy/med/hard
+// Console shows AI source
