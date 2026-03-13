@@ -3,6 +3,15 @@
 -- Stores 5 AI-generated vocabulary cards per day
 -- =============================================
 
+-- Create updated_at trigger function (if not exists)
+CREATE OR REPLACE FUNCTION public.handle_updated_at()
+RETURNS trigger AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
 -- Table: Daily Flashcards (AI-generated)
 CREATE TABLE IF NOT EXISTS public.daily_flashcards (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
