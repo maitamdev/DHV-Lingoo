@@ -45,3 +45,4 @@ export function getCardRarity(rng: () => number): string {
   if (roll < 0.55) return 'uncommon';
   return 'common';
 }
+// Deterministic card selection
