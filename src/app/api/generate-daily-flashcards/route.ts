@@ -186,3 +186,4 @@ export async function GET(req: Request) {
 // Fallback: Groq then HuggingFace
 // Max duration: 30s timeout
 // Response includes card count
+// Error handling for all providers
