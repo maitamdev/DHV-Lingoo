@@ -182,3 +182,4 @@ export async function GET(req: Request) {
 // Method: GET triggered by Vercel Cron
 // Auth: CRON_SECRET in production
 // Timezone: UTC+7 Vietnam
+// Idempotent: skips if generated
