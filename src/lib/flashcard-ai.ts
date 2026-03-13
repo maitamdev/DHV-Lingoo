@@ -221,3 +221,4 @@ export function getCategoryIcon(category: string): string {
 // Supports: Groq primary, HF fallback
 // Topics rotate every 30 days
 // IPA phonetic is mandatory
+// JSON format strictly enforced
