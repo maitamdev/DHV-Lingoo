@@ -174,3 +174,4 @@ export default function ChatClient() {
 // Message history with timestamps
 // Typing indicator with 3 bouncing dots
 // Clear chat resets conversation
+// Auto-scroll to latest message
