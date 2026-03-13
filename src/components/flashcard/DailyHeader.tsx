@@ -25,3 +25,4 @@ export default function DailyHeader({ date }: DailyHeaderProps) {
   );
 }
 // Vietnamese locale date
+// AI topic badge in header
