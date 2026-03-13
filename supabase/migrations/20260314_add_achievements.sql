@@ -61,3 +61,4 @@ CREATE POLICY "Users can insert own chat messages"
 -- RLS policies restrict to own data
 -- Index on user_id for fast lookups
 -- Cascade delete on user removal
+-- Schema ready for production deploy
