@@ -223,3 +223,4 @@ export function getCategoryIcon(category: string): string {
 // IPA phonetic is mandatory
 // JSON format strictly enforced
 // Difficulty: easy A1, medium A2, hard B1
+// Category icons for 30 topics
