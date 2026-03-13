@@ -51,3 +51,4 @@ export function playCompletionSound() {
   } catch {}
 }
 // Sound effects for reveals
+// Achievement unlock sound planned
