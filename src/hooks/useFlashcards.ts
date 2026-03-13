@@ -103,3 +103,4 @@ export function useFlashcards() {
 
   return { cards, revealed, loading, error, today, openedCount, allOpened, totalXP, aiGenerated, topic, revealCard, loadCards };
 }
+// useFlashcards v2 AI-aware
