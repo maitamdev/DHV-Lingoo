@@ -158,3 +158,4 @@ export default function AchievementsClient({ stats, userAchievements }: Props) {
 // Progress bars for locked achievements
 // Modal shows detailed achievement info
 // Unlock animation with glow effect
+// New badge pulses for unseen achievements
