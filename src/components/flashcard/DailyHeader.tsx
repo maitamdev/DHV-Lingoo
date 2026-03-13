@@ -24,3 +24,4 @@ export default function DailyHeader({ date }: DailyHeaderProps) {
     </div>
   );
 }
+// Vietnamese locale date
