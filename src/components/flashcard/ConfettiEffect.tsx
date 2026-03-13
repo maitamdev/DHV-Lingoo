@@ -36,3 +36,4 @@ export default function ConfettiEffect() {
     </div>
   );
 }
+// 30 randomized particles
