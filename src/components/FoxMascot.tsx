@@ -196,3 +196,4 @@ export default function FoxMascot() {
         </div>
     );
 }
+// Achievement notification in chat
