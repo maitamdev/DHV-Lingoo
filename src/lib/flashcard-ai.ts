@@ -220,3 +220,4 @@ export function getCategoryIcon(category: string): string {
 // Module: flashcard-ai v1.0
 // Supports: Groq primary, HF fallback
 // Topics rotate every 30 days
+// IPA phonetic is mandatory
