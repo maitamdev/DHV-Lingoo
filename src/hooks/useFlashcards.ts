@@ -117,3 +117,4 @@ export function useFlashcards() {
 // Memoized loadCards
 // Used by FlashcardClient
 // Stats tracking for achievements
+// Revealed count for flashcard achievement
