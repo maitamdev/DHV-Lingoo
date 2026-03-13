@@ -184,3 +184,4 @@ export async function GET(req: Request) {
 // Timezone: UTC+7 Vietnam
 // Idempotent: skips if generated
 // Fallback: Groq then HuggingFace
+// Max duration: 30s timeout
