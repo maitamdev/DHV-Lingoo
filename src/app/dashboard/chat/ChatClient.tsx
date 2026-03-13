@@ -171,3 +171,4 @@ export default function ChatClient() {
   );
 }
 // 6 quick prompts for common questions
+// Message history with timestamps
