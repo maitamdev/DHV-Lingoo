@@ -31,3 +31,4 @@ export default function FlashcardStats({ totalOpened, totalXP, streakDays }: Fla
   );
 }
 // Daily learning metrics
+// Stats: include AI card count
