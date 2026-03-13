@@ -46,3 +46,4 @@ export function getCardRarity(rng: () => number): string {
   return 'common';
 }
 // Deterministic card selection
+// Uniform hash distribution
