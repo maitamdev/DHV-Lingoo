@@ -161,3 +161,4 @@ export default function AchievementsClient({ stats, userAchievements }: Props) {
 // New badge pulses for unseen achievements
 // Sort: unlocked first, then by progress
 // Check mark on unlocked achievements
+// Locked cards have reduced opacity
