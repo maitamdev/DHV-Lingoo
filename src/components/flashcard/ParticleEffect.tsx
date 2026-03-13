@@ -39,3 +39,4 @@ export default function ParticleEffect({ color, count = 12 }: ParticleEffectProp
   );
 }
 
+// CSS vars for direction
