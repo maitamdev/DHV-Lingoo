@@ -60,3 +60,4 @@ CREATE POLICY "Users can insert own chat messages"
 -- chat_messages enables AI chat analytics
 -- RLS policies restrict to own data
 -- Index on user_id for fast lookups
+-- Cascade delete on user removal
