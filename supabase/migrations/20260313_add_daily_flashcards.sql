@@ -82,3 +82,4 @@ CREATE TRIGGER on_user_flashcard_history_updated
   FOR EACH ROW EXECUTE PROCEDURE public.handle_updated_at();
 -- Index optimization for user queries
 -- Cascade delete ensures data cleanup
+-- RLS ensures multi-tenant isolation
