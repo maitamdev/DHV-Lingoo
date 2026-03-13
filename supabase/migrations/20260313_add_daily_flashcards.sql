@@ -90,3 +90,4 @@ CREATE TRIGGER on_user_flashcard_history_updated
 -- Service role bypasses RLS for cron
 -- Date column uses timezone-aware type
 -- JSONB enables flexible schema evolution
+-- Migration complete
