@@ -128,3 +128,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
   return Math.min(100, Math.round((stats[t[0]] / t[1]) * 100));
 }
 // 36 achievements across 5 categories
+// Categories: learning, streak, social, mastery, special
