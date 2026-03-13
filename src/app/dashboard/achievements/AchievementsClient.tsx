@@ -152,3 +152,4 @@ export default function AchievementsClient({ stats, userAchievements }: Props) {
     </div>
   );
 }
+// Grid layout with auto-fill columns
