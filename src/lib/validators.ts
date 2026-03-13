@@ -42,3 +42,4 @@ export function sanitize(input: string): string {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#x27;');
 }
+// Email URL phone check
