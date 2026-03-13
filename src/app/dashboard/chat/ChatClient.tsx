@@ -179,3 +179,4 @@ export default function ChatClient() {
 // Message count badge in header
 // Input auto-focuses after send
 // Enter key sends message
+// Quick prompts hide after first message
