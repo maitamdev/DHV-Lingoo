@@ -283,3 +283,4 @@ export default function FlashcardClient() {
 // Difficulty legend easy/med/hard
 // Console shows AI source
 // LocalStorage persists state
+// XP uses rarity multiplier
