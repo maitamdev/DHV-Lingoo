@@ -1,0 +1,74 @@
+/* ═══ Achievements Page Styles ═══ */
+.ach-page { max-width: 1000px; margin: 0 auto; padding: 24px; }
+
+.ach-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.ach-header-left { display: flex; flex-direction: column; gap: 4px; }
+.ach-title { font-size: 24px; font-weight: 800; color: #111827; }
+.ach-subtitle { font-size: 13px; color: #6b7280; font-weight: 600; }
+.ach-xp-badge { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 800; letter-spacing: 0.5px; }
+
+.ach-rarity-summary { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.ach-rarity-pill { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid; border-radius: 20px; font-size: 12px; }
+.ach-rarity-dot { width: 8px; height: 8px; border-radius: 50%; }
+.ach-rarity-count { font-weight: 800; color: #1f2937; }
+.ach-rarity-label { color: #6b7280; font-weight: 600; }
+
+.ach-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+.ach-filter-btn { padding: 6px 14px; border: 1px solid #e5e7eb; border-radius: 20px; background: white; font-size: 12px; font-weight: 600; color: #6b7280; cursor: pointer; transition: all 0.2s; }
+.ach-filter-btn:hover { border-color: #3b82f6; color: #3b82f6; }
+.ach-filter-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; }
+
+.ach-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+
+.ach-card { position: relative; display: flex; align-items: center; gap: 12px; padding: 14px; background: white; border: 1px solid #e5e7eb; border-radius: 12px; cursor: pointer; transition: all 0.25s; }
+.ach-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+.ach-card.unlocked { background: #fafafa; }
+.ach-card.locked { opacity: 0.6; }
+.ach-card.locked:hover { opacity: 0.8; }
+.ach-card.new { animation: ach-glow 2s ease-in-out infinite; }
+
+@keyframes ach-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); } 50% { box-shadow: 0 0 16px 4px rgba(245, 158, 11, 0.15); } }
+
+.ach-card-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; background: #f3f4f6; }
+.ach-locked-icon { filter: grayscale(1) opacity(0.4); }
+
+.ach-card-content { flex: 1; min-width: 0; }
+.ach-card-title { font-size: 13px; font-weight: 700; color: #1f2937; margin-bottom: 2px; }
+.ach-card-desc { font-size: 11px; color: #6b7280; }
+
+.ach-progress-bar { height: 4px; background: #e5e7eb; border-radius: 2px; margin-top: 6px; overflow: hidden; }
+.ach-progress-bar.large { height: 6px; }
+.ach-progress-fill { height: 100%; border-radius: 2px; transition: width 0.5s ease; }
+
+.ach-card-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; }
+.ach-card-xp { font-size: 11px; font-weight: 800; }
+.ach-card-progress { font-size: 11px; font-weight: 700; color: #9ca3af; }
+.ach-card-rarity { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+.ach-new-badge { position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; font-size: 8px; font-weight: 800; padding: 2px 6px; border-radius: 8px; letter-spacing: 1px; animation: ach-pulse 1.5s ease-in-out infinite; }
+@keyframes ach-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+
+.ach-check { position: absolute; bottom: 8px; right: 10px; color: #10b981; font-size: 14px; font-weight: 900; }
+
+/* Modal */
+.ach-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(4px); }
+.ach-modal { background: white; border-radius: 20px; padding: 32px; max-width: 380px; width: 90%; text-align: center; animation: ach-modal-in 0.3s ease; }
+@keyframes ach-modal-in { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.ach-modal-icon { width: 72px; height: 72px; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 16px; }
+.ach-modal-title { font-size: 20px; font-weight: 800; color: #111827; margin-bottom: 8px; }
+.ach-modal-desc { font-size: 14px; color: #6b7280; margin-bottom: 16px; }
+.ach-modal-meta { display: flex; justify-content: center; gap: 16px; font-size: 12px; font-weight: 700; margin-bottom: 16px; }
+.ach-modal-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.ach-modal-progress .ach-progress-bar { flex: 1; }
+.ach-modal-progress span { font-size: 13px; font-weight: 800; color: #374151; }
+.ach-modal-close { padding: 8px 24px; background: #f3f4f6; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; color: #374151; cursor: pointer; transition: background 0.2s; }
+.ach-modal-close:hover { background: #e5e7eb; }
+
+@media (max-width: 640px) {
+  .ach-page { padding: 16px; }
+  .ach-grid { grid-template-columns: 1fr; }
+  .ach-title { font-size: 20px; }
+  .ach-rarity-summary { gap: 6px; }
+  .ach-rarity-pill { padding: 4px 8px; font-size: 11px; }
+}

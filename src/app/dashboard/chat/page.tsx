@@ -1,1 +1,12 @@
-import type {Metadata} from 'next'; export const metadata:Metadata={title:'Chat | DHV-Lingoo'}; export default function ChatPage(){return(<div className='p-6'><h1 className='text-2xl font-bold mb-4'>Lingoo Chat</h1><p className='text-gray-500'>AI powered conversation practice coming soon...</p></div>)}
+// AI Chat page — full Lingoo conversation interface
+import type { Metadata } from 'next';
+import ChatClient from './ChatClient';
+
+export const metadata: Metadata = {
+  title: 'Lingoo Chat AI | DHV-Lingoo',
+  description: 'Trò chuyện với Lingoo AI để luyện tiếng Anh',
+};
+
+export default function ChatPage() {
+  return <ChatClient />;
+}
