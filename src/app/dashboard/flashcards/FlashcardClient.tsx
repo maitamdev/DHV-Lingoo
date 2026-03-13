@@ -284,3 +284,4 @@ export default function FlashcardClient() {
 // Console shows AI source
 // LocalStorage persists state
 // XP uses rarity multiplier
+// Confetti on all 5 revealed
