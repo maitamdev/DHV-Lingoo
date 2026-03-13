@@ -66,3 +66,4 @@ export default function FlashcardItem({ word, meaning, phonetic, example, rarity
     </div>
   );
 }
+// Backface-visibility flip
