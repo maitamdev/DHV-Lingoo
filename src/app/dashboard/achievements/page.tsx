@@ -40,3 +40,4 @@ export default async function AchievementsPage() {
 
   return <AchievementsClient stats={stats} userAchievements={userAchievements || []} />;
 }
+// Server-side stat aggregation
