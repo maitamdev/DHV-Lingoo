@@ -11,3 +11,34 @@
   --practice-muted: #94a3b8;
   --practice-radius: 16px;
 }
+
+.practice-tabs {
+  display: flex;
+  gap: 4px;
+  background: var(--practice-bg);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--practice-border);
+}
+.practice-tab {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--practice-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.practice-tab:hover { background: #e2e8f0; color: var(--practice-text); }
+.practice-tab.active {
+  background: var(--practice-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
