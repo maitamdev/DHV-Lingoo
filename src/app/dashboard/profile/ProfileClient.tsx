@@ -316,3 +316,4 @@ export default function ProfileClient({
 // Goals rendered as badge chips with target emoji
 // Interests rendered as badge chips with lightbulb emoji
 // Learning info grid shows word count, courses, daily time, XP
+// Empty activity state shows encouraging message
