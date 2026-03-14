@@ -64,3 +64,45 @@
   font-weight: 700;
   letter-spacing: 0.5px;
 }
+
+.profile-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.profile-stat-card {
+  background: var(--profile-card);
+  border: 1px solid var(--profile-border);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.profile-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+.profile-stat-card .icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+.profile-stat-value {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--profile-text);
+  line-height: 1;
+}
+.profile-stat-label {
+  font-size: 12px;
+  color: var(--profile-muted);
+  margin-top: 6px;
+  font-weight: 500;
+}
