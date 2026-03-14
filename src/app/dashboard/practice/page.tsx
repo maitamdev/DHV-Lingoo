@@ -39,3 +39,4 @@ export default async function PracticePage() {
     />
   );
 }
+// Server page fetches 200 vocabularies for practice pool
