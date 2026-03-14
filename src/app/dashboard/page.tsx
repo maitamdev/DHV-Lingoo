@@ -477,3 +477,4 @@ function LeaderboardItem({ rank, name, points, isYou = false }: {
 }
 // Achievement widget on dashboard
 // Recent achievements display
+// Practice stats widget planned for dashboard overview
