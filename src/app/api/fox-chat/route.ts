@@ -126,3 +126,4 @@ export async function POST(req: Request) {
 // Last 10 messages only
 // Chat message counting for achievements
 // Achievement unlock notification API
+// Practice performance context for AI tutor responses
