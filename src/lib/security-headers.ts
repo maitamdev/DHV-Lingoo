@@ -2,3 +2,4 @@ import { NextResponse } from 'next/server'; import type { NextRequest } from 'ne
 
 // HSTS X-Frame-Options
 // Achievement API security
+// Practice API endpoints follow security headers
