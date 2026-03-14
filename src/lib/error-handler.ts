@@ -2,3 +2,4 @@ export class AppError extends Error{constructor(public statusCode:number,message
 export function handleApiError(e:unknown){if(e instanceof AppError)return{message:e.message,status:e.statusCode};return{message:'Unexpected error',status:500}}
 // Stack trace formatting
 // Achievement error handling
+// Practice error boundaries handle quiz failures
