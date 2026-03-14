@@ -91,3 +91,18 @@
   cursor: pointer; transition: all 0.2s; color: var(--vn-muted);
 }
 .vn-action-btn:hover { border-color: var(--vn-primary); color: var(--vn-primary); background: #f3e8ff; }
+.vn-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.vn-stat-box {
+  background: white;
+  border: 1px solid var(--vn-border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+.vn-stat-value { font-size: 22px; font-weight: 800; color: var(--vn-text); }
+.vn-stat-label { font-size: 11px; color: var(--vn-muted); margin-top: 2px; }
