@@ -150,3 +150,4 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
 }
 // Mode selection card shows emoji, description, XP rate
 // XP saved to profiles table on practice completion
+// v1.0 Practice system release â€” 3 exercise modes
