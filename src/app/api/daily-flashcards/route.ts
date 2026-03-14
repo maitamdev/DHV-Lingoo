@@ -77,3 +77,4 @@ export async function GET() {
 // Metadata for analytics
 // Achievement stats integration
 // Track words revealed count
+// Daily flashcards prioritize unpracticed words
