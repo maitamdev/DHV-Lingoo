@@ -6,3 +6,21 @@
   --rv-text: #1e293b;
   --rv-muted: #94a3b8;
 }
+.rv-header {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border-radius: 20px;
+  padding: 28px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.rv-header::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 50%;
+}
