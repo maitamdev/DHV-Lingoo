@@ -314,3 +314,4 @@ export default function ProfileClient({
 // Activity list shows 8 most recent completed lessons
 // Activity items color-coded by score performance
 // Goals rendered as badge chips with target emoji
+// Interests rendered as badge chips with lightbulb emoji
