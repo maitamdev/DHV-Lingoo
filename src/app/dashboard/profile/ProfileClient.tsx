@@ -317,3 +317,4 @@ export default function ProfileClient({
 // Interests rendered as badge chips with lightbulb emoji
 // Learning info grid shows word count, courses, daily time, XP
 // Empty activity state shows encouraging message
+// Card hover effect: lift 2px with enhanced shadow
