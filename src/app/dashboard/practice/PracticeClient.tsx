@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useCallback } from "react";
 import { BookOpen, Headphones, PenLine, Trophy } from "lucide-react";
@@ -46,7 +46,6 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
     setResult(r);
     setState("results");
 
-    // Save XP to profile
     if (r.xpEarned > 0) {
       setSaving(true);
       try {
@@ -69,9 +68,9 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
   }, []);
 
   const modeInfo = {
-    vocab: { label: "Tá»« vá»±ng", desc: "Chá»n nghÄ©a Ä‘Ãºng cho má»—i tá»«", icon: BookOpen, xp: "5 XP/cÃ¢u" },
-    fillblank: { label: "Äiá»n tá»«", desc: "Äiá»n tá»« tiáº¿ng Anh vÃ o chá»— trá»‘ng", icon: PenLine, xp: "7 XP/cÃ¢u" },
-    listening: { label: "Nghe", desc: "Nghe vÃ  viáº¿t láº¡i tá»«", icon: Headphones, xp: "10 XP/cÃ¢u" },
+    vocab: { label: "Từ vựng", desc: "Chọn nghĩa đúng cho mỗi từ", icon: BookOpen, xp: "5 XP/câu" },
+    fillblank: { label: "Điền từ", desc: "Điền từ tiếng Anh vào chỗ trống", icon: PenLine, xp: "7 XP/câu" },
+    listening: { label: "Nghe", desc: "Nghe và viết lại từ", icon: Headphones, xp: "10 XP/câu" },
   };
 
   return (
@@ -79,10 +78,10 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
           <Trophy className="w-6 h-6 text-blue-500" />
-          Luyá»‡n táº­p
+          Luyện tập
         </h1>
         <p className="text-gray-500 text-sm mt-1">
-          Cá»§ng cá»‘ kiáº¿n thá»©c vá»›i cÃ¡c bÃ i táº­p tÆ°Æ¡ng tÃ¡c
+          Củng cố kiến thức với các bài tập tương tác
         </p>
       </div>
 
@@ -106,14 +105,14 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
 
           <div className="practice-card text-center animate-fade-in">
             <div className="text-4xl mb-3">
-              {mode === "vocab" ? "ðŸ“š" : mode === "fillblank" ? "âœï¸" : "ðŸŽ§"}
+              {mode === "vocab" ? "📚" : mode === "fillblank" ? "✍️" : "🎧"}
             </div>
             <h2 className="text-lg font-bold text-gray-900 mb-1">{modeInfo[mode].label}</h2>
             <p className="text-sm text-gray-500 mb-2">{modeInfo[mode].desc}</p>
-            <p className="text-xs text-blue-500 font-medium mb-6">{modeInfo[mode].xp} Â· 10 cÃ¢u há»i</p>
+            <p className="text-xs text-blue-500 font-medium mb-6">{modeInfo[mode].xp} · 10 câu hỏi</p>
 
             <p className="text-xs text-gray-400 mb-4">
-              {vocabularies.length} tá»« vá»±ng cÃ³ sáºµn Â· Level {userLevel}
+              {vocabularies.length} từ vựng có sẵn · Level {userLevel}
             </p>
 
             <button
@@ -121,10 +120,10 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
               onClick={() => setState("practicing")}
               disabled={vocabularies.length < 4}
             >
-              ðŸš€ Báº¯t Ä‘áº§u luyá»‡n táº­p
+              🚀 Bắt đầu luyện tập
             </button>
             {vocabularies.length < 4 && (
-              <p className="text-red-400 text-xs mt-2">Cáº§n Ã­t nháº¥t 4 tá»« vá»±ng</p>
+              <p className="text-red-400 text-xs mt-2">Cần ít nhất 4 từ vựng</p>
             )}
           </div>
         </>
@@ -148,6 +147,3 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
     </div>
   );
 }
-// Mode selection card shows emoji, description, XP rate
-// XP saved to profiles table on practice completion
-// v1.0 Practice system release â€” 3 exercise modes

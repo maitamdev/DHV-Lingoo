@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo, useRef, useEffect, useCallback } from "react";
 import { Volume2, Check, ArrowRight, Eye, RotateCcw } from "lucide-react";
@@ -113,9 +113,9 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
   return (
     <div className="animate-slide-up">
       <div className="practice-score-bar">
-        <span>CÃ¢u {currentIndex + 1}/{TOTAL}</span>
+        <span>Câu {currentIndex + 1}/{TOTAL}</span>
         <span className="score">
-          <Check className="w-4 h-4 inline text-green-500" /> {correctCount} Ä‘Ãºng
+          <Check className="w-4 h-4 inline text-green-500" /> {correctCount} đúng
         </span>
       </div>
       <div className="practice-progress">
@@ -123,13 +123,13 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
       </div>
 
       <div className="practice-card text-center">
-        <div className="question-number">Luyá»‡n nghe</div>
-        <p className="text-gray-500 text-sm mb-6">Nghe vÃ  viáº¿t láº¡i tá»« báº¡n nghe Ä‘Æ°á»£c</p>
+        <div className="question-number">Luyện nghe</div>
+        <p className="text-gray-500 text-sm mb-6">Nghe và viết lại từ bạn nghe được</p>
 
         <button
           className={`listening-speaker ${isPlaying ? "playing" : ""}`}
           onClick={() => speak(current.word)}
-          title="Nghe láº¡i"
+          title="Nghe lại"
         >
           <Volume2 className="w-10 h-10 text-white" />
         </button>
@@ -139,13 +139,13 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
             onClick={() => speak(current.word)}
             className="text-xs text-blue-500 hover:underline flex items-center gap-1"
           >
-            <RotateCcw className="w-3 h-3" /> Nghe láº¡i {playCount > 0 && `(${playCount})`}
+            <RotateCcw className="w-3 h-3" /> Nghe lại {playCount > 0 && `(${playCount})`}
           </button>
         </div>
 
         {isAnswered && (
           <p className="text-sm text-gray-400 mb-3 animate-fade-in">
-            NghÄ©a: <strong className="text-gray-700">{current.meaning}</strong>
+            Nghĩa: <strong className="text-gray-700">{current.meaning}</strong>
           </p>
         )}
 
@@ -157,7 +157,7 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Nháº­p tá»« báº¡n nghe Ä‘Æ°á»£c..."
+              placeholder="Nhập từ bạn nghe được..."
               disabled={isAnswered}
               className={`practice-input flex-1 text-center ${isAnswered ? (isCorrect ? "correct" : "wrong") : ""}`}
               autoComplete="off"
@@ -171,22 +171,22 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
               onClick={handleCheck}
               disabled={!input.trim()}
             >
-              <Check className="w-4 h-4" /> Kiá»ƒm tra
+              <Check className="w-4 h-4" /> Kiểm tra
             </button>
           )}
 
           {isAnswered && (
             <div className="mt-4 flex flex-col items-center gap-3 animate-fade-in">
               <span className={`text-sm font-bold ${isCorrect ? "text-green-600" : "text-red-600"}`}>
-                {isCorrect ? "âœ“ ChÃ­nh xÃ¡c! +10 XP" : (
+                {isCorrect ? "✓ Chính xác! +10 XP" : (
                   <span className="flex items-center gap-1">
-                    <Eye className="w-4 h-4" /> ÄÃ¡p Ã¡n: <strong>{current.word}</strong>
+                    <Eye className="w-4 h-4" /> Đáp án: <strong>{current.word}</strong>
                     {current.phonetic && <span className="text-gray-400 font-normal"> {current.phonetic}</span>}
                   </span>
                 )}
               </span>
               <button className="practice-btn practice-btn-primary" onClick={handleNext}>
-                {currentIndex + 1 >= TOTAL ? "Xem káº¿t quáº£" : "Tiáº¿p theo"}
+                {currentIndex + 1 >= TOTAL ? "Xem kết quả" : "Tiếp theo"}
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
@@ -196,8 +196,3 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
     </div>
   );
 }
-// Web Speech API with en-US locale for pronunciation
-// First play at 0.8x speed, subsequent at 0.6x speed
-// Speaker button pulses during audio playback
-// Replay counter shows number of times listened
-// XP reward: 10 per correct answer (highest of all modes)

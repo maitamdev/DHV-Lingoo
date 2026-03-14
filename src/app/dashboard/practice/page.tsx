@@ -1,10 +1,10 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import PracticeClient from './PracticeClient';
 
 export const metadata: Metadata = {
-  title: 'Luyá»‡n táº­p | DHV-Lingoo',
-  description: 'Luyá»‡n táº­p tiáº¿ng Anh vá»›i cÃ¡c bÃ i táº­p tÆ°Æ¡ng tÃ¡c',
+  title: 'Luyện tập | DHV-Lingoo',
+  description: 'Luyện tập tiếng Anh với các bài tập tương tác',
 };
 
 export default async function PracticePage() {
@@ -14,7 +14,7 @@ export default async function PracticePage() {
   if (!user) {
     return (
       <div className="p-6 text-center text-gray-500">
-        Vui lÃ²ng Ä‘Äƒng nháº­p Ä‘á»ƒ luyá»‡n táº­p
+        Vui lòng đăng nhập để luyện tập
       </div>
     );
   }
@@ -39,4 +39,3 @@ export default async function PracticePage() {
     />
   );
 }
-// Server page fetches 200 vocabularies for practice pool

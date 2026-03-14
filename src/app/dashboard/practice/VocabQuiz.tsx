@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { Check, X, ArrowRight, RotateCcw } from "lucide-react";
+import { Check, X, ArrowRight } from "lucide-react";
 
 interface Vocabulary {
   id: string;
@@ -98,9 +98,9 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
   return (
     <div className="animate-slide-up">
       <div className="practice-score-bar">
-        <span>CÃ¢u {currentIndex + 1}/{TOTAL_QUESTIONS}</span>
+        <span>Câu {currentIndex + 1}/{TOTAL_QUESTIONS}</span>
         <span className="score">
-          <Check className="w-4 h-4 inline text-green-500" /> {correctCount} Ä‘Ãºng
+          <Check className="w-4 h-4 inline text-green-500" /> {correctCount} đúng
         </span>
       </div>
       <div className="practice-progress">
@@ -108,7 +108,7 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
       </div>
 
       <div className="practice-card">
-        <div className="question-number">Tráº¯c nghiá»‡m tá»« vá»±ng</div>
+        <div className="question-number">Trắc nghiệm từ vựng</div>
         <div className="question-text">
           &ldquo;{current.vocab.word}&rdquo;
           {current.vocab.phonetic && (
@@ -117,7 +117,7 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
             </span>
           )}
         </div>
-        <p className="text-sm text-gray-500 mb-4">Chá»n nghÄ©a Ä‘Ãºng:</p>
+        <p className="text-sm text-gray-500 mb-4">Chọn nghĩa đúng:</p>
 
         <div className="options-grid">
           {current.options.map((opt, i) => {
@@ -139,10 +139,10 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
         {isAnswered && (
           <div className="mt-6 flex justify-between items-center animate-fade-in">
             <span className={`text-sm font-bold ${selected === current.correctAnswer ? "text-green-600" : "text-red-600"}`}>
-              {selected === current.correctAnswer ? "âœ“ ChÃ­nh xÃ¡c!" : `âœ— ÄÃ¡p Ã¡n: ${current.correctAnswer}`}
+              {selected === current.correctAnswer ? "✓ Chính xác!" : `✗ Đáp án: ${current.correctAnswer}`}
             </span>
             <button className="practice-btn practice-btn-primary" onClick={handleNext}>
-              {currentIndex + 1 >= TOTAL_QUESTIONS ? "Xem káº¿t quáº£" : "Tiáº¿p theo"}
+              {currentIndex + 1 >= TOTAL_QUESTIONS ? "Xem kết quả" : "Tiếp theo"}
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -151,8 +151,3 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
     </div>
   );
 }
-// Shuffle uses Fisher-Yates algorithm for true randomness
-// Options include 1 correct + 3 random wrong answers
-// Correct answer highlights green with pulse animation
-// Wrong answer highlights red with shake animation
-// Progress bar fills with gradient as user advances

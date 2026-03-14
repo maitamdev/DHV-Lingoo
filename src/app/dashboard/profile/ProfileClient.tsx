@@ -1,10 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import {
   User, Zap, Flame, Trophy, BookOpen, Star,
-  Calendar, Target, BarChart3, Award,
+  Calendar, Target, BarChart3,
   Clock, TrendingUp, Medal,
 } from "lucide-react";
 import {
@@ -68,7 +68,6 @@ export default function ProfileClient({
   const totalXpEarned = progress.reduce((s, p) => s + (p.xp_earned || 0), 0);
   const memberDays = daysAgo(profile.createdAt);
 
-  // Chart data
   const chartData = useMemo(() => {
     const now = new Date();
     const days: { date: string; xp: number; lessons: number }[] = [];
@@ -111,7 +110,7 @@ export default function ProfileClient({
               </span>
               <span className="text-xs opacity-70">
                 <Calendar className="w-3 h-3 inline mr-1" />
-                Tham gia {formatDate(profile.createdAt)} Â· {memberDays} ngÃ y
+                Tham gia {formatDate(profile.createdAt)} · {memberDays} ngày
               </span>
             </div>
           </div>
@@ -125,7 +124,7 @@ export default function ProfileClient({
             <Zap className="w-5 h-5 text-blue-500" />
           </div>
           <div className="profile-stat-value count-up">{profile.xp.toLocaleString()}</div>
-          <div className="profile-stat-label">Tá»•ng XP</div>
+          <div className="profile-stat-label">Tổng XP</div>
         </div>
 
         <div className="profile-stat-card">
@@ -133,7 +132,7 @@ export default function ProfileClient({
             <Flame className="w-5 h-5 text-amber-500" />
           </div>
           <div className="profile-stat-value count-up">{profile.streak}</div>
-          <div className="profile-stat-label">Streak hiá»‡n táº¡i</div>
+          <div className="profile-stat-label">Streak hiện tại</div>
         </div>
 
         <div className="profile-stat-card">
@@ -141,7 +140,7 @@ export default function ProfileClient({
             <TrendingUp className="w-5 h-5 text-pink-500" />
           </div>
           <div className="profile-stat-value count-up">{profile.longestStreak}</div>
-          <div className="profile-stat-label">Streak dÃ i nháº¥t</div>
+          <div className="profile-stat-label">Streak dài nhất</div>
         </div>
 
         <div className="profile-stat-card">
@@ -149,7 +148,7 @@ export default function ProfileClient({
             <BookOpen className="w-5 h-5 text-emerald-500" />
           </div>
           <div className="profile-stat-value count-up">{lessonsCompleted}</div>
-          <div className="profile-stat-label">BÃ i há»c hoÃ n thÃ nh</div>
+          <div className="profile-stat-label">Bài học hoàn thành</div>
         </div>
 
         <div className="profile-stat-card">
@@ -157,7 +156,7 @@ export default function ProfileClient({
             <Medal className="w-5 h-5 text-purple-500" />
           </div>
           <div className="profile-stat-value count-up">{perfectScores}</div>
-          <div className="profile-stat-label">Äiá»ƒm tuyá»‡t Ä‘á»‘i</div>
+          <div className="profile-stat-label">Điểm tuyệt đối</div>
         </div>
 
         <div className="profile-stat-card">
@@ -165,7 +164,7 @@ export default function ProfileClient({
             <Trophy className="w-5 h-5 text-orange-500" />
           </div>
           <div className="profile-stat-value count-up">{achievementCount}</div>
-          <div className="profile-stat-label">ThÃ nh tá»±u</div>
+          <div className="profile-stat-label">Thành tựu</div>
         </div>
       </div>
 
@@ -173,7 +172,7 @@ export default function ProfileClient({
       <div className="profile-chart-card profile-animate-in">
         <div className="profile-chart-header">
           <span className="profile-chart-title">
-            <BarChart3 className="w-5 h-5 text-blue-500" /> Biá»ƒu Ä‘á»“ XP
+            <BarChart3 className="w-5 h-5 text-blue-500" /> Biểu đồ XP
           </span>
           <div className="profile-chart-period">
             {([7, 14, 30] as const).map((p) => (
@@ -182,7 +181,7 @@ export default function ProfileClient({
                 className={`period-btn ${chartPeriod === p ? "active" : ""}`}
                 onClick={() => setChartPeriod(p)}
               >
-                {p} ngÃ y
+                {p} ngày
               </button>
             ))}
           </div>
@@ -201,8 +200,8 @@ export default function ProfileClient({
             <Tooltip
               contentStyle={{ borderRadius: 12, border: "1px solid #e2e8f0", fontSize: 13 }}
               formatter={(value: number, name: string) => [
-                name === "xp" ? `${value} XP` : `${value} bÃ i`,
-                name === "xp" ? "XP" : "BÃ i há»c",
+                name === "xp" ? `${value} XP` : `${value} bài`,
+                name === "xp" ? "XP" : "Bài học",
               ]}
             />
             <Area type="monotone" dataKey="xp" stroke="#3b82f6" strokeWidth={2} fill="url(#xpGradient)" />
@@ -213,15 +212,15 @@ export default function ProfileClient({
       {/* Recent Activity */}
       <div className="profile-activity profile-animate-in">
         <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Clock className="w-5 h-5 text-blue-500" /> Hoáº¡t Ä‘á»™ng gáº§n Ä‘Ã¢y
+          <Clock className="w-5 h-5 text-blue-500" /> Hoạt động gần đây
         </h3>
         {progress.length === 0 ? (
           <p className="text-sm text-gray-400 text-center py-8">
-            ChÆ°a cÃ³ hoáº¡t Ä‘á»™ng nÃ o. HÃ£y báº¯t Ä‘áº§u há»c nhÃ©! ðŸš€
+            Chưa có hoạt động nào. Hãy bắt đầu học nhé! 🚀
           </p>
         ) : (
           <div>
-            {progress.slice(0, 8).map((p, i) => (
+            {progress.slice(0, 8).map((p) => (
               <div key={p.id} className="activity-item">
                 <div
                   className="activity-icon"
@@ -235,7 +234,7 @@ export default function ProfileClient({
                 </div>
                 <div className="activity-text">
                   <div className="activity-title">
-                    HoÃ n thÃ nh bÃ i há»c Â· {p.score} Ä‘iá»ƒm
+                    Hoàn thành bài học · {p.score} điểm
                   </div>
                   <div className="activity-time">{formatDate(p.completed_at)}</div>
                 </div>
@@ -257,33 +256,33 @@ export default function ProfileClient({
       {/* Learning Info */}
       <div className="profile-activity profile-animate-in">
         <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
-          <Target className="w-5 h-5 text-purple-500" /> ThÃ´ng tin há»c táº­p
+          <Target className="w-5 h-5 text-purple-500" /> Thông tin học tập
         </h3>
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
-            <span className="text-gray-400">Tá»« vá»±ng Ä‘Ã£ há»c:</span>
+            <span className="text-gray-400">Từ vựng đã học:</span>
             <span className="font-bold text-gray-900 ml-2">{wordCount}</span>
           </div>
           <div>
-            <span className="text-gray-400">KhÃ³a há»c cÃ³ sáºµn:</span>
+            <span className="text-gray-400">Khóa học có sẵn:</span>
             <span className="font-bold text-gray-900 ml-2">{courses.length}</span>
           </div>
           <div>
-            <span className="text-gray-400">Thá»i gian/ngÃ y:</span>
-            <span className="font-bold text-gray-900 ml-2">{profile.dailyTime} phÃºt</span>
+            <span className="text-gray-400">Thời gian/ngày:</span>
+            <span className="font-bold text-gray-900 ml-2">{profile.dailyTime} phút</span>
           </div>
           <div>
-            <span className="text-gray-400">Tá»•ng XP tá»« bÃ i há»c:</span>
+            <span className="text-gray-400">Tổng XP từ bài học:</span>
             <span className="font-bold text-gray-900 ml-2">{totalXpEarned}</span>
           </div>
         </div>
         {profile.goals.length > 0 && (
           <div className="mt-4">
-            <span className="text-sm text-gray-400">Má»¥c tiÃªu:</span>
+            <span className="text-sm text-gray-400">Mục tiêu:</span>
             <div className="profile-badges">
               {profile.goals.map((g) => (
                 <span key={g} className="badge-item badge-unlocked">
-                  <span className="badge-emoji">ðŸŽ¯</span> {g}
+                  <span className="badge-emoji">🎯</span> {g}
                 </span>
               ))}
             </div>
@@ -291,11 +290,11 @@ export default function ProfileClient({
         )}
         {profile.interests.length > 0 && (
           <div className="mt-3">
-            <span className="text-sm text-gray-400">Ká»¹ nÄƒng quan tÃ¢m:</span>
+            <span className="text-sm text-gray-400">Kỹ năng quan tâm:</span>
             <div className="profile-badges">
-              {profile.interests.map((i) => (
-                <span key={i} className="badge-item">
-                  <span className="badge-emoji">ðŸ’¡</span> {i}
+              {profile.interests.map((interest) => (
+                <span key={interest} className="badge-item">
+                  <span className="badge-emoji">💡</span> {interest}
                 </span>
               ))}
             </div>
@@ -305,18 +304,3 @@ export default function ProfileClient({
     </div>
   );
 }
-// Header gradient uses blue-to-purple color scheme
-// Avatar fallback shows first letter of full name
-// Level badge color maps to CEFR level (A1 green to C2 pink)
-// Stats grid uses 6 cards: XP, streak, longest, lessons, perfect, achievements
-// XP chart uses Recharts AreaChart with blue gradient fill
-// Chart supports 7/14/30 day period toggle
-// Activity list shows 8 most recent completed lessons
-// Activity items color-coded by score performance
-// Goals rendered as badge chips with target emoji
-// Interests rendered as badge chips with lightbulb emoji
-// Learning info grid shows word count, courses, daily time, XP
-// Empty activity state shows encouraging message
-// Card hover effect: lift 2px with enhanced shadow
-// Staggered animation delays for sequential card appearance
-// v1.0 Profile system release â€” stats, chart, activity

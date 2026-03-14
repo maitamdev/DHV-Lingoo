@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useMemo, useRef, useEffect } from "react";
 import { Check, ArrowRight, Lightbulb, Eye } from "lucide-react";
@@ -43,7 +43,7 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
     return shuffleArray(pool).slice(0, Math.min(10, pool.length)).map((v) => {
       const sentence = v.example
         ? v.example.replace(new RegExp(v.word, "gi"), "_____")
-        : `NghÄ©a cá»§a "_____" lÃ : ${v.meaning}`;
+        : `Nghĩa của "_____" là: ${v.meaning}`;
       return { vocab: v, sentence, answer: v.word.toLowerCase() };
     });
   }, [vocabularies, vocabsWithExamples]);
@@ -110,9 +110,9 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
   return (
     <div className="animate-slide-up">
       <div className="practice-score-bar">
-        <span>CÃ¢u {currentIndex + 1}/{TOTAL}</span>
+        <span>Câu {currentIndex + 1}/{TOTAL}</span>
         <span className="score">
-          <Check className="w-4 h-4 inline text-green-500" /> {correctCount} Ä‘Ãºng
+          <Check className="w-4 h-4 inline text-green-500" /> {correctCount} đúng
         </span>
       </div>
       <div className="practice-progress">
@@ -120,9 +120,9 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
       </div>
 
       <div className="practice-card">
-        <div className="question-number">Äiá»n tá»« vÃ o chá»— trá»‘ng</div>
+        <div className="question-number">Điền từ vào chỗ trống</div>
         <div className="question-text">{current.sentence}</div>
-        <p className="text-sm text-gray-500 mb-3">NghÄ©a: <strong>{current.vocab.meaning}</strong></p>
+        <p className="text-sm text-gray-500 mb-3">Nghĩa: <strong>{current.vocab.meaning}</strong></p>
 
         <div className="flex gap-3">
           <input
@@ -131,7 +131,7 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Nháº­p tá»« tiáº¿ng Anh..."
+            placeholder="Nhập từ tiếng Anh..."
             disabled={isAnswered}
             className={`practice-input flex-1 ${isAnswered ? (isCorrect ? "correct" : "wrong") : ""}`}
             autoComplete="off"
@@ -139,31 +139,31 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
           />
           {!isAnswered && (
             <button className="practice-btn practice-btn-primary" onClick={handleCheck} disabled={!input.trim()}>
-              <Check className="w-4 h-4" /> Kiá»ƒm tra
+              <Check className="w-4 h-4" /> Kiểm tra
             </button>
           )}
         </div>
 
         {!isAnswered && !showHint && (
           <button className="text-xs text-amber-600 mt-3 flex items-center gap-1 hover:underline" onClick={() => setShowHint(true)}>
-            <Lightbulb className="w-3 h-3" /> Gá»£i Ã½
+            <Lightbulb className="w-3 h-3" /> Gợi ý
           </button>
         )}
         {showHint && !isAnswered && (
-          <div className="hint-box mt-3">ðŸ’¡ Gá»£i Ã½: <strong>{hint}</strong> ({current.vocab.word.length} kÃ½ tá»±)</div>
+          <div className="hint-box mt-3">💡 Gợi ý: <strong>{hint}</strong> ({current.vocab.word.length} ký tự)</div>
         )}
 
         {isAnswered && (
           <div className="mt-4 flex justify-between items-center animate-fade-in">
             <span className={`text-sm font-bold ${isCorrect ? "text-green-600" : "text-red-600"}`}>
-              {isCorrect ? "âœ“ ChÃ­nh xÃ¡c!" : (
+              {isCorrect ? "✓ Chính xác!" : (
                 <span className="flex items-center gap-1">
-                  <Eye className="w-4 h-4" /> ÄÃ¡p Ã¡n: <strong>{current.vocab.word}</strong>
+                  <Eye className="w-4 h-4" /> Đáp án: <strong>{current.vocab.word}</strong>
                 </span>
               )}
             </span>
             <button className="practice-btn practice-btn-primary" onClick={handleNext}>
-              {currentIndex + 1 >= TOTAL ? "Xem káº¿t quáº£" : "Tiáº¿p theo"}
+              {currentIndex + 1 >= TOTAL ? "Xem kết quả" : "Tiếp theo"}
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -172,8 +172,3 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
     </div>
   );
 }
-// Sentences sourced from lesson_vocabularies.example field
-// Hint shows first and last character of the answer
-// Case-insensitive comparison for answer checking
-// Input auto-focuses on component mount and after next
-// Enter key submits answer or advances to next question

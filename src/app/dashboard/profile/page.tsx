@@ -1,10 +1,10 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import ProfileClient from './ProfileClient';
 
 export const metadata: Metadata = {
-  title: 'Há»“ sÆ¡ cá»§a tÃ´i | DHV-Lingoo',
-  description: 'Xem thÃ´ng tin cÃ¡ nhÃ¢n vÃ  tiáº¿n trÃ¬nh há»c táº­p',
+  title: 'Hồ sơ của tôi | DHV-Lingoo',
+  description: 'Xem thông tin cá nhân và tiến trình học tập',
 };
 
 export default async function ProfilePage() {
@@ -14,7 +14,7 @@ export default async function ProfilePage() {
   if (!user) {
     return (
       <div className="p-6 text-center text-gray-500">
-        Vui lÃ²ng Ä‘Äƒng nháº­p Ä‘á»ƒ xem há»“ sÆ¡
+        Vui lòng đăng nhập để xem hồ sơ
       </div>
     );
   }
@@ -66,5 +66,3 @@ export default async function ProfilePage() {
     />
   );
 }
-// Fetches profile, progress, courses, vocab count, achievements
-// Profile page uses 5 parallel Supabase queries
