@@ -67,3 +67,4 @@ export default async function ProfilePage() {
   );
 }
 // Fetches profile, progress, courses, vocab count, achievements
+// Profile page uses 5 parallel Supabase queries
