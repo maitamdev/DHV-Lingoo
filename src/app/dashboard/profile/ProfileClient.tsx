@@ -310,3 +310,4 @@ export default function ProfileClient({
 // Level badge color maps to CEFR level (A1 green to C2 pink)
 // Stats grid uses 6 cards: XP, streak, longest, lessons, perfect, achievements
 // XP chart uses Recharts AreaChart with blue gradient fill
+// Chart supports 7/14/30 day period toggle
