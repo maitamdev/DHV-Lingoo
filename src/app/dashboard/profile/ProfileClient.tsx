@@ -319,3 +319,4 @@ export default function ProfileClient({
 // Empty activity state shows encouraging message
 // Card hover effect: lift 2px with enhanced shadow
 // Staggered animation delays for sequential card appearance
+// v1.0 Profile system release â€” stats, chart, activity
