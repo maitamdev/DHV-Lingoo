@@ -1,0 +1,13 @@
+﻿/* Practice Page Styles */
+:root {
+  --practice-primary: #3b82f6;
+  --practice-success: #10b981;
+  --practice-danger: #ef4444;
+  --practice-warning: #f59e0b;
+  --practice-bg: #f8fafc;
+  --practice-card: #ffffff;
+  --practice-border: #e2e8f0;
+  --practice-text: #1e293b;
+  --practice-muted: #94a3b8;
+  --practice-radius: 16px;
+}
