@@ -1,19 +1,19 @@
-// Notification related types
+export type NotificationType = 'achievement' | 'xp' | 'streak' | 'lesson' | 'system';
 
-export interface PushSubscription {
-    id: string;
-    user_id: string;
-    endpoint: string;
-    keys: {
-        p256dh: string;
-        auth: string;
-    };
+export interface AppNotification {
+  id: string;
+  type: NotificationType;
+  title: string;
+  message: string;
+  read: boolean;
+  createdAt: string;
+  metadata?: Record<string, unknown>;
 }
 
-export interface StudyReminder {
-    id: string;
-    user_id: string;
-    enabled: boolean;
-    time: string;
-    timezone: string;
+export interface NotificationPreferences {
+  email: boolean;
+  push: boolean;
+  streak_reminder: boolean;
+  achievement_alerts: boolean;
+  daily_summary: boolean;
 }
