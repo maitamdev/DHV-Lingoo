@@ -155,3 +155,4 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
 // Options include 1 correct + 3 random wrong answers
 // Correct answer highlights green with pulse animation
 // Wrong answer highlights red with shake animation
+// Progress bar fills with gradient as user advances
