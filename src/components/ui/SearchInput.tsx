@@ -1,3 +1,29 @@
 'use client';
 import { useState } from 'react';
-export default function SearchInput({placeholder='Tim kiem...',onSearch,className=''}:{placeholder?:string;onSearch:(q:string)=>void;className?:string}) { const [q,setQ]=useState(''); return (<div className={'relative '+className}><input type='search' value={q} onChange={e=>{setQ(e.target.value);onSearch(e.target.value)}} placeholder={placeholder} className='w-full pl-10 pr-10 py-2.5 border border-gray-200 focus:border-blue-500 outline-none text-sm'/>{q&&<button onClick={()=>{setQ('');onSearch('')}} className='absolute right-3 top-1/2 -translate-y-1/2 text-gray-400'>X</button>}</div>); }
+import { Search, X } from 'lucide-react';
+
+interface Props {
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+}
+
+export default function SearchInput({ value, onChange, placeholder = 'Tim kiem...' }: Props) {
+  return (
+    <div className='relative'>
+      <Search className='w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400' />
+      <input
+        type='text'
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className='w-full pl-10 pr-8 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition'
+      />
+      {value && (
+        <button onClick={() => onChange('')} className='absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600'>
+          <X className='w-3.5 h-3.5' />
+        </button>
+      )}
+    </div>
+  );
+}
