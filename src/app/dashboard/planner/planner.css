@@ -7,3 +7,21 @@
   --pl-text: #1e293b;
   --pl-muted: #94a3b8;
 }
+.pl-header {
+  background: linear-gradient(135deg, #06b6d4, #0891b2);
+  border-radius: 20px;
+  padding: 28px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.pl-header::before {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  right: -15%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
