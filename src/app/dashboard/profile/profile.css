@@ -1,0 +1,10 @@
+﻿/* Profile Page Styles */
+:root {
+  --profile-primary: #3b82f6;
+  --profile-accent: #8b5cf6;
+  --profile-bg: #f8fafc;
+  --profile-card: #ffffff;
+  --profile-border: #e2e8f0;
+  --profile-text: #1e293b;
+  --profile-muted: #94a3b8;
+}
