@@ -1,26 +1,23 @@
-// Custom hook for localStorage persistence
-import { useState, useEffect } from 'react';
+'use client';
+import { useState, useCallback } from 'react';
 
 export function useLocalStorage<T>(key: string, initialValue: T): [T, (value: T) => void] {
-    const [storedValue, setStoredValue] = useState<T>(initialValue);
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    if (typeof window === 'undefined') return initialValue;
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
 
-    useEffect(() => {
-        try {
-            const item = window.localStorage.getItem(key);
-            if (item) setStoredValue(JSON.parse(item));
-        } catch (error) {
-            console.warn('Error reading localStorage:', error);
-        }
-    }, [key]);
+  const setValue = useCallback((value: T) => {
+    setStoredValue(value);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    }
+  }, [key]);
 
-    const setValue = (value: T) => {
-        try {
-            setStoredValue(value);
-            window.localStorage.setItem(key, JSON.stringify(value));
-        } catch (error) {
-            console.warn('Error setting localStorage:', error);
-        }
-    };
-
-    return [storedValue, setValue];
+  return [storedValue, setValue];
 }
