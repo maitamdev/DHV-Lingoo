@@ -93,3 +93,4 @@ export default function PracticeResults({ result, onRetry, mode }: PracticeResul
     </div>
   );
 }
+// Score circle uses 3 tiers: excellent/good/poor
