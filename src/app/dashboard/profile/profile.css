@@ -106,3 +106,48 @@
   margin-top: 6px;
   font-weight: 500;
 }
+
+.profile-chart-card {
+  background: var(--profile-card);
+  border: 1px solid var(--profile-border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+}
+.profile-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.profile-chart-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--profile-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.profile-chart-period {
+  display: flex;
+  gap: 4px;
+  background: var(--profile-bg);
+  padding: 3px;
+  border-radius: 8px;
+}
+.period-btn {
+  padding: 5px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--profile-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.period-btn.active {
+  background: white;
+  color: var(--profile-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
