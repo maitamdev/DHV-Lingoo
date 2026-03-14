@@ -62,3 +62,4 @@ export function truncate(text: string, maxLength: number): string {
 }
 // Locale-aware numbers
 // Achievement stat formatting
+// formatScore: displays score with percentage and grade
