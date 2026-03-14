@@ -264,3 +264,4 @@ export function SkillsBreakdownChart({ progressData, completedLessons }: { progr
 }
 // Achievement chart widget planned
 // Achievement unlock timeline
+// Practice score trend chart integration planned
