@@ -27,3 +27,32 @@
   background: rgba(255,255,255,0.08);
   border-radius: 50%;
 }
+.lb-tabs {
+  display: flex;
+  gap: 4px;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+.lb-tab {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--lb-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.lb-tab.active {
+  background: white;
+  color: var(--lb-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
