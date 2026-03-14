@@ -165,3 +165,45 @@
 .animate-slide-up { animation: slideUp 0.4s ease forwards; }
 .animate-fade-in { animation: fadeIn 0.3s ease forwards; }
 .animate-scale-in { animation: scaleIn 0.3s ease forwards; }
+
+.practice-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--practice-border);
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--practice-text);
+  background: white;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.practice-input:focus {
+  border-color: var(--practice-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+.practice-input.correct { border-color: var(--practice-success); background: #ecfdf5; }
+.practice-input.wrong { border-color: var(--practice-danger); background: #fef2f2; }
+.practice-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.practice-btn-primary {
+  background: var(--practice-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+.practice-btn-primary:hover { background: #2563eb; transform: translateY(-1px); }
+.practice-btn-success {
+  background: var(--practice-success);
+  color: white;
+}
+.practice-btn-success:hover { background: #059669; }
