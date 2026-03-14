@@ -1,3 +1,29 @@
 'use client';
-import { useState, ReactNode } from 'react';
-export default function Tooltip({content,children}:{content:string;children:ReactNode}) { const [v,s]=useState(false); return (<div className='relative inline-block' onMouseEnter={()=>s(true)} onMouseLeave={()=>s(false)}>{children}{v&&<div className='absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-gray-900 text-white text-xs whitespace-nowrap z-50'>{content}</div>}</div>); }
+import { useState } from 'react';
+
+interface TooltipProps {
+  children: React.ReactNode;
+  content: string;
+  position?: 'top' | 'bottom';
+}
+
+export default function Tooltip({ children, content, position = 'top' }: TooltipProps) {
+  const [show, setShow] = useState(false);
+  const posStyle = position === 'top'
+    ? { bottom: '100%', left: '50%', transform: 'translateX(-50%)', marginBottom: 6 }
+    : { top: '100%', left: '50%', transform: 'translateX(-50%)', marginTop: 6 };
+
+  return (
+    <div className='relative inline-block' onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}>
+      {children}
+      {show && (
+        <div
+          className='absolute z-50 px-2 py-1 text-xs text-white bg-gray-900 rounded-md whitespace-nowrap'
+          style={posStyle}
+        >
+          {content}
+        </div>
+      )}
+    </div>
+  );
+}
