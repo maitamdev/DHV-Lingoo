@@ -318,3 +318,4 @@ export default function ProfileClient({
 // Learning info grid shows word count, courses, daily time, XP
 // Empty activity state shows encouraging message
 // Card hover effect: lift 2px with enhanced shadow
+// Staggered animation delays for sequential card appearance
