@@ -148,3 +148,4 @@ export default function PracticeClient({ vocabularies, userXp, userLevel, userId
     </div>
   );
 }
+// Mode selection card shows emoji, description, XP rate
