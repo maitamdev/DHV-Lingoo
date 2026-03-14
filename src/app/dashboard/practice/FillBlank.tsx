@@ -173,3 +173,4 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
   );
 }
 // Sentences sourced from lesson_vocabularies.example field
+// Hint shows first and last character of the answer
