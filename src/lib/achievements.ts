@@ -145,3 +145,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 // Module tested with all stat combinations
 // v1.0 Achievement system release
 // Ready for production deployment
+// Practice completion triggers achievement progress check
