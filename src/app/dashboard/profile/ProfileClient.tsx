@@ -305,3 +305,4 @@ export default function ProfileClient({
     </div>
   );
 }
+// Header gradient uses blue-to-purple color scheme
