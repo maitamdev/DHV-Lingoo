@@ -146,3 +146,4 @@ export function getAchievementProgress(achievement: Achievement, stats: UserStat
 // v1.0 Achievement system release
 // Ready for production deployment
 // Practice completion triggers achievement progress check
+// Profile stats displayed in achievement unlock modal
