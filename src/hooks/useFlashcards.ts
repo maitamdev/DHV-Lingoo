@@ -118,3 +118,4 @@ export function useFlashcards() {
 // Used by FlashcardClient
 // Stats tracking for achievements
 // Revealed count for flashcard achievement
+// Practice word mastery affects flashcard selection
