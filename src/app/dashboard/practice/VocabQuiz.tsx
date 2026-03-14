@@ -154,3 +154,4 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
 // Shuffle uses Fisher-Yates algorithm for true randomness
 // Options include 1 correct + 3 random wrong answers
 // Correct answer highlights green with pulse animation
+// Wrong answer highlights red with shake animation
