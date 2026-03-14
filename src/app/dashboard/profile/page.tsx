@@ -66,3 +66,4 @@ export default async function ProfilePage() {
     />
   );
 }
+// Fetches profile, progress, courses, vocab count, achievements
