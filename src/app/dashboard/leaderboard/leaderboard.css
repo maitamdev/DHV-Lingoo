@@ -92,3 +92,28 @@
 .lb-podium-bar.first { height: 100px; background: linear-gradient(180deg, #fef3c7, #fbbf24); }
 .lb-podium-bar.second { height: 75px; background: linear-gradient(180deg, #e2e8f0, #94a3b8); }
 .lb-podium-bar.third { height: 55px; background: linear-gradient(180deg, #fed7aa, #d97706); }
+.lb-list { display: flex; flex-direction: column; gap: 6px; }
+.lb-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid var(--lb-border);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+.lb-row:hover { transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.lb-row.current-user { background: #eff6ff; border-color: #93c5fd; }
+.lb-rank { width: 32px; text-align: center; font-weight: 800; font-size: 14px; color: var(--lb-muted); }
+.lb-rank.top3 { font-size: 18px; }
+.lb-user-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; color: white; flex-shrink: 0;
+}
+.lb-user-info { flex: 1; min-width: 0; }
+.lb-user-name { font-size: 13px; font-weight: 700; color: var(--lb-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lb-user-level { font-size: 11px; color: var(--lb-muted); }
+.lb-user-xp { font-size: 14px; font-weight: 800; color: var(--lb-primary); }
+.lb-user-xp-label { font-size: 10px; color: var(--lb-muted); }
