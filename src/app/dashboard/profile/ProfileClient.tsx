@@ -306,3 +306,4 @@ export default function ProfileClient({
   );
 }
 // Header gradient uses blue-to-purple color scheme
+// Avatar fallback shows first letter of full name
