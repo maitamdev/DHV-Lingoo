@@ -79,3 +79,27 @@
 .rv-rating-btn.hard { background: #fecaca; color: #dc2626; }
 .rv-rating-btn.medium { background: #fef3c7; color: #d97706; }
 .rv-rating-btn.easy { background: #d1fae5; color: #059669; }
+.rv-progress-ring {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+}
+.rv-progress-ring circle {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+.rv-summary {
+  background: white;
+  border: 1px solid var(--rv-border);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .rv-card-container { max-width: 100%; height: 220px; }
+  .rv-card-word { font-size: 22px; }
+  .rv-rating-btns { flex-direction: column; }
+}
