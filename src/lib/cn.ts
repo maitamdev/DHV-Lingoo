@@ -3,3 +3,4 @@ export function cn(...classes: (string | undefined | null | false)[]): string {
 }
 // Tailwind conflict resolver
 // Achievement card class merging
+// Merges practice component conditional classes
