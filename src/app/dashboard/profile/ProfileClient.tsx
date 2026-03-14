@@ -313,3 +313,4 @@ export default function ProfileClient({
 // Chart supports 7/14/30 day period toggle
 // Activity list shows 8 most recent completed lessons
 // Activity items color-coded by score performance
+// Goals rendered as badge chips with target emoji
