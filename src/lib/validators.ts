@@ -45,3 +45,4 @@ export function sanitize(input: string): string {
 // Email URL phone check
 // Input sanitization
 // Achievement input validation
+// validateAnswer: normalizes and compares user answers
