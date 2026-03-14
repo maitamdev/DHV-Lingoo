@@ -176,3 +176,4 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
 // Hint shows first and last character of the answer
 // Case-insensitive comparison for answer checking
 // Input auto-focuses on component mount and after next
+// Enter key submits answer or advances to next question
