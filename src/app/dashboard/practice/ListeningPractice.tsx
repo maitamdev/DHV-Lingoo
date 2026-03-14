@@ -196,3 +196,4 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
     </div>
   );
 }
+// Web Speech API with en-US locale for pronunciation
