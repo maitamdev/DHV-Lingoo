@@ -117,3 +117,25 @@
 .vn-mastery-new { background: #dbeafe; color: #1e40af; }
 .vn-mastery-learning { background: #fef3c7; color: #92400e; }
 .vn-mastery-mastered { background: #d1fae5; color: #065f46; }
+.vn-add-form {
+  background: white;
+  border: 1px solid var(--vn-border);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.vn-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.vn-input {
+  padding: 10px 14px;
+  border: 1px solid var(--vn-border);
+  border-radius: 10px;
+  font-size: 13px;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+.vn-input:focus { border-color: var(--vn-primary); box-shadow: 0 0 0 3px rgba(139,92,246,0.1); }
+@media (max-width: 640px) {
+  .vn-stats-row { grid-template-columns: 1fr; }
+  .vn-form-row { grid-template-columns: 1fr; }
+}
