@@ -69,3 +69,4 @@ export default function FlashcardItem({ word, meaning, phonetic, example, rarity
 // Backface-visibility flip
 // Absolute badge position
 // Difficulty badge for AI cards
+// Practiced indicator on flashcard items
