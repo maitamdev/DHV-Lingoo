@@ -172,3 +172,4 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
     </div>
   );
 }
+// Sentences sourced from lesson_vocabularies.example field
