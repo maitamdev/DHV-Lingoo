@@ -182,3 +182,4 @@ export default function ChatClient() {
 // Quick prompts hide after first message
 // Chat tested with Groq and HuggingFace
 // v1.0 AI Chat system release
+// Practice recommendations in AI chat responses
