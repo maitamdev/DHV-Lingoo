@@ -129,3 +129,13 @@
 }
 .lb-my-rank { font-size: 24px; font-weight: 900; color: var(--lb-primary); }
 .lb-my-label { font-size: 12px; color: var(--lb-muted); }
+@keyframes lbSlideIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lb-animate { animation: lbSlideIn 0.3s ease forwards; }
+.lb-animate:nth-child(1) { animation-delay: 0ms; }
+.lb-animate:nth-child(2) { animation-delay: 50ms; }
+.lb-animate:nth-child(3) { animation-delay: 100ms; }
+.lb-animate:nth-child(4) { animation-delay: 150ms; }
+.lb-animate:nth-child(5) { animation-delay: 200ms; }
