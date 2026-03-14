@@ -25,3 +25,24 @@
   background: rgba(255,255,255,0.06);
   border-radius: 50%;
 }
+.pl-week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin: 20px 0;
+}
+.pl-day-card {
+  background: var(--pl-card);
+  border: 1px solid var(--pl-border);
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.pl-day-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.pl-day-card.today { border-color: var(--pl-primary); background: #ecfeff; }
+.pl-day-card.completed { border-color: #10b981; background: #ecfdf5; }
+.pl-day-name { font-size: 11px; font-weight: 700; color: var(--pl-muted); text-transform: uppercase; }
+.pl-day-num { font-size: 18px; font-weight: 800; color: var(--pl-text); margin-top: 4px; }
+.pl-day-status { font-size: 16px; margin-top: 4px; }
