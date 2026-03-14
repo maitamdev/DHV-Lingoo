@@ -7,3 +7,21 @@
   --vn-text: #1e293b;
   --vn-muted: #94a3b8;
 }
+.vn-header {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  border-radius: 20px;
+  padding: 28px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.vn-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 50%;
+}
