@@ -117,3 +117,15 @@
 .lb-user-level { font-size: 11px; color: var(--lb-muted); }
 .lb-user-xp { font-size: 14px; font-weight: 800; color: var(--lb-primary); }
 .lb-user-xp-label { font-size: 10px; color: var(--lb-muted); }
+.lb-my-position {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border: 1px solid #93c5fd;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.lb-my-rank { font-size: 24px; font-weight: 900; color: var(--lb-primary); }
+.lb-my-label { font-size: 12px; color: var(--lb-muted); }
