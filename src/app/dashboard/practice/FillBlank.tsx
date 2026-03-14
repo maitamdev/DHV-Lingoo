@@ -175,3 +175,4 @@ export default function FillBlank({ vocabularies, onComplete }: FillBlankProps) 
 // Sentences sourced from lesson_vocabularies.example field
 // Hint shows first and last character of the answer
 // Case-insensitive comparison for answer checking
+// Input auto-focuses on component mount and after next
