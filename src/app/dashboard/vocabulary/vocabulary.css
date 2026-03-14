@@ -106,3 +106,14 @@
 }
 .vn-stat-value { font-size: 22px; font-weight: 800; color: var(--vn-text); }
 .vn-stat-label { font-size: 11px; color: var(--vn-muted); margin-top: 2px; }
+.vn-mastery-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.vn-mastery-new { background: #dbeafe; color: #1e40af; }
+.vn-mastery-learning { background: #fef3c7; color: #92400e; }
+.vn-mastery-mastered { background: #d1fae5; color: #065f46; }
