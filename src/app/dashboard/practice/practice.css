@@ -67,3 +67,41 @@
   line-height: 1.4;
   margin-bottom: 24px;
 }
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.option-btn {
+  padding: 14px 18px;
+  border: 2px solid var(--practice-border);
+  border-radius: 12px;
+  background: white;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--practice-text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+.option-btn:hover {
+  border-color: var(--practice-primary);
+  background: #eff6ff;
+  transform: translateY(-1px);
+}
+.option-btn.correct {
+  border-color: var(--practice-success);
+  background: #ecfdf5;
+  color: #065f46;
+  animation: correctPulse 0.4s ease;
+}
+.option-btn.wrong {
+  border-color: var(--practice-danger);
+  background: #fef2f2;
+  color: #991b1b;
+  animation: shake 0.4s ease;
+}
+.option-btn.disabled { pointer-events: none; opacity: 0.7; }
