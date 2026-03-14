@@ -198,3 +198,4 @@ export default function ListeningPractice({ vocabularies, onComplete }: Listenin
 }
 // Web Speech API with en-US locale for pronunciation
 // First play at 0.8x speed, subsequent at 0.6x speed
+// Speaker button pulses during audio playback
