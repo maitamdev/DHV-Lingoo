@@ -151,3 +151,39 @@
   color: var(--profile-primary);
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+
+.profile-activity {
+  background: var(--profile-card);
+  border: 1px solid var(--profile-border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 20px;
+}
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+.activity-item:last-child { border-bottom: none; }
+.activity-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.activity-text {
+  flex: 1;
+}
+.activity-title { font-size: 13px; font-weight: 600; color: var(--profile-text); }
+.activity-time { font-size: 11px; color: var(--profile-muted); margin-top: 2px; }
+.activity-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
