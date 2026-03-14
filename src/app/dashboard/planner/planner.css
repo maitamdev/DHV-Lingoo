@@ -46,3 +46,27 @@
 .pl-day-name { font-size: 11px; font-weight: 700; color: var(--pl-muted); text-transform: uppercase; }
 .pl-day-num { font-size: 18px; font-weight: 800; color: var(--pl-text); margin-top: 4px; }
 .pl-day-status { font-size: 16px; margin-top: 4px; }
+.pl-task-list { display: flex; flex-direction: column; gap: 8px; }
+.pl-task {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid var(--pl-border);
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+.pl-task:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+.pl-task.done { opacity: 0.6; }
+.pl-task-check {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--pl-border); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.pl-task-check.checked { background: #10b981; border-color: #10b981; }
+.pl-task-title { font-size: 13px; font-weight: 600; color: var(--pl-text); }
+.pl-task-time { font-size: 11px; color: var(--pl-muted); }
+.pl-task-xp { font-size: 11px; font-weight: 700; color: var(--pl-primary); margin-left: auto; }
+@media (max-width: 640px) {
+  .pl-week-grid { grid-template-columns: repeat(4, 1fr); }
+}
