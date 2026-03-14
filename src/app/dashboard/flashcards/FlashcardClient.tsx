@@ -288,3 +288,4 @@ export default function FlashcardClient() {
 // See flashcards.css
 // Achievement integration planned
 // XP notification after reveal
+// Practiced words highlighted in flashcard collection
