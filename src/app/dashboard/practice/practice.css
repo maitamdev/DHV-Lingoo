@@ -293,3 +293,17 @@
   align-items: center;
   gap: 8px;
 }
+
+@media (max-width: 640px) {
+  .options-grid { grid-template-columns: 1fr; }
+  .results-stats { grid-template-columns: 1fr; }
+  .practice-card { padding: 20px; }
+  .question-text { font-size: 17px; }
+  .results-circle { width: 110px; height: 110px; font-size: 28px; }
+  .practice-tabs { flex-direction: column; }
+  .practice-tab { padding: 8px 12px; font-size: 12px; }
+}
+@media (max-width: 480px) {
+  .practice-card { padding: 16px; margin: 0 -8px; }
+  .results-container { padding: 24px 12px; }
+}
