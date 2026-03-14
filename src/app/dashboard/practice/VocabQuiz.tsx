@@ -151,3 +151,4 @@ export default function VocabQuiz({ vocabularies, onComplete }: VocabQuizProps) 
     </div>
   );
 }
+// Shuffle uses Fisher-Yates algorithm for true randomness
