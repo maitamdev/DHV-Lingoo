@@ -20,8 +20,9 @@ export default async function AchievementsPage() {
   const lessonsCompleted = progress?.length || 0;
   const perfectScores = progress?.filter((p: { score: number }) => p.score >= 100).length || 0;
   const totalScore = progress?.reduce((s: number, p: { score: number }) => s + (p.score || 0), 0) || 0;
+  const now = new Date();
   const daysActive = profile?.created_at
-    ? Math.floor((Date.now() - new Date(profile.created_at).getTime()) / (1000 * 60 * 60 * 24))
+    ? Math.floor((now.getTime() - new Date(profile.created_at).getTime()) / (1000 * 60 * 60 * 24))
     : 0;
 
   const stats = {
