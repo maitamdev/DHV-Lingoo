@@ -105,3 +105,31 @@
   animation: shake 0.4s ease;
 }
 .option-btn.disabled { pointer-events: none; opacity: 0.7; }
+
+.practice-progress {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.practice-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--practice-primary), #8b5cf6);
+  border-radius: 4px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.practice-score-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--practice-muted);
+  margin-bottom: 12px;
+}
+.practice-score-bar .score {
+  font-weight: 700;
+  color: var(--practice-primary);
+  font-size: 15px;
+}
